@@ -21,6 +21,7 @@ LIBFLAGS = -lgtest -lgmock -L$(PROJECT_BIN_DIR) -L/usr/local/lib -L/usr/local/li
 SRC_DIR     = ./
 BUILD_DIR   = ./build
 BIN_DIR     = ./bin
+SHIFTER_LIB     = ../src/bin/lbarray_shift.a
 MYTESTAPP = aShiftertest
 
 $(shell mkdir -p $(PROJECT_BIN_DIR))
@@ -38,7 +39,10 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 .PHONY: all
 all:    $(BIN_DIR)/$(MYTESTAPP)
 
-$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(WAITABLE_LIB)
+$(SHIFTER_LIB):
+	touch $(SRCS)
+
+$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(SHIFTER_LIB)
 	$(CC) $(LDFLAGS) -o $(BIN_DIR)/$(MYTESTAPP) $(OBJS) $(LIBFLAGS) -lpthread -lc -lgcov
 
 .PHONY: coverage

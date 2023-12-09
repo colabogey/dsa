@@ -11,6 +11,7 @@ void ArrayShifter::InitInPlace(int numElems)
 
 void ArrayShifter::Init(int ary[], int numElems)
 {
+    m_numElems = numElems;
     for(int i = 0; i < numElems; i++)
     {
         m_ary.push_back(ary[i]);
@@ -51,7 +52,7 @@ void ArrayShifter::ShiftRight(int nShift)
 {
     int numToShift = nShift % m_ary.size();
     
-    if(numToShift == 0 || m_numElems == 1)
+    if(numToShift == 0 || m_numElems <= 1)
     {
         return;
     }
@@ -67,7 +68,7 @@ void ArrayShifter::ShiftLeft(int nShift)
 {
     int numToShift = nShift % m_ary.size();
     
-    if(numToShift == 0 || m_numElems == 1)
+    if(numToShift == 0 || m_numElems <= 1)
     {
         return;
     }
@@ -189,7 +190,7 @@ void ArrayShifter::ShiftRightOs(int ary[], int nShift)
 {
     int numToShift = nShift % m_numElems;
     
-    if(numToShift == 0 || m_numElems == 1)
+    if(numToShift == 0 || m_numElems <= 1)
     {
         return;
     }
@@ -237,7 +238,7 @@ void ArrayShifter::ShiftLeftOs(int ary[], int nShift)
 {
     int numToShift = nShift % m_numElems;
     
-    if(numToShift == 0 || m_numElems == 1)
+    if(numToShift == 0 || m_numElems <= 1)
     {
         return;
     }
