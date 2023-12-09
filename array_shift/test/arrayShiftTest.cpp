@@ -343,4 +343,100 @@ TEST_F(ArrayShiftTest, ArrayShiftLeft_Four_WithMultipleOfShiftAmount_Os) {
     }
 }
 
+TEST_F(ArrayShiftTest, ArrayShiftRight_One_InPlace) {
+    // arrange
+    int shiftAmount = 1;
+    int aryAnswer[m_arySize] = {6, 1, 2, 3, 4, 5};
+    int aryResult[m_arySize] = {1, 2, 3, 4, 5 ,6 };
+    auto aShifter = std::make_unique<ArrayShifter>();
+    aShifter->InitOs(m_arySize);
+    // act
+    aShifter->ShiftRightInPlace(aryResult, shiftAmount);
+    // assert
+    for(int i = 0; i< m_arySize; i++)
+    {
+        ASSERT_EQ(aryResult[0], aryAnswer[0]);
+    }
+}
+
+TEST_F(ArrayShiftTest, ArrayShiftRight_Four_InPlace) {
+    // arrange
+    int shiftAmount = 4;
+    int aryAnswer[m_arySize] = {3, 4, 5, 6, 1, 2};
+    int aryResult[m_arySize] = {1, 2, 3, 4, 5 ,6 };
+    auto aShifter = std::make_unique<ArrayShifter>();
+    aShifter->InitOs(m_arySize);
+    // act
+    aShifter->ShiftRightInPlace(aryResult, shiftAmount);
+    // assert
+    for(int i = 0; i< m_arySize; i++)
+    {
+        ASSERT_EQ(aryResult[0], aryAnswer[0]);
+    }
+}
+
+TEST_F(ArrayShiftTest, ArrayShiftRight_Four_WithMultipleOfShiftAmount_InPlace) {
+    // arrange
+    int shiftAmount = 4;
+    int aryAnswer[m_arySize] = {3, 4, 5, 6, 1, 2};
+    int aryResult[m_arySize] = {1, 2, 3, 4, 5 ,6 };
+    auto aShifter = std::make_unique<ArrayShifter>();
+    aShifter->InitInPlace(m_arySize);
+    // act
+    aShifter->ShiftRightInPlace(aryResult, shiftAmount);
+    // assert
+    for(int i = 0; i< m_arySize; i++)
+    {
+        ASSERT_EQ(aryResult[0], aryAnswer[0]);
+    }
+}
+
+////////////////////
+TEST_F(ArrayShiftTest, ArrayShiftLeft_One_InPlace) {
+    // arrange
+    int shiftAmount = 1;
+    int aryAnswer[m_arySize] = {2, 3, 4, 5, 6, 1};
+    int aryResult[m_arySize] = {1, 2, 3, 4, 5 ,6 };
+    auto aShifter = std::make_unique<ArrayShifter>();
+    aShifter->InitOs(m_arySize);
+    // act
+    aShifter->ShiftLeftInPlace(aryResult, shiftAmount);
+    // assert
+    for(int i = 0; i< m_arySize; i++)
+    {
+        ASSERT_EQ(aryResult[0], aryAnswer[0]);
+    }
+}
+
+TEST_F(ArrayShiftTest, ArrayShiftLeft_Four_InPlace) {
+    // arrange
+    int shiftAmount = 4;
+    int aryAnswer[m_arySize] = {5, 6, 1, 2, 3, 4};
+    int aryResult[m_arySize] = {1, 2, 3, 4, 5 ,6 };
+    auto aShifter = std::make_unique<ArrayShifter>();
+    aShifter->InitOs(m_arySize);
+    // act
+    aShifter->ShiftLeftInPlace(aryResult, shiftAmount);
+    // assert
+    for(int i = 0; i< m_arySize; i++)
+    {
+        ASSERT_EQ(aryResult[0], aryAnswer[0]);
+    }
+}
+
+TEST_F(ArrayShiftTest, ArrayShiftLeft_Four_WithMultipleOfShiftAmount_InPlace) {
+    // arrange
+    int shiftAmount = 4;
+    int aryAnswer[m_arySize] = {5, 6, 1, 2, 3, 4};
+    int aryResult[m_arySize] = {1, 2, 3, 4, 5 ,6 };
+    auto aShifter = std::make_unique<ArrayShifter>();
+    aShifter->InitInPlace(m_arySize);
+    // act
+    aShifter->ShiftLeftInPlace(aryResult, shiftAmount);
+    // assert
+    for(int i = 0; i< m_arySize; i++)
+    {
+        ASSERT_EQ(aryResult[0], aryAnswer[0]);
+    }
+}
 
