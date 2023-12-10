@@ -14,15 +14,12 @@ CFLAGS = $(CFLAGSTOUSE) \
 	$(INCDIRS) $(DEFS)
 
 LDFLAGS = 
-MYLIB   =   hash
-LIBFLAGS = -lgtest -lgmock -L$(PROJECT_BIN_DIR) -L/usr/local/lib -L/usr/local/lib64 \
--l$(MYLIB)
+LIBFLAGS = -lgtest -lgmock -L$(PROJECT_BIN_DIR)
 
 SRC_DIR     = ./
 BUILD_DIR   = ./build
 BIN_DIR     = ./bin
-HASHMAP_LIB     = ../src/bin/libhash.a
-MYTESTAPP = hashMapTest
+INC_DIR		= ../include
 
 $(shell mkdir -p $(PROJECT_BIN_DIR))
 $(shell mkdir -p $(BIN_DIR))
@@ -32,43 +29,41 @@ include includes.mk
 
 SRCS    = $(wildcard $(SRC_DIR)/*.cpp)
 OBJS    = $(addprefix $(BUILD_DIR)/, $(notdir $(SRCS:.cpp=.o)))
+IDEPS    = $(wildcard $(INC_DIR)/*.h)
+MYLIBNAME	= liblist.a
 
-$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
+$(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp $(IDEPS)
 	$(CC) -c $(CFLAGS) $(CPPFLAGS) -o $@ $<
 
 .PHONY: all
-all:    $(BIN_DIR)/$(MYTESTAPP)
+all: $(BIN_DIR)/$(MYLIBNAME)
 
-$(HASHMAP_LIB):
-	touch $(SRCS)
-
-$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(HASHMAP_LIB)
-	$(CC) $(LDFLAGS) -o $(BIN_DIR)/$(MYTESTAPP) $(OBJS) $(LIBFLAGS) -lpthread -lc -lgcov
+$(BIN_DIR)/$(MYLIBNAME):	$(OBJS)
+	ar cr $(BIN_DIR)/$(MYLIBNAME) $(OBJS)
+	chmod a+x $(BIN_DIR)/$(MYLIBNAME)
+	cp $(BIN_DIR)/$(MYLIBNAME) $(PROJECT_BIN_DIR)/$(MYLIBNAME)
+	cp $(INC_DIR)/* $(HASH_INTERFACE_DIR)
 
 .PHONY: coverage
 coverage:
-	$(BIN_DIR)/$(MYTESTAPP)
-	lcov -c --directory ../src/build --output-file coverage.info
-	genhtml coverage.info --output-directory coverage_out
+	echo "nothing to be done for coverage"
 
 .PHONY: tests
 tests:
-	$(BIN_DIR)/$(MYTESTAPP)
+	echo "nothing to be done for tests"
 
 .PHONY: testclean
 testclean:
-	rm -f $(BUILD_DIR)/*.gcda $(BUILD_DIR)/*.gcno $(BIN_DIR)/$(MYTESTAPP)
-	rm -rf coverage_out
-	rm coverage.info
+	echo "nothing to be done for testclean"
 
 .PHONY: clean
 clean:
 	rm -f $(BUILD_DIR)/* $(BIN_DIR)/*
-	rm -rf coverage_out
-	rm -f coverage.info
 
-.PHONY:	format
+.PHONY: format
 format:
 	clang-format -i -style=file $(SRCS)
 	clang-format -i -style="{IndentWidth: 4}" $(SRCS)
+	clang-format -i -style=file $(IDEPS)
+	clang-format -i -style="{IndentWidth: 4}" $(IDEPS)
 

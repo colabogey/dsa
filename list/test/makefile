@@ -14,15 +14,15 @@ CFLAGS = $(CFLAGSTOUSE) \
 	$(INCDIRS) $(DEFS)
 
 LDFLAGS = 
-MYLIB   =   hash
+MYLIB   =   list
 LIBFLAGS = -lgtest -lgmock -L$(PROJECT_BIN_DIR) -L/usr/local/lib -L/usr/local/lib64 \
 -l$(MYLIB)
 
 SRC_DIR     = ./
 BUILD_DIR   = ./build
 BIN_DIR     = ./bin
-HASHMAP_LIB     = ../src/bin/libhash.a
-MYTESTAPP = hashMapTest
+LINKEDLIST_LIB     = ../src/bin/liblist.a
+MYTESTAPP = linkedListTest
 
 $(shell mkdir -p $(PROJECT_BIN_DIR))
 $(shell mkdir -p $(BIN_DIR))
@@ -39,10 +39,10 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 .PHONY: all
 all:    $(BIN_DIR)/$(MYTESTAPP)
 
-$(HASHMAP_LIB):
+$(LINKEDLIST_LIB):
 	touch $(SRCS)
 
-$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(HASHMAP_LIB)
+$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(LINKEDLIST_LIB)
 	$(CC) $(LDFLAGS) -o $(BIN_DIR)/$(MYTESTAPP) $(OBJS) $(LIBFLAGS) -lpthread -lc -lgcov
 
 .PHONY: coverage
