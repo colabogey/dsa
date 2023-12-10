@@ -1,30 +1,25 @@
 
 #include <string>
-#include <stdexcept>
 #include "hashTable.h"
+#include "hashTableItem.h"
 
-HashTable::HashTable(std::shared_ptr<IHashFunction> spHashFunction)
+void HashTable::insert(int idx, pHashTableItem item)
 {
-    m_spHashFunction = spHashFunction;
+    m_hashTable[idx] = std::move(item);
 }
 
-void HashTable::insert(HashTableItem)
+pHashTableItem HashTable::remove(int idx)
 {
+    pHashTableItem item = std::move(m_hashTable[idx]);
+    m_hashTable[idx] = nullptr;
+    return item;
 }
 
-spHashTableItem HashTable::remove(std::string key)
+pHashTableItem HashTable::find(int idx)
 {
-    return nullptr;
+    pHashTableItem item = std::move(m_hashTable[idx]);
+    return item;
 }
 
-spHashTableItem HashTable::find(std::string key)
-{
-    return nullptr;
-}
-
-spHashTableItem HashTable::create(std::string key, std::string value)
-{
-    return nullptr;
-}
 
 
