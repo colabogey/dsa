@@ -10,20 +10,6 @@ HashMap::HashMap()
     std::unique_ptr<HashFunctionFactory> hff = std::make_unique<HashFunctionFactory>();
     m_pHashFunction = hff->create();
     m_pHashTable = std::make_unique<HashTable>();
-    /*
-    make a hash func
-    make a hash table
-    methods are like insert, remove, find, 
-    hashTable create is part of this guys remove
-
-    hash TABLE has NO USE for the hashFunction
-
-    maybe call this thing unordered set
-
-    get the IHashFunction from a factory
-    or forget the fanciness
-
-    */
 }
 
 void HashMap::insert(std::string key, std::string value)
@@ -40,10 +26,12 @@ pHashTableItem HashMap::remove(std::string key)
     return item;
 }
 
-pHashTableItem HashMap::find(std::string key)
+std::string HashMap::find(std::string key)
 {
+    std::string rVal = "";
     int idx = m_pHashFunction->hash(key);
     pHashTableItem item = m_pHashTable->find(idx);
-    return item;
+    item != nullptr ? rVal = item->getValue() : rVal = "";
+    return rVal;
 }
 

@@ -8,7 +8,7 @@
 class HashTable
 {
 public:
-    HashTable() = default;
+    HashTable();
     ~HashTable() = default;
     HashTable& operator=(HashTable& other) {return *this;};
     HashTable(HashTable& other) {};

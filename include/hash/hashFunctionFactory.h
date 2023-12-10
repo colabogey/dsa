@@ -10,7 +10,7 @@ public:
     ~HashFunctionFactory() = default;
     HashFunctionFactory& operator=(HashFunctionFactory& other) {return *this;};
     HashFunctionFactory(HashFunctionFactory& other) {};
-    std::unique_ptr<IHashFunction> create();
+    std::unique_ptr<HashFunction> create();
 
 private:
 

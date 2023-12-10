@@ -1,7 +1,16 @@
 
 #include <string>
 #include "hashTable.h"
+#include "hashValues.h"
 #include "hashTableItem.h"
+
+HashTable::HashTable()
+{
+    for(int i = 0; i<BUCKETS; i++)
+    {
+        m_hashTable[i] = nullptr;
+    }
+}
 
 void HashTable::insert(int idx, pHashTableItem item)
 {
@@ -20,6 +29,4 @@ pHashTableItem HashTable::find(int idx)
     pHashTableItem item = std::move(m_hashTable[idx]);
     return item;
 }
-
-
 

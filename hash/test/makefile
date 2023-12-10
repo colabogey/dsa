@@ -14,15 +14,15 @@ CFLAGS = $(CFLAGSTOUSE) \
 	$(INCDIRS) $(DEFS)
 
 LDFLAGS = 
-MYLIB   =   array_shift
+MYLIB   =   hash
 LIBFLAGS = -lgtest -lgmock -L$(PROJECT_BIN_DIR) -L/usr/local/lib -L/usr/local/lib64 \
 -l$(MYLIB)
 
 SRC_DIR     = ./
 BUILD_DIR   = ./build
 BIN_DIR     = ./bin
-SHIFTER_LIB     = ../src/bin/lbarray_shift.a
-MYTESTAPP = aShiftertest
+HASHMAP_LIB     = ../src/bin/libhash.a
+MYTESTAPP = hashMapTest
 
 $(shell mkdir -p $(PROJECT_BIN_DIR))
 $(shell mkdir -p $(BIN_DIR))
@@ -42,7 +42,7 @@ all:    $(BIN_DIR)/$(MYTESTAPP)
 $(SHIFTER_LIB):
 	touch $(SRCS)
 
-$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(SHIFTER_LIB)
+$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(HASHMAP_LIB)
 	$(CC) $(LDFLAGS) -o $(BIN_DIR)/$(MYTESTAPP) $(OBJS) $(LIBFLAGS) -lpthread -lc -lgcov
 
 .PHONY: coverage

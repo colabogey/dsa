@@ -1,6 +1,7 @@
 #pragma once
 
 #include "hashValues.h"
+#include "hashTable.h"
 #include "hashTableItem.h"
 #include "hashFunction.h"
 #include <memory>
@@ -15,10 +16,10 @@ public:
     HashMap(HashMap& other) {};
     void insert(std::string key, std::string value);
     pHashTableItem remove(std::string key);
-    pHashTableItem find(std::string key);
+    std::string find(std::string key);
     pHashTableItem create(std::string key, std::string value);
 
 private:
     std::unique_ptr<HashTable> m_pHashTable;
-    std::unique_ptr<IHashFunction> m_pHashFunction;
+    std::unique_ptr<HashFunction> m_pHashFunction;
 };
