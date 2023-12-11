@@ -48,33 +48,62 @@ class TreeTest : public ::testing::Test {
 
     // Objects declared here can be used by all tests.
     //
+
+    int m_size{9};
+    int m_vals[9] = {50, 40, 35, 27, 60, 42, 16, 3, 90 };
 };
 
 TEST_F(TreeTest, InsertOne_VerifyItemFound_ByNodeCount) {
     // arrange
-    int key = 50;
+    int toAdd = 1;
+    int spot = 0;
     auto pTree = make_unique<Tree>();
     // act
-    pTree->add(key);
+    for(int i = toAdd; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
     int count = pTree->getNodeCount();
     pTreeNode root = pTree->getRoot();
     // assert
     pTree->show(root);
-    ASSERT_EQ(count, 1);
+    ASSERT_EQ(count, toAdd);
 }
 
 TEST_F(TreeTest, InsertTwo_VerifyItemFound_ByNodeCount) {
     // arrange
-    int key1 = 50;
-    int key2 = 40;
+    int toAdd = 2;
+    int spot = 0;
     auto pTree = make_unique<Tree>();
     // act
-    pTree->add(key1);
-    pTree->add(key2);
+    for(int i = toAdd; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
     int count = pTree->getNodeCount();
     pTreeNode root = pTree->getRoot();
     // assert
     pTree->show(root);
-    ASSERT_EQ(count, 2);
+    ASSERT_EQ(count, toAdd);
+}
+
+TEST_F(TreeTest, InsertAll_VerifyItemFound_ByNodeCount) {
+    // arrange
+    int toAdd = m_size;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    // act
+    for(int i = toAdd; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
+    int count = pTree->getNodeCount();
+    pTreeNode root = pTree->getRoot();
+    // assert
+    pTree->show(root);
+    ASSERT_EQ(count, toAdd);
 }
 
