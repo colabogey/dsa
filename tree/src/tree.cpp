@@ -2,6 +2,21 @@
 #include "tree.h"
 #include "tree.h"
 
+void Tree::addRecursive(int data)
+{
+    pTreeNode newItem = std::make_shared<TreeNode>();
+    newItem->setData(data);
+    if(m_root == nullptr)
+    {
+        m_root = newItem;
+    }
+    else
+    {
+        _addRecursive(m_root, newItem);
+    }
+    addToNodeCount();
+}
+
 void Tree::add(int data)
 {
     pTreeNode newItem = std::make_shared<TreeNode>();
@@ -12,24 +27,52 @@ void Tree::add(int data)
     }
     else
     {
-        _add(newItem, data);
+        _add(m_root, newItem);
     }
     addToNodeCount();
 }
 
-void Tree::_add(pTreeNode newNode, int key)
+void Tree::_addRecursive(pTreeNode root, pTreeNode newNode)
 {
-
-    printf("_add (%d)\n", key);
-    if(m_root == nullptr) {
-        m_root = newNode;
+    pTreeNode newRoot = root;
+    if(root == nullptr)
+    {
         return;
     }
 
-    pTreeNode curr = m_root;
+    if(newNode->getData() < newRoot->getData())
+    {
+        if(newRoot->getLeft() == nullptr)
+        {
+            newRoot->setLeft(newNode);
+            return;
+        }
+        else
+        {
+            _addRecursive(newRoot->getLeft(), newNode);
+        }
+    }
+    else
+    {
+        if(newRoot->getRight() == nullptr)
+        {
+            newRoot->setRight(newNode);
+            return;
+        }
+        else
+        {
+            _addRecursive(newRoot->getRight(), newNode);
+        }
+    }
+}
+
+void Tree::_add(pTreeNode root, pTreeNode newNode)
+{
+
+    pTreeNode curr = root;
     while(true)
     {
-        if(key < curr->getData())
+        if(newNode->getData() < curr->getData())
         {
         // go left
             if(curr->getLeft() == nullptr)

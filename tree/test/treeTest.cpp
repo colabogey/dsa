@@ -107,3 +107,21 @@ TEST_F(TreeTest, InsertAll_VerifyItemFound_ByNodeCount) {
     ASSERT_EQ(count, toAdd);
 }
 
+TEST_F(TreeTest, InsertAllRecursive_VerifyItemFound_ByNodeCount) {
+    // arrange
+    int toAdd = m_size;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    // act
+    for(int i = toAdd; i > 0; i--)
+    {
+        pTree->addRecursive(m_vals[spot]);
+        spot++;
+    }
+    int count = pTree->getNodeCount();
+    pTreeNode root = pTree->getRoot();
+    // assert
+    pTree->show(root);
+    ASSERT_EQ(count, toAdd);
+}
+

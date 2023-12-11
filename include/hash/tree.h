@@ -13,6 +13,7 @@ public:
     Tree(Tree& other) {};
 
     void add(int);
+    void addRecursive(int);
     int get(int);
     int remove(int);
     pTreeNode getRoot() { return m_root; };
@@ -22,7 +23,8 @@ public:
     int getNodeCount() { return m_nodeCount ;} ;
 
 private:
-    void _add(pTreeNode, int);
+    void _add(pTreeNode, pTreeNode);
+    void _addRecursive(pTreeNode, pTreeNode);
     pTreeNode m_root {nullptr};
     int m_nodeCount {0};
 };
