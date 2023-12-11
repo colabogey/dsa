@@ -21,6 +21,5 @@ public:
 
 private:
     pListNode m_head {nullptr};
-    pListNode m_tail {nullptr};
     int m_nodeCount {0};
 };

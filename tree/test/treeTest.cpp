@@ -17,20 +17,20 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <gtest/gtest.h>
 #include <string>
 #include <functional>
-#include <linkedList.h>
+#include <tree.h>
 
 using namespace std;
 
 // The fixture for testing
-class LinkedListTest : public ::testing::Test {
+class TreeTest : public ::testing::Test {
 
   protected:
     // You can remove any or all of the following functions if its body
     // is empty.
 
-    LinkedListTest() { }
+    TreeTest() { }
 
-    virtual ~LinkedListTest() {}
+    virtual ~TreeTest() {}
 
     // If the constructor and destructor are not enough for setting up
     // and cleaning up each test, you can define the following methods:
@@ -50,53 +50,31 @@ class LinkedListTest : public ::testing::Test {
     //
 };
 
-TEST_F(LinkedListTest, InsertNode_VerifyItemFound_ByNodeCount) {
+TEST_F(TreeTest, InsertOne_VerifyItemFound_ByNodeCount) {
     // arrange
-    string data = "Lucky";
-    auto pLinkedList = make_unique<LinkedList>();
+    int key = 50;
+    auto pTree = make_unique<Tree>();
     // act
-    pLinkedList->add(data);
-    int count = pLinkedList->getNodeCount();
+    pTree->add(key);
+    int count = pTree->getNodeCount();
+    pTreeNode root = pTree->getRoot();
     // assert
+    pTree->show(root);
     ASSERT_EQ(count, 1);
 }
 
-TEST_F(LinkedListTest, InsertNode_VerifyItemFound_ByValue) {
+TEST_F(TreeTest, InsertTwo_VerifyItemFound_ByNodeCount) {
     // arrange
-    string data = "Lucky";
-    auto pLinkedList = make_unique<LinkedList>();
+    int key1 = 50;
+    int key2 = 40;
+    auto pTree = make_unique<Tree>();
     // act
-    pLinkedList->add(data);
-    std::string rVal = pLinkedList->get(data);
+    pTree->add(key1);
+    pTree->add(key2);
+    int count = pTree->getNodeCount();
+    pTreeNode root = pTree->getRoot();
     // assert
-    ASSERT_STREQ(data.c_str(), rVal.c_str());
-}
-
-TEST_F(LinkedListTest, RemoveNode_VerifyItemFound_ByNodeCount) {
-    // arrange
-    string data1 = "Lucky";
-    string data2 = "Chance";
-    auto pLinkedList = make_unique<LinkedList>();
-    // act
-    pLinkedList->add(data1);
-    pLinkedList->add(data2);
-    pLinkedList->remove(data2);
-    int count = pLinkedList->getNodeCount();
-    // assert
-    ASSERT_EQ(count, 1);
-}
-
-TEST_F(LinkedListTest, RemoveHead_VerifyItemFound_ByNodeCount) {
-    // arrange
-    string data1 = "Lucky";
-    string data2 = "Chance";
-    auto pLinkedList = make_unique<LinkedList>();
-    // act
-    pLinkedList->add(data1);
-    pLinkedList->add(data2);
-    pLinkedList->remove(data1);
-    int count = pLinkedList->getNodeCount();
-    // assert
-    ASSERT_EQ(count, 1);
+    pTree->show(root);
+    ASSERT_EQ(count, 2);
 }
 
