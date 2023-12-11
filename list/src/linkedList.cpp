@@ -10,13 +10,12 @@ void LinkedList::add(std::string data)
     if(m_head == nullptr) {
         m_head = newItem;
     } else {
-        pListNode tmp = m_head;
-        while(tmp->getNext() != nullptr)
+        pListNode curr = m_head;
+        while(curr->getNext() != nullptr)
         {
-            tmp = tmp->getNext();
+            curr = curr->getNext();
         }
-        tmp->setNext(newItem);
-        m_tail = newItem;
+        curr->setNext(newItem);
     }
     addToNodeCount();
 }
@@ -37,8 +36,15 @@ std::string LinkedList::remove(std::string data)
             }
             else
             {
-                m_head = nullptr;
-                m_tail = nullptr;
+                // its the head we are removing
+                if(curr->getNext() != nullptr)
+                {
+                    m_head->setNext(curr->getNext());
+                }
+                else
+                {
+                    m_head = nullptr;
+                }
             }
             subtractFromNodeCount();
             break;
