@@ -67,7 +67,6 @@ TEST_F(TreeTest, InsertOne_VerifyItemFound_ByNodeCount) {
     int count = pTree->getNodeCount();
     pTreeNode root = pTree->getRoot();
     // assert
-    pTree->show(root);
     ASSERT_EQ(count, toAdd);
 }
 
@@ -85,7 +84,6 @@ TEST_F(TreeTest, InsertTwo_VerifyItemFound_ByNodeCount) {
     int count = pTree->getNodeCount();
     pTreeNode root = pTree->getRoot();
     // assert
-    pTree->show(root);
     ASSERT_EQ(count, toAdd);
 }
 
@@ -105,7 +103,6 @@ TEST_F(TreeTest, InsertAll_GetValue_VerifyItemFound_ByKey) {
     int count = pTree->getNodeCount();
     rVal = pTree->get(keyToGet);
     // assert
-    //pTree->show(root);
     ASSERT_EQ(rVal, m_vals[5]);
 }
 
@@ -123,7 +120,7 @@ TEST_F(TreeTest, InsertAllRecursive_VerifyItemFound_ByNodeCount) {
     int count = pTree->getNodeCount();
     pTreeNode root = pTree->getRoot();
     // assert
-    pTree->show(root);
+    //pTree->show(root);
     ASSERT_EQ(count, toAdd);
 }
 
@@ -143,7 +140,6 @@ TEST_F(TreeTest, InsertAll_GetBogusValue_VerifyItemFound_ByKey) {
     int count = pTree->getNodeCount();
     rVal = pTree->get(keyToGet);
     // assert
-    //pTree->show(root);
     ASSERT_EQ(rVal, -1);
 }
 
