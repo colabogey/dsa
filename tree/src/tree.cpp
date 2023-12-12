@@ -155,7 +155,7 @@ void Tree::show(pTreeNode root)
     if (root != nullptr) 
     {
         show(root->getLeft());
-        //printf("(%d) ", root->getData());
+        printf("(%d) ", root->getData());
         show(root->getRight());
     }
 }
