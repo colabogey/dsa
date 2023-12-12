@@ -89,8 +89,10 @@ TEST_F(TreeTest, InsertTwo_VerifyItemFound_ByNodeCount) {
     ASSERT_EQ(count, toAdd);
 }
 
-TEST_F(TreeTest, InsertAll_VerifyItemFound_ByNodeCount) {
+TEST_F(TreeTest, InsertAll_GetValue_VerifyItemFound_ByKey) {
     // arrange
+    int rVal = -1;
+    int keyToGet = m_vals[5];
     int toAdd = m_size;
     int spot = 0;
     auto pTree = make_unique<Tree>();
@@ -101,10 +103,10 @@ TEST_F(TreeTest, InsertAll_VerifyItemFound_ByNodeCount) {
         spot++;
     }
     int count = pTree->getNodeCount();
-    pTreeNode root = pTree->getRoot();
+    rVal = pTree->get(keyToGet);
     // assert
-    pTree->show(root);
-    ASSERT_EQ(count, toAdd);
+    //pTree->show(root);
+    ASSERT_EQ(rVal, m_vals[5]);
 }
 
 TEST_F(TreeTest, InsertAllRecursive_VerifyItemFound_ByNodeCount) {
@@ -123,5 +125,25 @@ TEST_F(TreeTest, InsertAllRecursive_VerifyItemFound_ByNodeCount) {
     // assert
     pTree->show(root);
     ASSERT_EQ(count, toAdd);
+}
+
+TEST_F(TreeTest, InsertAll_GetBogusValue_VerifyItemFound_ByKey) {
+    // arrange
+    int rVal = -1;
+    int keyToGet = 697;
+    int toAdd = m_size;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    // act
+    for(int i = toAdd; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
+    int count = pTree->getNodeCount();
+    rVal = pTree->get(keyToGet);
+    // assert
+    //pTree->show(root);
+    ASSERT_EQ(rVal, -1);
 }
 

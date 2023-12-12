@@ -25,6 +25,8 @@ public:
 private:
     void _add(pTreeNode, pTreeNode);
     void _addRecursive(pTreeNode, pTreeNode);
+    int _get(pTreeNode, int);
+
     pTreeNode m_root {nullptr};
     int m_nodeCount {0};
 };

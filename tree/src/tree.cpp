@@ -34,34 +34,33 @@ void Tree::add(int data)
 
 void Tree::_addRecursive(pTreeNode root, pTreeNode newNode)
 {
-    pTreeNode newRoot = root;
     if(root == nullptr)
     {
         return;
     }
 
-    if(newNode->getData() < newRoot->getData())
+    if(newNode->getData() < root->getData())
     {
-        if(newRoot->getLeft() == nullptr)
+        if(root->getLeft() == nullptr)
         {
-            newRoot->setLeft(newNode);
+            root->setLeft(newNode);
             return;
         }
         else
         {
-            _addRecursive(newRoot->getLeft(), newNode);
+            _addRecursive(root->getLeft(), newNode);
         }
     }
     else
     {
-        if(newRoot->getRight() == nullptr)
+        if(root->getRight() == nullptr)
         {
-            newRoot->setRight(newNode);
+            root->setRight(newNode);
             return;
         }
         else
         {
-            _addRecursive(newRoot->getRight(), newNode);
+            _addRecursive(root->getRight(), newNode);
         }
     }
 }
@@ -102,7 +101,53 @@ int Tree::remove(int key)
 
 int Tree::get(int key)
 {
-   return(0);
+    int rVal = -1;
+    if(m_root != nullptr)
+    {
+        rVal = _get(m_root, key);
+    }
+    return(rVal);
+}
+
+int Tree::_get(pTreeNode root, int key)
+{
+    if(root == nullptr)
+    {
+        return(-1);
+    }
+
+    if(root->getData() == key)
+    {
+        //printf("found (%d)\n", key);
+        return(key);
+    }
+
+    if(key < root->getData())
+    {
+        //printf("visiting left (%d)\n", root->getData());
+        if(root->getLeft() == nullptr)
+        {
+            //printf("(%d) not found\n", key);
+            return(-1);
+        }
+        else
+        {
+            return(_get(root->getLeft(), key));
+        }
+    }
+    else
+    {
+        //printf("visiting right (%d)\n", root->getData());
+        if(root->getRight() == nullptr)
+        {
+            //printf("(%d) not found\n", key);
+            return(-1);
+        }
+        else
+        {
+            return(_get(root->getRight(), key));
+        }
+    }
 }
 
 void Tree::show(pTreeNode root)
@@ -110,7 +155,7 @@ void Tree::show(pTreeNode root)
     if (root != nullptr) 
     {
         show(root->getLeft());
-        printf("(%d) ", root->getData());
+        //printf("(%d) ", root->getData());
         show(root->getRight());
     }
 }
