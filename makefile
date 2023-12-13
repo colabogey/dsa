@@ -1,4 +1,4 @@
-SUBDIRS := array_shift
+SUBDIRS := array_shift hash list tree
 
 PROJECT_NAME = oracle
 ifeq (, $(PROJECTS_BASE))

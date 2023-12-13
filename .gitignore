@@ -38,6 +38,9 @@
 *.gcda
 *.gcno
 
+# vscode
+**/.vscode/
+
 #coverage
 **/coverage_out
 

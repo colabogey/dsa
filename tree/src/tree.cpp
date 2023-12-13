@@ -159,3 +159,27 @@ void Tree::show(pTreeNode root)
         show(root->getRight());
     }
 }
+
+int Tree::getDepth() 
+{
+    int i = _getDepth(m_root);
+    return(i);
+}
+
+int Tree::_getDepth(pTreeNode root)
+{
+    if(root == nullptr)
+    {
+        return(0);
+    }
+    int lVal = _getDepth(root->getLeft());
+    int rVal = _getDepth(root->getRight());
+    if(lVal > rVal)
+    {
+        return(lVal + 1);
+    }
+    else
+    {
+        return(rVal + 1);
+    }
+}

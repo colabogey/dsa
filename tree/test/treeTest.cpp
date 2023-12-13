@@ -143,3 +143,21 @@ TEST_F(TreeTest, InsertAll_GetBogusValue_VerifyItemFound_ByKey) {
     ASSERT_EQ(rVal, -1);
 }
 
+TEST_F(TreeTest, InsertAll_ThenGetDepth) {
+    // arrange
+    int toAdd = m_size;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    // act
+    for(int i = toAdd; i > 0; i--)
+    {
+        pTree->addRecursive(m_vals[spot]);
+        spot++;
+    }
+    int depth = pTree->getDepth();
+    
+    // assert
+    //pTree->show(root);
+    ASSERT_EQ(depth, 6);
+}
+

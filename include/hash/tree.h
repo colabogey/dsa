@@ -16,16 +16,17 @@ public:
     void addRecursive(int);
     int get(int);
     int remove(int);
+    int getDepth();
     pTreeNode getRoot() { return m_root; };
     void show(pTreeNode);
     void addToNodeCount() { m_nodeCount++ ;} ;
     void subtractFromNodeCount() { m_nodeCount-- ;} ;
     int getNodeCount() { return m_nodeCount ;} ;
-
 private:
     void _add(pTreeNode, pTreeNode);
     void _addRecursive(pTreeNode, pTreeNode);
     int _get(pTreeNode, int);
+    int _getDepth(pTreeNode);
 
     pTreeNode m_root {nullptr};
     int m_nodeCount {0};
