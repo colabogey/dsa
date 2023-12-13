@@ -96,7 +96,65 @@ void Tree::_add(pTreeNode root, pTreeNode newNode)
 
 int Tree::remove(int key)
 {
-   return(0);
+    if(m_root == nullptr)
+    {
+        return(-1);
+    }
+    printf("remove (%d)\n", key);
+    pTreeNode curr = m_root;
+    pTreeNode prev = nullptr;
+    while(true)
+    {
+        if(key == curr->getData())
+        {
+            break;
+        }
+        else
+        {
+            if(key < curr->getData())
+            {
+                // assume the key is in there
+                prev = curr;
+                curr = curr->getLeft();
+            }
+            else
+            {
+                prev = curr;
+                curr = curr->getRight();
+            }
+        }
+    }
+    _remove(curr, prev);
+    subtractFromNodeCount();
+   return(key);
+}
+
+void Tree::_remove(pTreeNode curr, pTreeNode prev)
+{
+    if(prev == nullptr)
+    {
+        // its m_root
+        m_root->setLeft(nullptr);
+        m_root->setRight(nullptr);
+        m_root->setData(-1);
+    }
+    if((curr->getLeft() == nullptr) || curr->getRight() == nullptr)
+    {
+        if(curr->getLeft() != nullptr)
+        {
+            if(curr = prev->getLeft())
+            {
+                prev->setLeft(curr->getLeft());
+            }
+        }
+        else
+        {
+            if(curr = prev->getRight())
+            {
+                prev->setLeft(curr->getRight());
+            }
+        }
+    }
 }
 
 int Tree::get(int key)
@@ -154,7 +212,16 @@ void Tree::show(pTreeNode root)
 {
     if (root != nullptr) 
     {
-        show(root->getLeft());
+        _show(root);
+        printf("\n");
+    }
+}
+
+void Tree::_show(pTreeNode root)
+{
+    if (root != nullptr) 
+    {
+        _show(root->getLeft());
         printf("(%d) ", root->getData());
         show(root->getRight());
     }

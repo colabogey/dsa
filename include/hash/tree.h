@@ -24,9 +24,11 @@ public:
     int getNodeCount() { return m_nodeCount ;} ;
 private:
     void _add(pTreeNode, pTreeNode);
+    void _remove(pTreeNode, pTreeNode);
     void _addRecursive(pTreeNode, pTreeNode);
     int _get(pTreeNode, int);
     int _getDepth(pTreeNode);
+    void _show(pTreeNode);
 
     pTreeNode m_root {nullptr};
     int m_nodeCount {0};
