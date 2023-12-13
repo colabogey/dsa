@@ -52,11 +52,11 @@ class TreeTest : public ::testing::Test {
     int m_size{9};
     int m_vals[9] = {55, 40, 35, 27, 60, 42, 16, 3, 90 };
 
-    int m_sizeSecondary{12};
-    int m_valsSecondary[12] = {54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43};
+    int m_sizeSecondary{13};
+    int m_valsSecondary[13] = {54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 41};
 };
 
-TEST_F(TreeTest, InsertOne_VerifyItemFound_ByNodeCount) {
+TEST_F(TreeTest, AddOne_Verify_ByNodeCount) {
     // arrange
     int toAdd = 1;
     int spot = 0;
@@ -73,7 +73,7 @@ TEST_F(TreeTest, InsertOne_VerifyItemFound_ByNodeCount) {
     ASSERT_EQ(count, toAdd);
 }
 
-TEST_F(TreeTest, InsertTwo_VerifyItemFound_ByNodeCount) {
+TEST_F(TreeTest, AddTwo_Verify_ByNodeCount) {
     // arrange
     int toAdd = 2;
     int spot = 0;
@@ -90,7 +90,7 @@ TEST_F(TreeTest, InsertTwo_VerifyItemFound_ByNodeCount) {
     ASSERT_EQ(count, toAdd);
 }
 
-TEST_F(TreeTest, InsertAll_GetValue_VerifyItemFound_ByKey) {
+TEST_F(TreeTest, AddAll_GetValue_Verify_ByKey) {
     // arrange
     int rVal = -1;
     int keyToGet = m_vals[5];
@@ -109,7 +109,7 @@ TEST_F(TreeTest, InsertAll_GetValue_VerifyItemFound_ByKey) {
     ASSERT_EQ(rVal, m_vals[5]);
 }
 
-TEST_F(TreeTest, InsertAllRecursive_VerifyItemFound_ByNodeCount) {
+TEST_F(TreeTest, AddAllRecursive_Verify_ByNodeCount) {
     // arrange
     int toAdd = m_size;
     int spot = 0;
@@ -127,7 +127,7 @@ TEST_F(TreeTest, InsertAllRecursive_VerifyItemFound_ByNodeCount) {
     ASSERT_EQ(count, toAdd);
 }
 
-TEST_F(TreeTest, InsertAll_GetBogusValue_VerifyItemFound_ByKey) {
+TEST_F(TreeTest, AddAll_GetBogusValue_Verify_ByKey) {
     // arrange
     int rVal = -1;
     int keyToGet = 697;
@@ -146,7 +146,7 @@ TEST_F(TreeTest, InsertAll_GetBogusValue_VerifyItemFound_ByKey) {
     ASSERT_EQ(rVal, -1);
 }
 
-TEST_F(TreeTest, InsertAll_ThenGetDepth) {
+TEST_F(TreeTest, AddAll_Verify_Depth) {
     // arrange
     int toAdd = m_size;
     int spot = 0;
@@ -164,7 +164,7 @@ TEST_F(TreeTest, InsertAll_ThenGetDepth) {
     ASSERT_EQ(depth, 6);
 }
 
-TEST_F(TreeTest, InsertAllAndSecondaryAll_ThenGetDepth) {
+TEST_F(TreeTest, AddAllAndSecondary_Verify_Depth) {
     // arrange
     int toAdd = m_size;
     int spot = 0;
@@ -188,7 +188,7 @@ TEST_F(TreeTest, InsertAllAndSecondaryAll_ThenGetDepth) {
     ASSERT_EQ(depth, 15);
 }
 
-TEST_F(TreeTest, InsertAllAndSecondaryAll_Verify_ByNodeCount) {
+TEST_F(TreeTest, AddAllAndSecondary_Verify_ByNodeCount) {
     // arrange
     int toAdd = m_size;
     int spot = 0;
@@ -212,9 +212,9 @@ TEST_F(TreeTest, InsertAllAndSecondaryAll_Verify_ByNodeCount) {
     ASSERT_EQ(count, m_size + m_sizeSecondary);
 }
 
-TEST_F(TreeTest, InsertAllAndSecondary_RemoveLeaf_VerifyItemRemoved_ByNodeCount) {
+TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftOnly_Verify_ByNodeCount) {
     // arrange
-    int valToRemove = m_vals[3];
+    int valToRemove = 27;
     auto pTree = make_unique<Tree>();
     for(int i = 0; i < m_size; i++)
     {
@@ -235,9 +235,55 @@ TEST_F(TreeTest, InsertAllAndSecondary_RemoveLeaf_VerifyItemRemoved_ByNodeCount)
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
 
-TEST_F(TreeTest, InsertAllAndSecondary_RemoveNode_VerifyItemRemoved_ByNodeCount) {
+TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithRightOnly_Verify_ByNodeCount) {
     // arrange
-    int valToRemove = m_vals[1];
+    int valToRemove = 60;
+    auto pTree = make_unique<Tree>();
+    for(int i = 0; i < m_size; i++)
+    {
+        pTree->add(m_vals[i]);
+    }
+
+    for(int i = m_sizeSecondary, spot = 0; i > 0; i--)
+    {
+        pTree->add(m_valsSecondary[spot]);
+        spot++;
+    }
+    pTreeNode root = pTree->getRoot();
+    // act
+    int valRemoved = pTree->remove(valToRemove);
+    // assert
+    pTree->show(root);
+    int count = pTree->getNodeCount();
+    ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
+}
+
+TEST_F(TreeTest, AddAllAndSecondary_RemoveLeaf_Verify_ByNodeCount) {
+    // arrange
+    int valToRemove = 3;
+    auto pTree = make_unique<Tree>();
+    for(int i = 0; i < m_size; i++)
+    {
+        pTree->add(m_vals[i]);
+    }
+
+    for(int i = m_sizeSecondary, spot = 0; i > 0; i--)
+    {
+        pTree->add(m_valsSecondary[spot]);
+        spot++;
+    }
+    pTreeNode root = pTree->getRoot();
+    // act
+    int valRemoved = pTree->remove(valToRemove);
+    // assert
+    pTree->show(root);
+    int count = pTree->getNodeCount();
+    ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
+}
+
+TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftAndRight_Verify_ByNodeCount) {
+    // arrange
+    int valToRemove = 40;
     auto pTree = make_unique<Tree>();
     for(int i = 0; i < m_size; i++)
     {

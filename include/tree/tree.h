@@ -4,13 +4,12 @@
 #include <memory>
 #include <string>
 
-class Tree
-{
-public:
+class Tree {
+  public:
     Tree() = default;
     ~Tree() = default;
-    Tree& operator=(Tree& other) {return *this;};
-    Tree(Tree& other) {};
+    Tree &operator=(Tree &other) { return *this; };
+    Tree(Tree &other){};
 
     void add(int);
     void addRecursive(int);
@@ -19,10 +18,11 @@ public:
     int getDepth();
     pTreeNode getRoot() { return m_root; };
     void show(pTreeNode);
-    void addToNodeCount() { m_nodeCount++ ;} ;
-    void subtractFromNodeCount() { m_nodeCount-- ;} ;
-    int getNodeCount() { return m_nodeCount ;} ;
-private:
+    void addToNodeCount() { m_nodeCount++; };
+    void subtractFromNodeCount() { m_nodeCount--; };
+    int getNodeCount() { return m_nodeCount; };
+
+  private:
     void _add(pTreeNode, pTreeNode);
     void _remove(pTreeNode, pTreeNode);
     void _addRecursive(pTreeNode, pTreeNode);
@@ -30,6 +30,6 @@ private:
     int _getDepth(pTreeNode);
     void _show(pTreeNode);
 
-    pTreeNode m_root {nullptr};
-    int m_nodeCount {0};
+    pTreeNode m_root{nullptr};
+    int m_nodeCount{0};
 };

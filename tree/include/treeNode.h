@@ -1,11 +1,10 @@
 #pragma once
 #include <memory>
 
-class TreeNode
-{
-public:
+class TreeNode {
+  public:
     TreeNode() = default;
-    TreeNode(int data) { m_data = data ;};
+    TreeNode(int data) { m_data = data; };
     ~TreeNode() = default;
     int getData() { return m_data; };
     void setData(int data) { m_data = data; };
@@ -16,7 +15,7 @@ public:
     std::shared_ptr<TreeNode> getRight() { return m_right; };
     void setRight(std::shared_ptr<TreeNode> right) { m_right = right; };
 
-private:
+  private:
     int m_data{0};
     std::shared_ptr<TreeNode> m_left{nullptr};
     std::shared_ptr<TreeNode> m_right{nullptr};
