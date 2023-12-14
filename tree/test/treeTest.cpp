@@ -304,3 +304,26 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftAndRight_Verify_ByNodeCoun
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
 
+TEST_F(TreeTest, AddAllAndSecondary_RemoveRoot_Verify_ByNodeCount) {
+    // arrange
+    int valToRemove = 55;
+    auto pTree = make_unique<Tree>();
+    for(int i = 0; i < m_size; i++)
+    {
+        pTree->add(m_vals[i]);
+    }
+    
+    for(int i = 0; i < m_sizeSecondary; i++)
+    {
+        pTree->add(m_valsSecondary[i]);
+    }
+
+    pTreeNode root = pTree->getRoot();
+    // act
+    int valRemoved = pTree->remove(valToRemove);
+    // assert
+    pTree->show(root);
+    int count = pTree->getNodeCount();
+    ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
+}
+

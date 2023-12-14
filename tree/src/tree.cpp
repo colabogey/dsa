@@ -95,11 +95,8 @@ int Tree::remove(int key) {
 
 void Tree::_remove(pTreeNode curr, pTreeNode prev) {
     if (prev == nullptr) {
-        // THIS IS NOT RIGHT
         // its m_root
-        m_root->setLeft(nullptr);
-        m_root->setRight(nullptr);
-        m_root->setData(-1);
+        prev = curr;
     }
 
     if ((curr->getLeft() == nullptr) && (curr->getRight() == nullptr)) {
