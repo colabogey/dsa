@@ -6,59 +6,61 @@
 #include <iostream>
 using namespace std;
 
-// Merges two subarrays of array[].
-// First subarray is arr[begin..mid]
-// Second subarray is arr[mid+1..end]
-void Merger::merge(int array[], int const left, int const mid, int const right) {
-    auto const subArrayOne = mid - left + 1;
-    auto const subArrayTwo = right - mid;
+// Function to merge the two haves arr[l..m]
+// and arr[m+1..r] of array arr[] 
+void Merger::merge(int arr[], int l, int m, int r)
+{
+	int k;
+	int n1 = m - l + 1;
+	int n2 = r - m;
 
-    // Create temp arrays
-    auto *leftArray = new int[subArrayOne], *rightArray = new int[subArrayTwo];
+	// Create temp arrays 
+	int L[n1], R[n2];
 
-    // Copy data to temp arrays leftArray[]
-    // and rightArray[]
-    for (auto i = 0; i < subArrayOne; i++)
-        leftArray[i] = array[left + i];
-    for (auto j = 0; j < subArrayTwo; j++)
-        rightArray[j] = array[mid + 1 + j];
+	// Copy data to temp arrays L[] and R[]
+	for(int i = 0; i < n1; i++)
+		L[i] = arr[l + i];
+	for(int j = 0; j < n2; j++)
+		R[j] = arr[m + 1+ j];
 
-    // Initial index of first sub-array
-    // Initial index of second sub-array
-    auto indexOfSubArrayOne = 0, indexOfSubArrayTwo = 0;
+	// Merge the temp arrays
+	// back into arr[l..r]
+	int i = 0;
+	int j = 0;
+	k = l;
+	
+	while (i < n1 && j < n2)
+	{
+		if (L[i] <= R[j])
+		{
+			arr[k] = L[i];
+			i++;
+		}
+		else
+		{
+			arr[k] = R[j];
+			j++;
+		}
+		k++;
+	}
 
-    // Initial index of merged array
-    int indexOfMergedArray = left;
+	// Copy the remaining elements
+	// of L[], if there are any 
+	while (i < n1)
+	{
+		arr[k] = L[i];
+		i++;
+		k++;
+	}
 
-    // Merge the temp arrays back into
-    // array[left..right]
-    while (indexOfSubArrayOne < subArrayOne &&
-           indexOfSubArrayTwo < subArrayTwo) {
-        if (leftArray[indexOfSubArrayOne] <= rightArray[indexOfSubArrayTwo]) {
-            array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-            indexOfSubArrayOne++;
-        } else {
-            array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-            indexOfSubArrayTwo++;
-        }
-        indexOfMergedArray++;
-    }
-
-    // Copy the remaining elements of
-    // left[], if there are any
-    while (indexOfSubArrayOne < subArrayOne) {
-        array[indexOfMergedArray] = leftArray[indexOfSubArrayOne];
-        indexOfSubArrayOne++;
-        indexOfMergedArray++;
-    }
-
-    // Copy the remaining elements of
-    // right[], if there are any
-    while (indexOfSubArrayTwo < subArrayTwo) {
-        array[indexOfMergedArray] = rightArray[indexOfSubArrayTwo];
-        indexOfSubArrayTwo++;
-        indexOfMergedArray++;
-    }
+	// Copy the remaining elements
+	// of R[], if there are any 
+	while (j < n2)
+	{
+		arr[k] = R[j];
+		j++;
+		k++;
+	}
 }
 
 // begin is for left index and end is

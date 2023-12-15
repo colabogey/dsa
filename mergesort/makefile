@@ -1,6 +1,6 @@
 SUBDIRS = src test
 
-PROJECT_NAME = waitables
+PROJECT_NAME = oracle
 ifeq (, $(PROJECTS_BASE))
 PROJECT_BASE = ${HOME}/projects/${PROJECT_NAME}
 else

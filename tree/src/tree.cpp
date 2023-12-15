@@ -101,12 +101,9 @@ void Tree::_remove(pTreeNode curr, pTreeNode prev) {
 
     if ((curr->getLeft() == nullptr) && (curr->getRight() == nullptr)) {
         // its a leaf - just zap it
-        if(prev->getLeft() == curr)
-        {
+        if (prev->getLeft() == curr) {
             prev->setLeft(nullptr);
-        }
-        else
-        {
+        } else {
             prev->setRight(nullptr);
         }
     }
