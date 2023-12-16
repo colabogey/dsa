@@ -13,11 +13,11 @@ GNU General Public License for more details.
 You should have received a copy of the GNU General Public License
 along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
+#include <functional>
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
-#include <string>
-#include <functional>
 #include <quiz.h>
+#include <string>
 
 using namespace std;
 
@@ -28,7 +28,7 @@ class QuizTest : public ::testing::Test {
     // You can remove any or all of the following functions if its body
     // is empty.
 
-    QuizTest() { }
+    QuizTest() {}
 
     virtual ~QuizTest() {}
 
@@ -48,15 +48,16 @@ class QuizTest : public ::testing::Test {
 
     // Objects declared here can be used by all tests.
     //
-
 };
 
 TEST_F(QuizTest, SingleString_StringExistsInList) {
     // arrange
-    std::string sAry[1] = { "abdcef" };
-    auto pQuiz = make_unique<Quiz>(sAry, 1);
+    std::string sAry[2] = {"apple", "pen"};
+    auto pQuiz = make_unique<Quiz>(sAry, 2);
     // act
-    bool bRet = pQuiz->findItem(sAry[0]);
+    //bool bRet = pQuiz->findItem(sAry[0]);
+    bool bRet = pQuiz->findItem("applepenapple");
     // assert
     ASSERT_TRUE(bRet);
 }
+

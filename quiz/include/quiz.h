@@ -11,10 +11,10 @@ class Quiz {
     ~Quiz() = default;
     Quiz &operator=(Quiz &other) { return *this; };
     Quiz(Quiz &other){};
-
     bool findItem(std::string);
 
   private:
-    bool _findItem(std::string, int, int);
+    void _findItem(std::string, int, int);
     std::unordered_set<std::string> m_items;
+    std::unordered_set<std::string> m_found;
 };
