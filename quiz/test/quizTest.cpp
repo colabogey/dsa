@@ -50,7 +50,7 @@ class QuizTest : public ::testing::Test {
     //
 };
 
-TEST_F(QuizTest, SingleString_StringExistsInList) {
+TEST_F(QuizTest, CheckForAllStrings_GivenValidStrings_UseRecursive) {
     // arrange
     std::string sAry[2] = {"apple", "pen"};
     auto pQuiz = make_unique<Quiz>(sAry, 2);
@@ -59,5 +59,27 @@ TEST_F(QuizTest, SingleString_StringExistsInList) {
     bool bRet = pQuiz->findItem("applepenapple");
     // assert
     ASSERT_TRUE(bRet);
+}
+
+TEST_F(QuizTest, CheckForAllStrings_GivenValidStrings_UseIterative) {
+    // arrange
+    std::string sAry[2] = {"apple", "pen"};
+    auto pQuiz = make_unique<Quiz>(sAry, 2);
+    // act
+    //bool bRet = pQuiz->findItem(sAry[0]);
+    bool bRet = pQuiz->findAllItems("applepenapple");
+    // assert
+    ASSERT_TRUE(bRet);
+}
+
+TEST_F(QuizTest, CheckForAllStrings_GivenInValidStrings_UseIterative) {
+    // arrange
+    std::string sAry[3] = {"apple", "pen", "Bogus"};
+    auto pQuiz = make_unique<Quiz>(sAry, 3);
+    // act
+    //bool bRet = pQuiz->findItem(sAry[0]);
+    bool bRet = pQuiz->findAllItems("applepenapple");
+    // assert
+    ASSERT_FALSE(bRet);
 }
 

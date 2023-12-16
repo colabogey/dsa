@@ -5,6 +5,10 @@ Quiz::Quiz(std::string sAry[], int size) {
     for (int i = 0; i < size; i++) {
         m_items.insert(sAry[i]);
     }
+
+    for (int i = 0; i < size; i++) {
+        m_allStrings.push_front(sAry[i]);
+    }
 }
 
 bool Quiz::findItem(std::string s) { 
@@ -14,6 +18,17 @@ bool Quiz::findItem(std::string s) {
     } else {
         return false;
     }
+}
+
+bool Quiz::findAllItems(std::string s) { 
+    bool bRet = true;
+    for(std::string strList : m_allStrings) {
+        std::size_t found = s.find(strList);
+        if (found == std::string::npos) {
+            bRet = false;
+        }
+    }
+    return bRet;;
 }
 
 void Quiz::_findItem(std::string s, int begin, int end) {
