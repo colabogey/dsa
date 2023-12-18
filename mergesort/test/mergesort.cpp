@@ -16,8 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <string>
+#include <time.h>
 #include <functional>
 #include "mergesort.h"
+#include "mergesortit.h"
 
 using namespace std;
 
@@ -73,6 +75,25 @@ TEST_F(MergerTest, EvenNunberOfElements) {
     // act
     pMerger->mergeSort(m_valsEven, 0, (m_sizeEven - 1));
     pMerger->printArray(m_valsEven, m_sizeEven);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+TEST_F(MergerTest, It_OddNunberOfElements) {
+    // arrange
+    int size = 20;
+    int ary[size];
+    int tmp[size];
+    srand(time(NULL));
+    for(int i = 0; i < size; i++)
+    {
+        tmp[i] = ary[i] = (rand() % 511);
+    }
+    auto pMergerIt = make_unique<MergerIt>(size);
+    pMergerIt->printArray(ary);
+    // act
+    pMergerIt->mergeSort(ary, tmp, 0, (size - 1));
+    pMergerIt->printArray(ary);
     // assert
     ASSERT_EQ(1, 1);
 }
