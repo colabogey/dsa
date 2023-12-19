@@ -213,7 +213,7 @@ TEST_F(TreeTest, AddAllAndSecondary_Verify_ByNodeCount) {
     pTreeNode root = pTree->getRoot();
     // act
     int count = pTree->getNodeCount();
-    pTree->show(root);
+    //pTree->show(root);
     // assert
     ASSERT_EQ(count, m_size + m_sizeSecondary);
 }
@@ -236,7 +236,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftOnly_Verify_ByNodeCount) {
     // act
     int valRemoved = pTree->remove(valToRemove);
     // assert
-    pTree->show(root);
+    //pTree->show(root);
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -259,7 +259,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithRightOnly_Verify_ByNodeCount) 
     // act
     int valRemoved = pTree->remove(valToRemove);
     // assert
-    pTree->show(root);
+    //pTree->show(root);
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -282,7 +282,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveLeaf_Verify_ByNodeCount) {
     // act
     int valRemoved = pTree->remove(valToRemove);
     // assert
-    pTree->show(root);
+    //pTree->show(root);
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -305,7 +305,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftAndRight_Verify_ByNodeCoun
     // act
     int valRemoved = pTree->remove(valToRemove);
     // assert
-    pTree->show(root);
+    //pTree->show(root);
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -328,7 +328,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveRoot_Verify_ByNodeCount) {
     // act
     int valRemoved = pTree->remove(valToRemove);
     // assert
-    pTree->show(root);
+    //pTree->show(root);
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -406,6 +406,27 @@ TEST_F(TreeTest, InOrderSuccessor_35) {
     {
         pTree->add(m_valsSecondary[spot]);
         spot++;
+    }
+    // act
+    pTreeNode node = pTree->get(valToGet);
+    pTreeNode successor = pTree->inOrderSuccessor(node);
+    if(node != nullptr) {
+        valFromNode = successor->getData();
+    }
+    // assert
+    ASSERT_EQ(valExpected, valFromNode);
+}
+
+TEST_F(TreeTest, InOrderSuccessor_FromExample_1) {
+    // arrange
+    int ary[] = { 20, 8, 22, 4, 12, 10, 14 };
+    int valToGet = 14;
+    int valExpected = 20;
+    int valFromNode = -1;
+    auto pTree = make_unique<Tree>();
+    for(int i = 0; i < (sizeof(ary) / sizeof(int)) ; i++)
+    {
+        pTree->add(ary[i]);
     }
     // act
     pTreeNode node = pTree->get(valToGet);

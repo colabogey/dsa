@@ -71,6 +71,13 @@ void Tree::_add(pTreeNode root, pTreeNode newNode) {
     }
 }
 
+/*
+
+TODO: now that you have a prev pointer
+      and a get thet returns a node
+      this can be simplified
+
+*/
 int Tree::remove(int key) {
     if (m_root == nullptr) {
         return (-1);
@@ -97,6 +104,12 @@ int Tree::remove(int key) {
     return (key);
 }
 
+/*
+
+: understand this
+
+
+*/
 void Tree::_remove(pTreeNode curr, pTreeNode prev) {
     if (prev == nullptr) {
         // its m_root
@@ -172,22 +185,17 @@ pTreeNode Tree::_get(pTreeNode root, int key) {
     }
 
     if (root->getData() == key) {
-        // printf("found (%d)\n", key);
         return (root);
     }
 
     if (key < root->getData()) {
-        // printf("visiting left (%d)\n", root->getData());
         if (root->getLeft() == nullptr) {
-            // printf("(%d) not found\n", key);
             return (nullptr);
         } else {
             return (_get(root->getLeft(), key));
         }
     } else {
-        // printf("visiting right (%d)\n", root->getData());
         if (root->getRight() == nullptr) {
-            // printf("(%d) not found\n", key);
             return (nullptr);
         } else {
             return (_get(root->getRight(), key));
@@ -228,65 +236,36 @@ int Tree::_getDepth(pTreeNode root) {
     }
 }
 
-/*
-
-wrong thinking
-do a successot for a given node
-
-and then the show thing id different
-it goes by value
-
-your brain is wrong
-
-
-*/
-
 pTreeNode Tree::inOrderSuccessor(pTreeNode node) {
 
     if (node == nullptr) {
-        return(node);
+        return (node);
     }
 
     pTreeNode successor = node;
     pTreeNode nextLeft = nullptr;
     pTreeNode nextRight = nullptr;
-    if((nextRight = node->getRight()) != nullptr) {
+    if ((nextRight = node->getRight()) != nullptr) {
         successor = _getLeastValuePresent(nextRight);
-    } else if((nextLeft = node->getLeft()) != nullptr) {
+    } else {
         successor = _getNodeThatIsLeftChildOfParent(node);
     }
-    return(successor);
-    }
+    return (successor);
+}
 
 pTreeNode Tree::_getNodeThatIsLeftChildOfParent(pTreeNode node) {
-    pTreeNode curr = node;
-    pTreeNode parent = curr->getParent();
-    while(parent != nullptr) {
-        pTreeNode nextLeft = parent->getLeft();
-        if(nextLeft != nullptr) {
-            if(nextLeft == curr) {
-                break;
-            } else {
-                curr = parent;
-                parent = parent->getLeft();
-            }
-        } else {
-            parent = nullptr;
-            break;
-        }
+    pTreeNode parent = node->getParent();
+    while ((parent != nullptr) && (node == parent->getRight())) {
+        node = parent;
+        parent = parent->getParent();
     }
-    return(parent);
+    return (parent);
 }
 
 pTreeNode Tree::_getLeastValuePresent(pTreeNode node) {
     pTreeNode curr = node;
-    while(curr != nullptr) {
-        pTreeNode nextLeft = curr->getLeft();
-        if(nextLeft != nullptr) {
-            curr = nextLeft;
-        } else {
-            break;
-        }
+    while (curr->getLeft() != nullptr) {
+        curr = curr->getLeft();
     }
-    return(curr);
+    return (curr);
 }
