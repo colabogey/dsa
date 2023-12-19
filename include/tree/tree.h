@@ -13,7 +13,7 @@ class Tree {
 
     void add(int);
     void addRecursive(int);
-    int get(int);
+    pTreeNode get(int);
     int remove(int);
     int getDepth();
     pTreeNode getRoot() { return m_root; };
@@ -21,14 +21,17 @@ class Tree {
     void addToNodeCount() { m_nodeCount++; };
     void subtractFromNodeCount() { m_nodeCount--; };
     int getNodeCount() { return m_nodeCount; };
+    pTreeNode inOrderSuccessor(pTreeNode);
 
   private:
     void _add(pTreeNode, pTreeNode);
     void _remove(pTreeNode, pTreeNode);
     void _addRecursive(pTreeNode, pTreeNode);
-    int _get(pTreeNode, int);
+    pTreeNode _get(pTreeNode, int);
     int _getDepth(pTreeNode);
     void _show(pTreeNode);
+    pTreeNode _getNodeThatIsLeftChildOfParent(pTreeNode);
+    pTreeNode _getLeastValuePresent(pTreeNode);
 
     pTreeNode m_root{nullptr};
     int m_nodeCount{0};

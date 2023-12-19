@@ -104,7 +104,10 @@ TEST_F(TreeTest, AddAll_GetValue_Verify_ByKey) {
     }
     int count = pTree->getNodeCount();
     // act
-    rVal = pTree->get(keyToGet);
+    pTreeNode node = pTree->get(keyToGet);
+    if(node != nullptr) {
+        rVal = node->getData();
+    }
     // assert
     ASSERT_EQ(rVal, m_vals[5]);
 }
@@ -141,7 +144,10 @@ TEST_F(TreeTest, AddAll_GetBogusValue_Verify_ByKey) {
     }
     int count = pTree->getNodeCount();
     // act
-    rVal = pTree->get(keyToGet);
+    pTreeNode node = pTree->get(keyToGet);
+    if(node != nullptr) {
+        rVal = node->getData();
+    }
     // assert
     ASSERT_EQ(rVal, -1);
 }
@@ -325,5 +331,89 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveRoot_Verify_ByNodeCount) {
     pTree->show(root);
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
+}
+
+TEST_F(TreeTest, InOrderSuccessor_42) {
+    // arrange
+    int valToGet = 42;
+    int valExpected = 43;
+    int valFromNode = -1;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    for(int i = m_size; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
+
+    for(int i = m_sizeSecondary, spot = 0; i > 0; i--)
+    {
+        pTree->add(m_valsSecondary[spot]);
+        spot++;
+    }
+    // act
+    pTreeNode node = pTree->get(valToGet);
+    pTreeNode successor = pTree->inOrderSuccessor(node);
+    if(node != nullptr) {
+        valFromNode = successor->getData();
+    }
+    // assert
+    ASSERT_EQ(valExpected, valFromNode);
+}
+
+TEST_F(TreeTest, InOrderSuccessor_40) {
+    // arrange
+    int valToGet = 40;
+    int valExpected = 41;
+    int valFromNode = -1;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    for(int i = m_size; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
+
+    for(int i = m_sizeSecondary, spot = 0; i > 0; i--)
+    {
+        pTree->add(m_valsSecondary[spot]);
+        spot++;
+    }
+    // act
+    pTreeNode node = pTree->get(valToGet);
+    pTreeNode successor = pTree->inOrderSuccessor(node);
+    if(node != nullptr) {
+        valFromNode = successor->getData();
+    }
+    // assert
+    ASSERT_EQ(valExpected, valFromNode);
+}
+
+TEST_F(TreeTest, InOrderSuccessor_35) {
+    // arrange
+    int valToGet = 35;
+    int valExpected = 40;
+    int valFromNode = -1;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    for(int i = m_size; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
+
+    for(int i = m_sizeSecondary, spot = 0; i > 0; i--)
+    {
+        pTree->add(m_valsSecondary[spot]);
+        spot++;
+    }
+    // act
+    pTreeNode node = pTree->get(valToGet);
+    pTreeNode successor = pTree->inOrderSuccessor(node);
+    if(node != nullptr) {
+        valFromNode = successor->getData();
+    }
+    // assert
+    ASSERT_EQ(valExpected, valFromNode);
 }
 

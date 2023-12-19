@@ -31,6 +31,7 @@ void Tree::_addRecursive(pTreeNode root, pTreeNode newNode) {
     if (newNode->getData() < root->getData()) {
         if (root->getLeft() == nullptr) {
             root->setLeft(newNode);
+            newNode->setParent(root);
             return;
         } else {
             _addRecursive(root->getLeft(), newNode);
@@ -38,6 +39,7 @@ void Tree::_addRecursive(pTreeNode root, pTreeNode newNode) {
     } else {
         if (root->getRight() == nullptr) {
             root->setRight(newNode);
+            newNode->setParent(root);
             return;
         } else {
             _addRecursive(root->getRight(), newNode);
@@ -53,6 +55,7 @@ void Tree::_add(pTreeNode root, pTreeNode newNode) {
             // go left
             if (curr->getLeft() == nullptr) {
                 curr->setLeft(newNode);
+                newNode->setParent(curr);
                 break;
             }
             curr = curr->getLeft();
@@ -60,6 +63,7 @@ void Tree::_add(pTreeNode root, pTreeNode newNode) {
             // go right
             if (curr->getRight() == nullptr) {
                 curr->setRight(newNode);
+                newNode->setParent(curr);
                 break;
             }
             curr = curr->getRight();
@@ -154,29 +158,29 @@ void Tree::_remove(pTreeNode curr, pTreeNode prev) {
     }
 }
 
-int Tree::get(int key) {
-    int rVal = -1;
+pTreeNode Tree::get(int key) {
+    pTreeNode node = nullptr;
     if (m_root != nullptr) {
-        rVal = _get(m_root, key);
+        node = _get(m_root, key);
     }
-    return (rVal);
+    return (node);
 }
 
-int Tree::_get(pTreeNode root, int key) {
+pTreeNode Tree::_get(pTreeNode root, int key) {
     if (root == nullptr) {
-        return (-1);
+        return (root);
     }
 
     if (root->getData() == key) {
         // printf("found (%d)\n", key);
-        return (key);
+        return (root);
     }
 
     if (key < root->getData()) {
         // printf("visiting left (%d)\n", root->getData());
         if (root->getLeft() == nullptr) {
             // printf("(%d) not found\n", key);
-            return (-1);
+            return (nullptr);
         } else {
             return (_get(root->getLeft(), key));
         }
@@ -184,7 +188,7 @@ int Tree::_get(pTreeNode root, int key) {
         // printf("visiting right (%d)\n", root->getData());
         if (root->getRight() == nullptr) {
             // printf("(%d) not found\n", key);
-            return (-1);
+            return (nullptr);
         } else {
             return (_get(root->getRight(), key));
         }
@@ -222,4 +226,67 @@ int Tree::_getDepth(pTreeNode root) {
     } else {
         return (rVal + 1);
     }
+}
+
+/*
+
+wrong thinking
+do a successot for a given node
+
+and then the show thing id different
+it goes by value
+
+your brain is wrong
+
+
+*/
+
+pTreeNode Tree::inOrderSuccessor(pTreeNode node) {
+
+    if (node == nullptr) {
+        return(node);
+    }
+
+    pTreeNode successor = node;
+    pTreeNode nextLeft = nullptr;
+    pTreeNode nextRight = nullptr;
+    if((nextRight = node->getRight()) != nullptr) {
+        successor = _getLeastValuePresent(nextRight);
+    } else if((nextLeft = node->getLeft()) != nullptr) {
+        successor = _getNodeThatIsLeftChildOfParent(node);
+    }
+    return(successor);
+    }
+
+pTreeNode Tree::_getNodeThatIsLeftChildOfParent(pTreeNode node) {
+    pTreeNode curr = node;
+    pTreeNode parent = curr->getParent();
+    while(parent != nullptr) {
+        pTreeNode nextLeft = parent->getLeft();
+        if(nextLeft != nullptr) {
+            if(nextLeft == curr) {
+                break;
+            } else {
+                curr = parent;
+                parent = parent->getLeft();
+            }
+        } else {
+            parent = nullptr;
+            break;
+        }
+    }
+    return(parent);
+}
+
+pTreeNode Tree::_getLeastValuePresent(pTreeNode node) {
+    pTreeNode curr = node;
+    while(curr != nullptr) {
+        pTreeNode nextLeft = curr->getLeft();
+        if(nextLeft != nullptr) {
+            curr = nextLeft;
+        } else {
+            break;
+        }
+    }
+    return(curr);
 }

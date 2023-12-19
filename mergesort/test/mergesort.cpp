@@ -87,7 +87,7 @@ TEST_F(MergerTest, It_OddNunberOfElements) {
     srand(time(NULL));
     for(int i = 0; i < size; i++)
     {
-        tmp[i] = ary[i] = (rand() % 511);
+        tmp[i] = ary[i] = (rand() % size);
     }
     auto pMergerIt = make_unique<MergerIt>(size);
     pMergerIt->printArray(ary);
