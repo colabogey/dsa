@@ -78,30 +78,18 @@ TODO: now that you have a prev pointer
       this can be simplified
 
 */
-int Tree::remove(int key) {
+pTreeNode Tree::remove(int key) {
     if (m_root == nullptr) {
-        return (-1);
+        return (nullptr);
     }
+
     printf("remove (%d)\n", key);
-    pTreeNode curr = m_root;
-    pTreeNode prev = nullptr;
-    while (true) {
-        if (key == curr->getData()) {
-            break;
-        } else {
-            if (key < curr->getData()) {
-                // assume the key is in there
-                prev = curr;
-                curr = curr->getLeft();
-            } else {
-                prev = curr;
-                curr = curr->getRight();
-            }
-        }
+    pTreeNode node =_get(m_root, key);
+    if(node != nullptr) {
+        _remove(node);
+        subtractFromNodeCount();
     }
-    _remove(curr, prev);
-    subtractFromNodeCount();
-    return (key);
+    return (node);
 }
 
 /*
@@ -110,10 +98,12 @@ int Tree::remove(int key) {
 
 
 */
-void Tree::_remove(pTreeNode curr, pTreeNode prev) {
+void Tree::_remove(pTreeNode node) {
+    pTreeNode curr = node;
+    pTreeNode prev = node->getParent();
     if (prev == nullptr) {
         // its m_root
-        prev = curr;
+        //prev = curr;
     }
 
     if ((curr->getLeft() == nullptr) && (curr->getRight() == nullptr)) {
@@ -137,15 +127,15 @@ void Tree::_remove(pTreeNode curr, pTreeNode prev) {
             }
         }
     } else {
-        pTreeNode parent;
-        pTreeNode temp;
+        pTreeNode successor = inOrderSuccessor(curr);;
 
         // Compute the inorder successor
-        temp = curr->getRight();
-        while (temp->getLeft() != nullptr) {
-            parent = temp;
-            temp = temp->getLeft();
-        }
+        //pTreeNode parent = nullptr;
+        //pTreeNode temp = curr->getRight();
+        //while (temp->getLeft() != nullptr) {
+            //parent = temp;
+            //temp = temp->getLeft();
+        //}
 
         // check if the parent of the inorder
         // successor is the curr or not(i.e. curr=
@@ -154,8 +144,8 @@ void Tree::_remove(pTreeNode curr, pTreeNode prev) {
         // deleted). if it isn't, then make the
         // the left child of its parent equal to
         // the inorder successor'd right child.
-        if (parent != nullptr)
-            parent->setLeft(temp->getRight());
+        if (prev != nullptr)
+            prev->setLeft(successor->getRight());
 
         // if the inorder successor was the
         // curr (i.e. curr = the node which has the
@@ -165,9 +155,9 @@ void Tree::_remove(pTreeNode curr, pTreeNode prev) {
         // deleted equal to the right child of
         // the inorder successor.
         else
-            curr->setRight(temp->getRight());
+            curr->setRight(successor->getRight());
 
-        curr->setData(temp->getData());
+        curr->setData(successor->getData());
     }
 }
 

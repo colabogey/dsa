@@ -234,7 +234,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftOnly_Verify_ByNodeCount) {
     }
     pTreeNode root = pTree->getRoot();
     // act
-    int valRemoved = pTree->remove(valToRemove);
+    pTreeNode removed = pTree->remove(valToRemove);
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -257,7 +257,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithRightOnly_Verify_ByNodeCount) 
     }
     pTreeNode root = pTree->getRoot();
     // act
-    int valRemoved = pTree->remove(valToRemove);
+    pTreeNode removed = pTree->remove(valToRemove);
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -280,7 +280,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveLeaf_Verify_ByNodeCount) {
     }
     pTreeNode root = pTree->getRoot();
     // act
-    int valRemoved = pTree->remove(valToRemove);
+    pTreeNode removed = pTree->remove(valToRemove);
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -303,7 +303,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftAndRight_Verify_ByNodeCoun
 
     pTreeNode root = pTree->getRoot();
     // act
-    int valRemoved = pTree->remove(valToRemove);
+    pTreeNode removed = pTree->remove(valToRemove);
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -326,9 +326,10 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveRoot_Verify_ByNodeCount) {
 
     pTreeNode root = pTree->getRoot();
     // act
-    int valRemoved = pTree->remove(valToRemove);
+    pTree->show(root);
+    pTreeNode removed = pTree->remove(valToRemove);
     // assert
-    //pTree->show(root);
+    pTree->show(root);
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }

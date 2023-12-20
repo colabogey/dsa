@@ -14,7 +14,7 @@ class Tree {
     void add(int);
     void addRecursive(int);
     pTreeNode get(int);
-    int remove(int);
+    pTreeNode remove(int);
     int getDepth();
     pTreeNode getRoot() { return m_root; };
     void show(pTreeNode);
@@ -25,7 +25,7 @@ class Tree {
 
   private:
     void _add(pTreeNode, pTreeNode);
-    void _remove(pTreeNode, pTreeNode);
+    void _remove(pTreeNode);
     void _addRecursive(pTreeNode, pTreeNode);
     pTreeNode _get(pTreeNode, int);
     int _getDepth(pTreeNode);
