@@ -15,10 +15,18 @@ void Tree::addRecursive(int data) {
 void Tree::add(int data) {
     pTreeNode newItem = std::make_shared<TreeNode>();
     newItem->setData(data);
+    if(newItem->getData() == 55)
+    {
+        printf("55 use_count (%ld)\n", newItem.use_count());
+    }
     if (m_root == nullptr) {
         m_root = newItem;
     } else {
         _add(m_root, newItem);
+    }
+    if(newItem->getData() == 55)
+    {
+        printf("55 use_count (%ld)\n", newItem.use_count());
     }
     addToNodeCount();
 }
@@ -71,36 +79,23 @@ void Tree::_add(pTreeNode root, pTreeNode newNode) {
     }
 }
 
-/*
-
-TODO: now that you have a prev pointer
-      and a get thet returns a node
-      this can be simplified
-
-*/
 pTreeNode Tree::remove(int key) {
+    pTreeNode ret = nullptr;
     if (m_root == nullptr) {
-        return (nullptr);
+        return (ret);
     }
 
     printf("remove (%d)\n", key);
     pTreeNode node =_get(m_root, key);
     if(node != nullptr) {
-        _remove(node);
+        ret = _remove(node);
         subtractFromNodeCount();
     }
-    return (node);
+    return (ret);
 }
 
-/*
-
-: understand this
-
-
-*/
-void Tree::_remove(pTreeNode node) {
-    pTreeNode curr = node;
-    pTreeNode prev = node->getParent();
+pTreeNode Tree::_remove(pTreeNode curr) {
+    pTreeNode prev = curr->getParent();
     if (prev == nullptr) {
         // its m_root
         //prev = curr;
@@ -113,20 +108,31 @@ void Tree::_remove(pTreeNode node) {
         } else {
             prev->setRight(nullptr);
         }
+        return(curr);
     }
 
     else if ((curr->getLeft() == nullptr) || curr->getRight() == nullptr) {
         // internal node with just one 'side'
-        if (curr->getLeft() != nullptr) {
-            if (curr = prev->getLeft()) {
-                prev->setLeft(curr->getLeft());
-            }
+        // delete the node and move its child up to take its place
+        pTreeNode newNode = std::make_shared<TreeNode>();
+        if (curr->getLeft() == nullptr) {
+            newNode = curr->getRight();
         } else {
-            if (curr = prev->getRight()) {
-                prev->setRight(curr->getRight());
-            }
+            newNode = curr->getLeft();
         }
+        
+        if(curr == prev->getLeft()) {
+            prev->setLeft(newNode);
+        } else {
+            prev->setRight(newNode);
+        }
+        return(newNode);
     } else {
+        /*
+        Node to be deleted is an internal node with two children. 
+        Copy the contents of the inorder successor of the node to be 
+        deleted and delete the inorder successor. 
+        */
         pTreeNode successor = inOrderSuccessor(curr);;
 
         // Compute the inorder successor
@@ -137,27 +143,28 @@ void Tree::_remove(pTreeNode node) {
             //temp = temp->getLeft();
         //}
 
-        // check if the parent of the inorder
-        // successor is the curr or not(i.e. curr=
-        // the node which has the same data as
-        // the given data by the user to be
-        // deleted). if it isn't, then make the
-        // the left child of its parent equal to
-        // the inorder successor'd right child.
-        if (prev != nullptr)
+        if (prev != nullptr) {
+            // check if the parent of the inorder successor is the 
+            // curr or not (i.e. curr= the node which has the same 
+            // data as the given data by the user to be deleted). 
+            // if it isn't, then make the the left child of its 
+            // parent equal to the inorder successor'd right child.
             prev->setLeft(successor->getRight());
-
-        // if the inorder successor was the
-        // curr (i.e. curr = the node which has the
-        // same data as the given data by the
-        // user to be deleted), then make the
-        // right child of the node to be
-        // deleted equal to the right child of
-        // the inorder successor.
-        else
+        } else {
+            // if the inorder successor was the curr 
+            // (i.e. curr = the node which has the same data as the 
+            // given data by the user to be deleted), then make the 
+            // right child of the node to be deleted equal to the right 
+            // child of the inorder successor.
             curr->setRight(successor->getRight());
-
+        }
+        // set the key
+        printf("curr (%d) <== successor (%d)\n", curr->getData(), successor->getData());
         curr->setData(successor->getData());
+        // we are done with successor
+        // TODO: is this leaking successor
+        printf("successor use_count (%ld)\n", successor.use_count());
+        return(successor);
     }
 }
 
