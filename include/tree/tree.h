@@ -3,6 +3,8 @@
 #include "treeNode.h"
 #include <memory>
 #include <string>
+#include <queue>
+#include <utility>
 
 class Tree {
   public:
@@ -22,6 +24,7 @@ class Tree {
     void subtractFromNodeCount() { m_nodeCount--; };
     int getNodeCount() { return m_nodeCount; };
     pTreeNode inOrderSuccessor(pTreeNode);
+    void levelOrder(pTreeNode);
 
   private:
     void _add(pTreeNode, pTreeNode);

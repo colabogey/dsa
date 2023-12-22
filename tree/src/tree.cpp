@@ -1,5 +1,6 @@
 
 #include "tree.h"
+#include <queue>
 
 void Tree::addRecursive(int data) {
     pTreeNode newItem = std::make_shared<TreeNode>();
@@ -15,18 +16,10 @@ void Tree::addRecursive(int data) {
 void Tree::add(int data) {
     pTreeNode newItem = std::make_shared<TreeNode>();
     newItem->setData(data);
-    if(newItem->getData() == 55)
-    {
-        printf("55 use_count (%ld)\n", newItem.use_count());
-    }
     if (m_root == nullptr) {
         m_root = newItem;
     } else {
         _add(m_root, newItem);
-    }
-    if(newItem->getData() == 55)
-    {
-        printf("55 use_count (%ld)\n", newItem.use_count());
     }
     addToNodeCount();
 }
@@ -85,9 +78,8 @@ pTreeNode Tree::remove(int key) {
         return (ret);
     }
 
-    printf("remove (%d)\n", key);
-    pTreeNode node =_get(m_root, key);
-    if(node != nullptr) {
+    pTreeNode node = _get(m_root, key);
+    if (node != nullptr) {
         ret = _remove(node);
         subtractFromNodeCount();
     }
@@ -98,7 +90,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
     pTreeNode prev = curr->getParent();
     if (prev == nullptr) {
         // its m_root
-        //prev = curr;
+        // prev = curr;
     }
 
     if ((curr->getLeft() == nullptr) && (curr->getRight() == nullptr)) {
@@ -108,7 +100,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         } else {
             prev->setRight(nullptr);
         }
-        return(curr);
+        return (curr);
     }
 
     else if ((curr->getLeft() == nullptr) || curr->getRight() == nullptr) {
@@ -120,51 +112,49 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         } else {
             newNode = curr->getLeft();
         }
-        
-        if(curr == prev->getLeft()) {
+
+        if (curr == prev->getLeft()) {
             prev->setLeft(newNode);
         } else {
             prev->setRight(newNode);
         }
-        return(newNode);
+        return (newNode);
     } else {
         /*
-        Node to be deleted is an internal node with two children. 
-        Copy the contents of the inorder successor of the node to be 
-        deleted and delete the inorder successor. 
+        Node to be deleted is an internal node with two children.
+        Copy the contents of the inorder successor of the node to be
+        deleted and delete the inorder successor.
         */
-        pTreeNode successor = inOrderSuccessor(curr);;
+        pTreeNode successor = inOrderSuccessor(curr);
 
         // Compute the inorder successor
-        //pTreeNode parent = nullptr;
-        //pTreeNode temp = curr->getRight();
-        //while (temp->getLeft() != nullptr) {
-            //parent = temp;
-            //temp = temp->getLeft();
+        // pTreeNode parent = nullptr;
+        // pTreeNode temp = curr->getRight();
+        // while (temp->getLeft() != nullptr) {
+        // parent = temp;
+        // temp = temp->getLeft();
         //}
 
         if (prev != nullptr) {
-            // check if the parent of the inorder successor is the 
-            // curr or not (i.e. curr= the node which has the same 
-            // data as the given data by the user to be deleted). 
-            // if it isn't, then make the the left child of its 
+            // check if the parent of the inorder successor is the
+            // curr or not (i.e. curr= the node which has the same
+            // data as the given data by the user to be deleted).
+            // if it isn't, then make the the left child of its
             // parent equal to the inorder successor'd right child.
             prev->setLeft(successor->getRight());
         } else {
-            // if the inorder successor was the curr 
-            // (i.e. curr = the node which has the same data as the 
-            // given data by the user to be deleted), then make the 
-            // right child of the node to be deleted equal to the right 
+            // if the inorder successor was the curr
+            // (i.e. curr = the node which has the same data as the
+            // given data by the user to be deleted), then make the
+            // right child of the node to be deleted equal to the right
             // child of the inorder successor.
             curr->setRight(successor->getRight());
         }
         // set the key
-        printf("curr (%d) <== successor (%d)\n", curr->getData(), successor->getData());
         curr->setData(successor->getData());
         // we are done with successor
         // TODO: is this leaking successor
-        printf("successor use_count (%ld)\n", successor.use_count());
-        return(successor);
+        return (successor);
     }
 }
 
@@ -265,4 +255,39 @@ pTreeNode Tree::_getLeastValuePresent(pTreeNode node) {
         curr = curr->getLeft();
     }
     return (curr);
+}
+
+void Tree::levelOrder(pTreeNode root) {
+    // Base Case
+    if (root == NULL)
+        return;
+
+    // Create an empty queue for level order traversal
+    std::queue<pTreeNode> q;
+
+    // Enqueue Root and initialize height
+    q.push(root);
+
+    while (q.empty() == false) {
+        // nodeCount (queue size) indicates number
+        // of nodes at current level.
+        int nodeCount = q.size();
+
+        // Dequeue all nodes of current level and
+        // Enqueue all nodes of next level
+        while (nodeCount > 0) {
+            pTreeNode node = q.front();
+            q.pop();
+            if (node->getLeft() != nullptr) {
+                q.push(node->getLeft());
+            }
+
+            if (node->getRight() != nullptr) {
+                q.push(node->getRight());
+            }
+
+            nodeCount--;
+        }
+        printf("\n");
+    }
 }

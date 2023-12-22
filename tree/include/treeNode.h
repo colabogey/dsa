@@ -5,7 +5,7 @@ class TreeNode {
   public:
     TreeNode() = default;
     TreeNode(int data) { m_data = data; };
-    ~TreeNode() = default;
+    virtual ~TreeNode() = default;
     int getData() { return m_data; };
     void setData(int data) { m_data = data; };
 

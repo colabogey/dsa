@@ -258,7 +258,6 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithRightOnly_Verify_ByNodeCount) 
     pTreeNode root = pTree->getRoot();
     // act
     pTreeNode removed = pTree->remove(valToRemove);
-    printf("removed use count %ld\n", removed.use_count());
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -282,7 +281,6 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveLeaf_Verify_ByNodeCount) {
     pTreeNode root = pTree->getRoot();
     // act
     pTreeNode removed = pTree->remove(valToRemove);
-    printf("removed use count %ld\n", removed.use_count());
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -306,7 +304,6 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftAndRight_Verify_ByNodeCoun
     pTreeNode root = pTree->getRoot();
     // act
     pTreeNode removed = pTree->remove(valToRemove);
-    printf("removed use count %ld\n", removed.use_count());
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -331,7 +328,6 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveRoot_Verify_ByNodeCount) {
     // act
     //pTree->show(root);
     pTreeNode removed = pTree->remove(valToRemove);
-    printf("removed use count %ld\n", removed.use_count());
     // assert
     //pTree->show(root);
     int count = pTree->getNodeCount();
@@ -441,5 +437,28 @@ TEST_F(TreeTest, InOrderSuccessor_FromExample_1) {
     }
     // assert
     ASSERT_EQ(valExpected, valFromNode);
+}
+
+TEST_F(TreeTest, LevelOrder) {
+    // arrange
+    int valExpected = 1;
+    int spot = 0;
+    auto pTree = make_unique<Tree>();
+    for(int i = m_size; i > 0; i--)
+    {
+        pTree->add(m_vals[spot]);
+        spot++;
+    }
+
+    for(int i = m_sizeSecondary, spot = 0; i > 0; i--)
+    {
+        pTree->add(m_valsSecondary[spot]);
+        spot++;
+    }
+    pTreeNode root = pTree->getRoot();
+    // act
+    //pTree->levelOrder(root);
+    // assert
+    ASSERT_EQ(valExpected, 1);
 }
 
