@@ -39,7 +39,11 @@
 *.gcno
 
 # vscode
-**/.vscode/
+.vscode/
+
+#kdevelop
+.kdev4/
+*.kdev4
 
 #coverage
 **/coverage_out
@@ -47,4 +51,5 @@
 #gtest/gmock
 **/gtest
 **/gmock
+
 
