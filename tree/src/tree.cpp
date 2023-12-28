@@ -167,7 +167,7 @@ pTreeNode Tree::get(int key) {
 
 pTreeNode Tree::_get(pTreeNode root, int key) {
     if (root == nullptr) {
-        return (root);
+        return (nullptr);
     }
 
     if (root->getData() == key) {
@@ -175,17 +175,9 @@ pTreeNode Tree::_get(pTreeNode root, int key) {
     }
 
     if (key < root->getData()) {
-        if (root->getLeft() == nullptr) {
-            return (nullptr);
-        } else {
-            return (_get(root->getLeft(), key));
-        }
+        return(_get(root->getLeft(), key));
     } else {
-        if (root->getRight() == nullptr) {
-            return (nullptr);
-        } else {
-            return (_get(root->getRight(), key));
-        }
+        return(_get(root->getRight(), key));
     }
 }
 
