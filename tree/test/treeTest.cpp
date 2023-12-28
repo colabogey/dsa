@@ -16,6 +16,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <string>
+#include <deque>
 #include <functional>
 #include <tree.h>
 
@@ -44,6 +45,7 @@ class TreeTest : public ::testing::Test {
     virtual void TearDown() {
         // Code here will be called immediately after each test (right
         // before the destructor).
+        m_nodeData.clear();
     }
 
     // Objects declared here can be used by all tests.
@@ -68,6 +70,20 @@ class TreeTest : public ::testing::Test {
         AddAll(pTree);
         AddSecondary(pTree);
     }
+
+    void ShowNodeData(std::string s) {
+        printf("\t%s: ", s.c_str());
+        for(int i : m_nodeData) {
+            printf("%d ", i);
+        }
+        printf("\n");
+    }
+
+    void ClearNodeData() {
+        m_nodeData.clear();
+    }
+
+    std::deque<int> m_nodeData;
 
     int m_size{9};
     int m_vals[9] = {55, 40, 35, 27, 60, 42, 16, 3, 90 };
@@ -135,7 +151,8 @@ TEST_F(TreeTest, AddAllRecursive_Verify_ByNodeCount) {
     // act
     int count = pTree->getNodeCount();
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     ASSERT_EQ(count, toAdd);
 }
 
@@ -167,7 +184,8 @@ TEST_F(TreeTest, AddAll_Verify_Depth) {
     // act
     int depth = pTree->getDepth();
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     ASSERT_EQ(depth, 6);
 }
 
@@ -191,7 +209,8 @@ TEST_F(TreeTest, AddAllAndSecondaryRecursive_Verify_Depth) {
     // act
     int depth = pTree->getDepth();
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     ASSERT_EQ(depth, 15);
 }
 
@@ -214,7 +233,8 @@ TEST_F(TreeTest, AddAllAndSecondaryRecursive_Verify_ByNodeCount) {
     pTreeNode root = pTree->getRoot();
     // act
     int count = pTree->getNodeCount();
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     // assert
     ASSERT_EQ(count, m_size + m_sizeSecondary);
 }
@@ -228,7 +248,8 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftOnly_Verify_ByNodeCount) {
     // act
     pTreeNode removed = pTree->remove(valToRemove);
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -242,7 +263,8 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithRightOnly_Verify_ByNodeCount) 
     // act
     pTreeNode removed = pTree->remove(valToRemove);
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -256,7 +278,8 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveLeaf_Verify_ByNodeCount) {
     // act
     pTreeNode removed = pTree->remove(valToRemove);
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -270,7 +293,8 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftAndRight_Verify_ByNodeCoun
     // act
     pTreeNode removed = pTree->remove(valToRemove);
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -282,10 +306,13 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveRoot_Verify_ByNodeCount) {
     AddAllAndSecondary(pTree);
     pTreeNode root = pTree->getRoot();
     // act
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
+    ClearNodeData();
     pTreeNode removed = pTree->remove(valToRemove);
     // assert
-    //pTree->show(root);
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
     int count = pTree->getNodeCount();
     ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
 }
@@ -378,33 +405,21 @@ TEST_F(TreeTest, LevelOrder) {
     ASSERT_EQ(valExpected, 1);
 }
 
-TEST_F(TreeTest, AddAllAndSecondary_Inorder_ToVector) {
-    // arrange
-    int valToRemove = 55;
-    auto pTree = make_shared<Tree>();
-    AddAllAndSecondary(pTree);
-    pTreeNode root = pTree->getRoot();
-    // act
-    //pTree->show(root);
-    pTreeNode removed = pTree->remove(valToRemove);
-    // assert
-    //pTree->show(root);
-    int count = pTree->getNodeCount();
-    ASSERT_EQ(count, ((m_size + m_sizeSecondary) - 1));
-}
-
 TEST_F(TreeTest, AddAllAndSecondary_Rebalance_VerifyWithNodeCount) {
     // arrange
     auto pTree = make_shared<Tree>();
     AddAllAndSecondary(pTree);
     pTreeNode origRoot = pTree->getRoot();
-    pTree->showInOrder(origRoot);
+    pTree->collectNodeDataInOrder(origRoot, m_nodeData);
+    ShowNodeData("InOrder");
+    ClearNodeData();
     int beforeCount = pTree->getNodeCount();
     // act
     pTree->rebalance();
     int afterCount = pTree->getNodeCount();
     pTreeNode newRoot = pTree->getRoot();
-    pTree->showInOrder(newRoot);
+    pTree->collectNodeDataInOrder(newRoot, m_nodeData);
+    ShowNodeData("InOrder");
     pTree->levelOrder(newRoot);
     // assert
     ASSERT_EQ(afterCount, beforeCount);

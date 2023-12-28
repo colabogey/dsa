@@ -20,9 +20,9 @@ class Tree {
     pTreeNode remove(int);
     int getDepth();
     pTreeNode getRoot() { return m_root; };
-    void showInOrder(pTreeNode);
+    void collectNodeDataInOrder(pTreeNode, std::deque<int>&);
     void showPreOrder(pTreeNode);
-    void collectInOrderData(pTreeNode);
+    void collectNodesInOrder(pTreeNode);
     void rebalance();
     void addToNodeCount() { m_nodeCount++; };
     void subtractFromNodeCount() { m_nodeCount--; };
@@ -36,14 +36,14 @@ class Tree {
     void _addRecursive(pTreeNode, pTreeNode);
     pTreeNode _get(pTreeNode, int);
     int _getDepth(pTreeNode);
-    void _showInOrder(pTreeNode);
+    void _collectNodeDataInOrder(pTreeNode, std::deque<int>&);
     void _showPreOrder(pTreeNode);
-    void _collectInOrderData(pTreeNode);
+    void _collectNodesInOrder(pTreeNode);
     pTreeNode _getNodeThatIsLeftChildOfParent(pTreeNode);
     pTreeNode _getLeastValuePresent(pTreeNode);
     pTreeNode _rebalance(pTreeNode, int, int);
 
     pTreeNode m_root{nullptr};
     int m_nodeCount{0};
-    std::deque<pTreeNode> m_deque;
+    std::deque<pTreeNode> m_nodes;
 };

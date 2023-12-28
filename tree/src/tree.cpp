@@ -1,6 +1,5 @@
 
 #include "tree.h"
-#include <queue>
 
 void Tree::addRecursive(int data) {
     pTreeNode newItem = std::make_shared<TreeNode>();
@@ -190,18 +189,19 @@ pTreeNode Tree::_get(pTreeNode root, int key) {
     }
 }
 
-void Tree::showInOrder(pTreeNode root) {
+void Tree::collectNodeDataInOrder(pTreeNode root, std::deque<int>& q) {
     if (root != nullptr) {
-        _showInOrder(root);
-        printf("\n");
+        _collectNodeDataInOrder(root, q);
+        //printf("\n");
     }
 }
 
-void Tree::_showInOrder(pTreeNode root) {
+void Tree::_collectNodeDataInOrder(pTreeNode root, std::deque<int>& q) {
     if (root != nullptr) {
-        _showInOrder(root->getLeft());
-        printf("(%d) ", root->getData());
-        _showInOrder(root->getRight());
+        _collectNodeDataInOrder(root->getLeft(), q);
+        //printf("(%d) ", root->getData());
+        q.push_back(root->getData());
+        _collectNodeDataInOrder(root->getRight(), q);
     }
 }
 
@@ -220,24 +220,25 @@ void Tree::_showPreOrder(pTreeNode root) {
     }
 }
 
-void Tree::collectInOrderData(pTreeNode root) {
+void Tree::collectNodesInOrder(pTreeNode root) {
     if (root != nullptr) {
-        _collectInOrderData(root);
+        _collectNodesInOrder(root);
     }
 }
 
-void Tree::_collectInOrderData(pTreeNode root) {
+void Tree::_collectNodesInOrder(pTreeNode root) {
     if (root != nullptr) {
-        _collectInOrderData(root->getLeft());
-        m_deque.push_back(root);
-        _collectInOrderData(root->getRight());
+        _collectNodesInOrder(root->getLeft());
+        m_nodes.push_back(root);
+        _collectNodesInOrder(root->getRight());
     }
 }
 
 void Tree::rebalance() {
-    _collectInOrderData(m_root);
-    pTreeNode newRoot = _rebalance(m_root, 0, (m_deque.size() - 1));
+    _collectNodesInOrder(m_root);
+    pTreeNode newRoot = _rebalance(m_root, 0, (m_nodes.size() - 1));
     m_root = newRoot;
+    m_nodes.clear();
 }
 
 pTreeNode Tree::_rebalance(pTreeNode root, int indexLeft, int indexRight) {
@@ -247,10 +248,10 @@ pTreeNode Tree::_rebalance(pTreeNode root, int indexLeft, int indexRight) {
 
     int medianIndex = (indexLeft + indexRight) / 2;
     printf("m (%d), l (%d), r(%d)\n", 
-        m_deque[medianIndex]->getData(), 
-        m_deque[indexLeft]->getData(), 
-        m_deque[indexRight]->getData());
-    pTreeNode spNode = m_deque[medianIndex];
+        m_nodes[medianIndex]->getData(), 
+        m_nodes[indexLeft]->getData(), 
+        m_nodes[indexRight]->getData());
+    pTreeNode spNode = m_nodes[medianIndex];
     spNode->setParent(root);
     spNode->setLeft(_rebalance(spNode, indexLeft, medianIndex - 1));
     spNode->setRight(_rebalance(spNode, medianIndex + 1, indexRight));
