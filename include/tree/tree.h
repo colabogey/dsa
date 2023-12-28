@@ -45,5 +45,5 @@ class Tree {
 
     pTreeNode m_root{nullptr};
     int m_nodeCount{0};
-    std::deque<int> m_deque;
+    std::deque<pTreeNode> m_deque;
 };

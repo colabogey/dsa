@@ -229,14 +229,14 @@ void Tree::collectInOrderData(pTreeNode root) {
 void Tree::_collectInOrderData(pTreeNode root) {
     if (root != nullptr) {
         _collectInOrderData(root->getLeft());
-        m_deque.push_back(root->getData());
+        m_deque.push_back(root);
         _collectInOrderData(root->getRight());
     }
 }
 
 void Tree::rebalance() {
     _collectInOrderData(m_root);
-    pTreeNode newRoot = _rebalance(m_root, 0, m_deque.size());
+    pTreeNode newRoot = _rebalance(m_root, 0, (m_deque.size() - 1));
     m_root = newRoot;
 }
 
@@ -247,9 +247,10 @@ pTreeNode Tree::_rebalance(pTreeNode root, int indexLeft, int indexRight) {
 
     int medianIndex = (indexLeft + indexRight) / 2;
     printf("m (%d), l (%d), r(%d)\n", 
-        m_deque[medianIndex], m_deque[indexLeft], m_deque[indexRight]);
-    pTreeNode spNode = std::make_shared<TreeNode>();
-    spNode->setData(m_deque[medianIndex]);
+        m_deque[medianIndex]->getData(), 
+        m_deque[indexLeft]->getData(), 
+        m_deque[indexRight]->getData());
+    pTreeNode spNode = m_deque[medianIndex];
     spNode->setParent(root);
     spNode->setLeft(_rebalance(spNode, indexLeft, medianIndex - 1));
     spNode->setRight(_rebalance(spNode, medianIndex + 1, indexRight));
