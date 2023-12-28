@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <queue>
+#include <deque>
 #include <utility>
 
 class Tree {
@@ -19,7 +20,10 @@ class Tree {
     pTreeNode remove(int);
     int getDepth();
     pTreeNode getRoot() { return m_root; };
-    void show(pTreeNode);
+    void showInOrder(pTreeNode);
+    void showPreOrder(pTreeNode);
+    void collectInOrderData(pTreeNode);
+    void rebalance();
     void addToNodeCount() { m_nodeCount++; };
     void subtractFromNodeCount() { m_nodeCount--; };
     int getNodeCount() { return m_nodeCount; };
@@ -32,10 +36,14 @@ class Tree {
     void _addRecursive(pTreeNode, pTreeNode);
     pTreeNode _get(pTreeNode, int);
     int _getDepth(pTreeNode);
-    void _show(pTreeNode);
+    void _showInOrder(pTreeNode);
+    void _showPreOrder(pTreeNode);
+    void _collectInOrderData(pTreeNode);
     pTreeNode _getNodeThatIsLeftChildOfParent(pTreeNode);
     pTreeNode _getLeastValuePresent(pTreeNode);
+    pTreeNode _rebalance(pTreeNode, int, int);
 
     pTreeNode m_root{nullptr};
     int m_nodeCount{0};
+    std::deque<int> m_deque;
 };

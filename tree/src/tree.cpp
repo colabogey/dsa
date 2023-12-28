@@ -190,19 +190,70 @@ pTreeNode Tree::_get(pTreeNode root, int key) {
     }
 }
 
-void Tree::show(pTreeNode root) {
+void Tree::showInOrder(pTreeNode root) {
     if (root != nullptr) {
-        _show(root);
+        _showInOrder(root);
         printf("\n");
     }
 }
 
-void Tree::_show(pTreeNode root) {
+void Tree::_showInOrder(pTreeNode root) {
     if (root != nullptr) {
-        _show(root->getLeft());
+        _showInOrder(root->getLeft());
         printf("(%d) ", root->getData());
-        show(root->getRight());
+        _showInOrder(root->getRight());
     }
+}
+
+void Tree::showPreOrder(pTreeNode root) {
+    if (root != nullptr) {
+        _showPreOrder(root);
+        printf("\n");
+    }
+}
+
+void Tree::_showPreOrder(pTreeNode root) {
+    if (root != nullptr) {
+        printf("(%d) ", root->getData());
+        _showPreOrder(root->getLeft());
+        _showPreOrder(root->getRight());
+    }
+}
+
+void Tree::collectInOrderData(pTreeNode root) {
+    if (root != nullptr) {
+        _collectInOrderData(root);
+    }
+}
+
+void Tree::_collectInOrderData(pTreeNode root) {
+    if (root != nullptr) {
+        _collectInOrderData(root->getLeft());
+        m_deque.push_back(root->getData());
+        _collectInOrderData(root->getRight());
+    }
+}
+
+void Tree::rebalance() {
+    _collectInOrderData(m_root);
+    pTreeNode newRoot = _rebalance(m_root, 0, m_deque.size());
+    m_root = newRoot;
+}
+
+pTreeNode Tree::_rebalance(pTreeNode root, int indexLeft, int indexRight) {
+    if(indexLeft > indexRight) {
+        return nullptr;
+    }
+
+    int medianIndex = (indexLeft + indexRight) / 2;
+    printf("m (%d), l (%d), r(%d)\n", 
+        m_deque[medianIndex], m_deque[indexLeft], m_deque[indexRight]);
+    pTreeNode spNode = std::make_shared<TreeNode>();
+    spNode->setData(m_deque[medianIndex]);
+    spNode->setParent(root);
+    spNode->setLeft(_rebalance(spNode, indexLeft, medianIndex - 1));
+    spNode->setRight(_rebalance(spNode, medianIndex + 1, indexRight));
+    return(spNode);
 }
 
 int Tree::getDepth() {
@@ -272,12 +323,14 @@ void Tree::levelOrder(pTreeNode root) {
         // nodeCount (queue size) indicates number
         // of nodes at current level.
         int nodeCount = q.size();
+        printf("nodeCount (%d)\n", nodeCount);
 
         // Dequeue all nodes of current level and
         // Enqueue all nodes of next level
         while (nodeCount > 0) {
             pTreeNode node = q.front();
             q.pop();
+            printf("%d ", node->getData());
             if (node->getLeft() != nullptr) {
                 q.push(node->getLeft());
             }
