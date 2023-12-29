@@ -107,8 +107,27 @@ class TreeTest : public ::testing::Test {
         m_nodeData.clear();
     }
 
-    std::deque<int> m_nodeData;
+    void ShowLevels() {
+        int level = 1;
+        for(std::list<int> l : m_levels) {
+            printf("\t[level: %d]\t", level);
+            for(int i : l) {
+                printf("%d ", i);
+            }
+            printf("\t[count %ld] \n", l.size());
+            level++;
+        }
+    }
 
+    void ClearLevels() {
+        for(std::list<int> l : m_levels) {
+            l.clear();
+        }
+        m_levels.clear();
+    }
+
+    treeLevels  m_levels;
+    std::deque<int> m_nodeData;
     int m_size{10};
     int m_vals[10] = {55, 40, 35, 27, 60, 42, 16, 3, 90, 58};
 
@@ -235,7 +254,6 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftOnly_Verify_ByNodeCount) {
     pTree->collectNodeDataInOrder(root, m_nodeData);
     int countBefore = m_nodeData.size();
     ShowNodeData("InOrder");
-    m_nodeData.clear();
     ClearNodeData();
     // act
     pTreeNode removed = pTree->remove(valToRemove);
@@ -256,7 +274,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithRightOnly_Verify_ByNodeCount) 
     pTree->collectNodeDataInOrder(root, m_nodeData);
     int countBefore = m_nodeData.size();
     ShowNodeData("Inorder:");
-    m_nodeData.clear();
+    ClearNodeData();
     // act
     pTreeNode removed = pTree->remove(valToRemove);
     printf("\tRemoved (%d)\n", removed->getData());
@@ -276,7 +294,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveLeaf_Verify_ByNodeCount) {
     pTree->collectNodeDataInOrder(root, m_nodeData);
     int countBefore = m_nodeData.size();
     ShowNodeData("Inorder:");
-    m_nodeData.clear();
+    ClearNodeData();
     // act
     pTreeNode removed = pTree->remove(valToRemove);
     printf("\tRemoved (%d)\n", removed->getData());
@@ -297,14 +315,15 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveNodeWithLeftAndRight_Verify_ByNodeCoun
     pTree->collectNodeDataInOrder(root, m_nodeData);
     int countBefore = m_nodeData.size();
     ShowNodeData("Inorder:");
-    m_nodeData.clear();
+    ClearNodeData();
     // act
     pTreeNode removed = pTree->remove(valToRemove);
     printf("\tRemoved (%d)\n", removed->getData());
     pTree->collectNodeDataInOrder(root, m_nodeData);
     int countAfter = m_nodeData.size();
     ShowNodeData("InOrder");
-    pTree->levelOrder(root);
+    pTree->levelOrder(root, m_levels);
+    ShowLevels();
     // assert
     ASSERT_EQ(countBefore, (countAfter + 1));
 }
@@ -405,12 +424,12 @@ TEST_F(TreeTest, InOrderSuccessor_FromExample_1) {
 TEST_F(TreeTest, LevelOrder) {
     // arrange
     int valExpected = 1;
-    int spot = 0;
     auto pTree = make_shared<Tree>();
     AddAllAndSecondary(pTree);
     pTreeNode root = pTree->getRoot();
     // act
-    pTree->levelOrder(root);
+    pTree->levelOrder(root, m_levels);
+    ShowLevels();
     // assert
     ASSERT_EQ(valExpected, 1);
 }
@@ -424,13 +443,17 @@ TEST_F(TreeTest, AddAllAndSecondary_Rebalance_VerifyWithNodeCount) {
     ShowNodeData("InOrder");
     ClearNodeData();
     int beforeCount = pTree->getNodeCount();
+    pTree->levelOrder(origRoot, m_levels);
+    ShowLevels();
+    ClearLevels();
     // act
     pTree->rebalance();
     int afterCount = pTree->getNodeCount();
     pTreeNode newRoot = pTree->getRoot();
     pTree->collectNodeDataInOrder(newRoot, m_nodeData);
     ShowNodeData("InOrder");
-    pTree->levelOrder(newRoot);
+    pTree->levelOrder(newRoot, m_levels);
+    ShowLevels();
     // assert
     ASSERT_EQ(afterCount, beforeCount);
 }

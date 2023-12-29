@@ -4,6 +4,7 @@
 #include <memory>
 #include <string>
 #include <queue>
+#include <list>
 #include <deque>
 #include <utility>
 
@@ -28,8 +29,7 @@ class Tree {
     void subtractFromNodeCount() { m_nodeCount--; };
     int getNodeCount() { return m_nodeCount; };
     pTreeNode inOrderSuccessor(pTreeNode);
-    void levelOrder(pTreeNode);
-
+    void levelOrder(pTreeNode, std::deque<std::list<int>>&);
   private:
     void _add(pTreeNode, pTreeNode);
     pTreeNode _remove(pTreeNode);
@@ -48,3 +48,5 @@ class Tree {
     int m_nodeCount{0};
     std::deque<pTreeNode> m_nodes;
 };
+
+typedef std::deque<std::list<int>> treeLevels;

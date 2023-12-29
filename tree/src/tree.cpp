@@ -236,10 +236,10 @@ pTreeNode Tree::_rebalance(pTreeNode root, int indexLeft, int indexRight) {
     }
 
     int medianIndex = (indexLeft + indexRight) / 2;
-    printf("m (%d), l (%d), r(%d)\n", 
-        m_nodes[medianIndex]->getData(), 
-        m_nodes[indexLeft]->getData(), 
-        m_nodes[indexRight]->getData());
+    //printf("m (%d), l (%d), r(%d)\n",
+        //m_nodes[medianIndex]->getData(),
+        //m_nodes[indexLeft]->getData(),
+        //m_nodes[indexRight]->getData());
     pTreeNode spNode = m_nodes[medianIndex];
     spNode->setParent(root);
     spNode->setLeft(_rebalance(spNode, indexLeft, medianIndex - 1));
@@ -299,7 +299,7 @@ pTreeNode Tree::_getLeastValuePresent(pTreeNode node) {
     return (curr);
 }
 
-void Tree::levelOrder(pTreeNode root) {
+void Tree::levelOrder(pTreeNode root, treeLevels& levels) {
     // Base Case
     if (root == NULL)
         return;
@@ -314,14 +314,16 @@ void Tree::levelOrder(pTreeNode root) {
         // nodeCount (queue size) indicates number
         // of nodes at current level.
         int nodeCount = q.size();
-        printf("nodeCount (%d)\n", nodeCount);
+        //printf("nodeCount (%d)\n", nodeCount);
+        std::list<int> nodesInLevel;
 
         // Dequeue all nodes of current level and
         // Enqueue all nodes of next level
         while (nodeCount > 0) {
             pTreeNode node = q.front();
             q.pop();
-            printf("%d ", node->getData());
+            nodesInLevel.push_back(node->getData());
+            //printf("%d ", node->getData());
             if (node->getLeft() != nullptr) {
                 q.push(node->getLeft());
             }
@@ -332,6 +334,7 @@ void Tree::levelOrder(pTreeNode root) {
 
             nodeCount--;
         }
-        printf("\n");
+        //printf("\n");
+        levels.push_back(nodesInLevel);
     }
 }
