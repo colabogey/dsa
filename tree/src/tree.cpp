@@ -87,10 +87,6 @@ pTreeNode Tree::remove(int key) {
 
 pTreeNode Tree::_remove(pTreeNode curr) {
     pTreeNode prev = curr->getParent();
-    if (prev == nullptr) {
-        // its m_root
-        // prev = curr;
-    }
 
     if ((curr->getLeft() == nullptr) && (curr->getRight() == nullptr)) {
         // its a leaf - just zap it
@@ -99,62 +95,63 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         } else {
             prev->setRight(nullptr);
         }
+        _clearNode(curr);
         return (curr);
-    }
-
-    else if ((curr->getLeft() == nullptr) || curr->getRight() == nullptr) {
+    } else if ((curr->getLeft() == nullptr) || curr->getRight() == nullptr) {
         // internal node with just one 'side'
         // delete the node and move its child up to take its place
-        pTreeNode newNode = std::make_shared<TreeNode>();
-        if (curr->getLeft() == nullptr) {
-            newNode = curr->getRight();
-        } else {
-            newNode = curr->getLeft();
-        }
 
-        if (curr == prev->getLeft()) {
-            prev->setLeft(newNode);
+        if(prev->getLeft() == curr) {
+            if(curr->getLeft() !=nullptr) {
+                prev->setLeft(curr->getLeft());
+            } else {
+                prev->setLeft(curr->getRight());
+            }
         } else {
-            prev->setRight(newNode);
+            if(curr->getLeft() !=nullptr) {
+                prev->setRight(curr->getLeft());
+            } else {
+                prev->setRight(curr->getRight());
+            }
         }
-        return (newNode);
+        _clearNode(curr);
+        return(curr);
     } else {
         /*
         Node to be deleted is an internal node with two children.
         Copy the contents of the inorder successor of the node to be
         deleted and delete the inorder successor.
         */
+        int currData = curr->getData();
         pTreeNode successor = inOrderSuccessor(curr);
-
-        // Compute the inorder successor
-        // pTreeNode parent = nullptr;
-        // pTreeNode temp = curr->getRight();
-        // while (temp->getLeft() != nullptr) {
-        // parent = temp;
-        // temp = temp->getLeft();
-        //}
-
-        if (prev != nullptr) {
-            // check if the parent of the inorder successor is the
-            // curr or not (i.e. curr= the node which has the same
-            // data as the given data by the user to be deleted).
-            // if it isn't, then make the the left child of its
-            // parent equal to the inorder successor'd right child.
-            prev->setLeft(successor->getRight());
-        } else {
-            // if the inorder successor was the curr
-            // (i.e. curr = the node which has the same data as the
-            // given data by the user to be deleted), then make the
-            // right child of the node to be deleted equal to the right
-            // child of the inorder successor.
+        pTreeNode iosParent = successor->getParent();
+        if(iosParent->getData() == curr->getData()) {
             curr->setRight(successor->getRight());
+            curr->setData(successor->getData());
+            _clearNode(successor);
+        } else {
+            if(iosParent->getLeft()->getData() == successor->getData()) {
+                iosParent->setLeft(nullptr);
+            }
+
+            if(iosParent->getRight()->getData() == successor->getData()) {
+                iosParent->setRight(nullptr);
+            }
+
+            curr->setData(successor->getData());
+            _clearNode(successor);
+            // we are done with successor
+            // TODO: is this leaking successor
         }
-        // set the key
-        curr->setData(successor->getData());
-        // we are done with successor
-        // TODO: is this leaking successor
+        successor->setData(currData);   // it was just a swap, so make the return guy's data be right
         return (successor);
     }
+}
+
+void Tree::_clearNode(pTreeNode node) {
+    node->setLeft(nullptr);
+    node->setRight(nullptr);
+    node->setParent(nullptr);
 }
 
 pTreeNode Tree::get(int key) {
