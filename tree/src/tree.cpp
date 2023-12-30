@@ -97,22 +97,25 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         }
         _clearNode(curr);
         return (curr);
-    } else if ((curr->getLeft() == nullptr) || curr->getRight() == nullptr) {
+    } else if (curr->getLeft() == nullptr) {
         // internal node with just one 'side'
+        // Right only
         // delete the node and move its child up to take its place
-
         if(prev->getLeft() == curr) {
-            if(curr->getLeft() !=nullptr) {
-                prev->setLeft(curr->getLeft());
-            } else {
-                prev->setLeft(curr->getRight());
-            }
+            prev->setLeft(curr->getRight());
         } else {
-            if(curr->getLeft() !=nullptr) {
-                prev->setRight(curr->getLeft());
-            } else {
-                prev->setRight(curr->getRight());
-            }
+            prev->setRight(curr->getRight());
+        }
+        _clearNode(curr);
+        return(curr);
+    } else if (curr->getRight() == nullptr) {
+        // internal node with just one 'side'
+        // left only
+        // delete the node and move its child up to take its place
+        if(prev->getLeft() == curr) {
+            prev->setLeft(curr->getLeft());
+        } else {
+            prev->setRight(curr->getLeft());
         }
         _clearNode(curr);
         return(curr);
@@ -126,6 +129,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         pTreeNode successor = inOrderSuccessor(curr);
         pTreeNode iosParent = successor->getParent();
         if(iosParent->getData() == curr->getData()) {
+            // its m_root
             curr->setRight(successor->getRight());
             curr->setData(successor->getData());
             _clearNode(successor);
@@ -143,7 +147,8 @@ pTreeNode Tree::_remove(pTreeNode curr) {
             // we are done with successor
             // TODO: is this leaking successor
         }
-        successor->setData(currData);   // it was just a swap, so make the return guy's data be right
+        // it was just a swap, so make the return guy's data be right
+        successor->setData(currData);
         return (successor);
     }
 }
