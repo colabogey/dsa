@@ -18,7 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <string>
 #include <deque>
 #include <functional>
-#include <tree.h>
+#include "../include/tree.h" // to make the IDE happy (sad)
 
 using namespace std;
 
