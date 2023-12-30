@@ -347,6 +347,7 @@ TEST_F(TreeTest, AddAllAndSecondary_RemoveRoot_Verify_ByNodeCount) {
     int count = pTree->getNodeCount();
     // assert
     ASSERT_EQ(countBefore, (countAfter + 1));
+    ASSERT_EQ(removed->getData(), valToRemove);
 }
 
 TEST_F(TreeTest, InOrderSuccessor_42) {

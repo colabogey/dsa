@@ -1,5 +1,5 @@
 
-#include "tree.h"
+#include "../include/tree.h"
 
 void Tree::addRecursive(int data) {
     pTreeNode newItem = std::make_shared<TreeNode>();
@@ -86,6 +86,10 @@ pTreeNode Tree::remove(int key) {
 }
 
 pTreeNode Tree::_remove(pTreeNode curr) {
+    if(_isNodeCleared(curr)) {
+        return(curr);
+    }
+
     pTreeNode prev = curr->getParent();
 
     if ((curr->getLeft() == nullptr) && (curr->getRight() == nullptr)) {
@@ -99,7 +103,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         return (curr);
     } else if (curr->getLeft() == nullptr) {
         // internal node with just one 'side'
-        // Right only
+        // Right side  only
         // delete the node and move its child up to take its place
         if(prev->getLeft() == curr) {
             prev->setLeft(curr->getRight());
@@ -110,7 +114,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         return(curr);
     } else if (curr->getRight() == nullptr) {
         // internal node with just one 'side'
-        // left only
+        // left side only
         // delete the node and move its child up to take its place
         if(prev->getLeft() == curr) {
             prev->setLeft(curr->getLeft());
@@ -123,32 +127,22 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         /*
         Node to be deleted is an internal node with two children.
         Copy the contents of the inorder successor of the node to be
-        deleted and delete the inorder successor.
+            deleted and delete the inorder successor.
+        The onOrderSuccessor icall works because there is a right tree, so it will find the minimum
+            value in the right tree.
         */
         int currData = curr->getData();
         pTreeNode successor = inOrderSuccessor(curr);
-        pTreeNode iosParent = successor->getParent();
-        if(iosParent->getData() == curr->getData()) {
-            // its m_root
-            curr->setRight(successor->getRight());
-            curr->setData(successor->getData());
-            _clearNode(successor);
-        } else {
-            if(iosParent->getLeft()->getData() == successor->getData()) {
-                iosParent->setLeft(nullptr);
-            }
-
-            if(iosParent->getRight()->getData() == successor->getData()) {
-                iosParent->setRight(nullptr);
-            }
-
-            curr->setData(successor->getData());
-            _clearNode(successor);
-            // we are done with successor
-            // TODO: is this leaking successor
-        }
-        // it was just a swap, so make the return guy's data be right
-        successor->setData(currData);
+        curr->setData(successor->getData());
+        // successor is a minimum
+        // so it does not have a left tree
+        // so it is an internal node with just one side
+        // we already know how to do that so the recursive call is the most straightforward approach.
+        successor->setData(currData);    // simply swapped nodes
+        _remove(successor);
+        _clearNode(successor);
+        // we are done with successor
+        // TODO: is this leaking successor
         return (successor);
     }
 }
@@ -157,6 +151,14 @@ void Tree::_clearNode(pTreeNode node) {
     node->setLeft(nullptr);
     node->setRight(nullptr);
     node->setParent(nullptr);
+}
+
+bool Tree::_isNodeCleared(pTreeNode node) {
+    bool bRet = false;
+    if(node->getLeft() == nullptr && node->getRight() == nullptr && node->getParent() == nullptr) {
+        bRet = true;
+    }
+    return bRet;
 }
 
 pTreeNode Tree::get(int key) {

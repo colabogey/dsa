@@ -43,6 +43,7 @@ class Tree {
     pTreeNode _getLeastValuePresent(pTreeNode);
     pTreeNode _rebalance(pTreeNode, int, int);
     void _clearNode(pTreeNode);
+    bool _isNodeCleared(pTreeNode);
 
     pTreeNode m_root{nullptr};
     int m_nodeCount{0};

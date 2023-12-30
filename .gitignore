@@ -42,8 +42,8 @@
 .vscode/
 
 #kdevelop
-.kdev4/
-*.kdev4
+#.kdev4/
+#*.kdev4
 
 #coverage
 **/coverage_out
