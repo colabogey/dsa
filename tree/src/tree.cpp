@@ -9,7 +9,6 @@ void Tree::addRecursive(int data) {
     } else {
         _addRecursive(m_root, newItem);
     }
-    addToNodeCount();
 }
 
 void Tree::add(int data) {
@@ -20,7 +19,6 @@ void Tree::add(int data) {
     } else {
         _add(m_root, newItem);
     }
-    addToNodeCount();
 }
 
 void Tree::_addRecursive(pTreeNode root, pTreeNode newNode) {
@@ -80,7 +78,6 @@ pTreeNode Tree::remove(int key) {
     pTreeNode node = _get(m_root, key);
     if (node != nullptr) {
         ret = _remove(node);
-        subtractFromNodeCount();
     }
     return (ret);
 }
@@ -188,31 +185,42 @@ pTreeNode Tree::_get(pTreeNode root, int key) {
 void Tree::collectNodeDataInOrder(pTreeNode root, std::deque<int>& q) {
     if (root != nullptr) {
         _collectNodeDataInOrder(root, q);
-        //printf("\n");
     }
 }
 
 void Tree::_collectNodeDataInOrder(pTreeNode root, std::deque<int>& q) {
     if (root != nullptr) {
         _collectNodeDataInOrder(root->getLeft(), q);
-        //printf("(%d) ", root->getData());
         q.push_back(root->getData());
         _collectNodeDataInOrder(root->getRight(), q);
     }
 }
 
-void Tree::showPreOrder(pTreeNode root) {
+void Tree::collectNodeDataPostOrder(pTreeNode root, std::deque<int>& q) {
     if (root != nullptr) {
-        _showPreOrder(root);
-        printf("\n");
+        _collectNodeDataPostOrder(root, q);
     }
 }
 
-void Tree::_showPreOrder(pTreeNode root) {
+void Tree::_collectNodeDataPostOrder(pTreeNode root, std::deque<int>& q) {
     if (root != nullptr) {
-        printf("(%d) ", root->getData());
-        _showPreOrder(root->getLeft());
-        _showPreOrder(root->getRight());
+        _collectNodeDataPostOrder(root->getLeft(), q);
+        _collectNodeDataPostOrder(root->getRight(), q);
+        q.push_back(root->getData());
+    }
+}
+
+void Tree::collectNodeDataPreOrder(pTreeNode root, std::deque<int>& q) {
+    if (root != nullptr) {
+        _collectNodeDataPreOrder(root, q);
+    }
+}
+
+void Tree::_collectNodeDataPreOrder(pTreeNode root, std::deque<int>& q) {
+    if (root != nullptr) {
+        q.push_back(root->getData());
+        _collectNodeDataPreOrder(root->getLeft(), q);
+        _collectNodeDataPreOrder(root->getRight(), q);
     }
 }
 

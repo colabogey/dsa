@@ -21,24 +21,29 @@ class Tree {
     pTreeNode remove(int);
     int getDepth();
     pTreeNode getRoot() { return m_root; };
+
     void collectNodeDataInOrder(pTreeNode, std::deque<int>&);
-    void showPreOrder(pTreeNode);
+    void collectNodeDataPreOrder(pTreeNode, std::deque<int>&);
+    void collectNodeDataPostOrder(pTreeNode, std::deque<int>&);
     void collectNodesInOrder(pTreeNode);
+
     void rebalance();
-    void addToNodeCount() { m_nodeCount++; };
-    void subtractFromNodeCount() { m_nodeCount--; };
-    int getNodeCount() { return m_nodeCount; };
     pTreeNode inOrderSuccessor(pTreeNode);
     void levelOrder(pTreeNode, std::deque<std::list<int>>&);
+
   private:
     void _add(pTreeNode, pTreeNode);
-    pTreeNode _remove(pTreeNode);
     void _addRecursive(pTreeNode, pTreeNode);
+
+    pTreeNode _remove(pTreeNode);
     pTreeNode _get(pTreeNode, int);
     int _getDepth(pTreeNode);
+
     void _collectNodeDataInOrder(pTreeNode, std::deque<int>&);
-    void _showPreOrder(pTreeNode);
+    void _collectNodeDataPreOrder(pTreeNode, std::deque<int>&);
+    void _collectNodeDataPostOrder(pTreeNode, std::deque<int>&);
     void _collectNodesInOrder(pTreeNode);
+
     pTreeNode _getNodeThatIsLeftChildOfParent(pTreeNode);
     pTreeNode _getLeastValuePresent(pTreeNode);
     pTreeNode _rebalance(pTreeNode, int, int);
@@ -46,7 +51,6 @@ class Tree {
     bool _isNodeCleared(pTreeNode);
 
     pTreeNode m_root{nullptr};
-    int m_nodeCount{0};
     std::deque<pTreeNode> m_nodes;
 };
 
