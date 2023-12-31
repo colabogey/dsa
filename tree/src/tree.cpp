@@ -364,6 +364,7 @@ void Tree::deleteTree() {
         pTreeNode node = get(data);
         if(node != nullptr) {
             _clearNode(node);
+            node = nullptr;
         }
     }
     m_root = nullptr;
