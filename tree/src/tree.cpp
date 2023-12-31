@@ -11,16 +11,6 @@ void Tree::addRecursive(int data) {
     }
 }
 
-void Tree::add(int data) {
-    pTreeNode newItem = std::make_shared<TreeNode>();
-    newItem->setData(data);
-    if (m_root == nullptr) {
-        m_root = newItem;
-    } else {
-        _add(m_root, newItem);
-    }
-}
-
 void Tree::_addRecursive(pTreeNode root, pTreeNode newNode) {
     if (root == nullptr) {
         return;
@@ -42,6 +32,16 @@ void Tree::_addRecursive(pTreeNode root, pTreeNode newNode) {
         } else {
             _addRecursive(root->getRight(), newNode);
         }
+    }
+}
+
+void Tree::add(int data) {
+    pTreeNode newItem = std::make_shared<TreeNode>();
+    newItem->setData(data);
+    if (m_root == nullptr) {
+        m_root = newItem;
+    } else {
+        _add(m_root, newItem);
     }
 }
 
@@ -352,4 +352,19 @@ void Tree::levelOrder(pTreeNode root, treeLevels& levels) {
         //printf("\n");
         levels.push_back(nodesInLevel);
     }
+}
+
+void Tree::deleteTree() {
+    std::deque<int> nodeData;
+    if(m_root == nullptr) {
+        return;
+    }
+    collectNodeDataPostOrder(m_root, nodeData);
+    for(int data : nodeData) {
+        pTreeNode node = get(data);
+        if(node != nullptr) {
+            _clearNode(node);
+        }
+    }
+    m_root = nullptr;
 }

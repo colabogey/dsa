@@ -476,3 +476,26 @@ TEST_F(TreeTest, InPrePostOrder) {
     // assert
     ASSERT_EQ(valExpected, 1);
 }
+
+TEST_F(TreeTest, DeleteTree_VerifyWithNodeCount) {
+    // arrange
+    auto pTree = make_shared<Tree>();
+    AddAllAndSecondary(pTree);
+    pTreeNode root = pTree->getRoot();
+    // act
+    pTree->deleteTree();
+    root = pTree->getRoot();
+    pTree->collectNodeDataInOrder(root, m_nodeData);
+    ShowNodeData("InOrder");
+    // assert
+    ASSERT_EQ(0, m_nodeData.size());
+}
+
+TEST_F(TreeTest, MemoryLeak_BreakHereAndLook) {
+    // arrange
+    // act
+    // assert
+    ASSERT_EQ(0, 0);
+}
+
+

@@ -21,6 +21,7 @@ class Tree {
     pTreeNode remove(int);
     int getDepth();
     pTreeNode getRoot() { return m_root; };
+    void deleteTree();
 
     void collectNodeDataInOrder(pTreeNode, std::deque<int>&);
     void collectNodeDataPreOrder(pTreeNode, std::deque<int>&);
