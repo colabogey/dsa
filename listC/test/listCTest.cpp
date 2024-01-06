@@ -18,28 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <string>
 
 #include <linkedList.h>
-#include <listNode.h>
-
-extern "C" {
-
-void addListNode(pLinkedList, const char*);
-const char* removeListNode(pLinkedList, const char*);
-const char* getListNodeData(pLinkedList, const char*);
-void addToNodeCount(pLinkedList pll);
-void subtractFromNodeCount(pLinkedList pll);
-int getNodeCount(pLinkedList pll);
-
-const char* getNodeData(pListNode pln);
-void setNodeData(pListNode pln, const char* data);
-pListNode getNext(pListNode pln);
-void setNext(pListNode pln);
-
-pLinkedList createLinkedList();
-void clearLinkedList(pLinkedList pll);
-pListNode createListNode();
-void clearListNode(pListNode pln);
-
-}
+#include <listInterface.h>
 
 using namespace std;
 
@@ -72,7 +51,7 @@ class LinkedListTest : public ::testing::Test {
     //
 };
 
-TEST_F(LinkedListTest, InsertNode_VerifyItemFound_ByNodeCount) {
+TEST_F(LinkedListTest, InsertNode_Verify_NodeCount) {
     // arrange
     const char data[] = {"Lucky"};
     auto pll = createLinkedList();
@@ -83,44 +62,119 @@ TEST_F(LinkedListTest, InsertNode_VerifyItemFound_ByNodeCount) {
     ASSERT_EQ(count, 1);
 }
 
-/*
-TEST_F(LinkedListTest, InsertNode_VerifyItemFound_ByValue) {
+TEST_F(LinkedListTest, InsertNode_GetValidItem_Verify_DataValueIsValid) {
     // arrange
-    string data = "Lucky";
-    auto pLinkedList = make_unique<LinkedList>();
+    const char data[] = {"Lucky"};
+    auto pll = createLinkedList();
     // act
-    pLinkedList->add(data);
-    std::string rVal = pLinkedList->get(data);
+    addListNode(pll, data);
+    const char* rVal = getListNodeData(pll, data);
     // assert
-    ASSERT_STREQ(data.c_str(), rVal.c_str());
+    ASSERT_STREQ(data, rVal);
 }
 
-TEST_F(LinkedListTest, RemoveNode_VerifyItemFound_ByNodeCount) {
+TEST_F(LinkedListTest, InsertNode_GetInValidItem_Verify_DataValueIsNull) {
     // arrange
-    string data1 = "Lucky";
-    string data2 = "Chance";
-    auto pLinkedList = make_unique<LinkedList>();
+    const char data[] = {"Lucky"};
+    const char invalid[] = {"xyx"};
+    auto pll = createLinkedList();
     // act
-    pLinkedList->add(data1);
-    pLinkedList->add(data2);
-    pLinkedList->remove(data2);
-    int count = pLinkedList->getNodeCount();
+    addListNode(pll, data);
+    const char* rVal = getListNodeData(pll, invalid);
     // assert
-    ASSERT_EQ(count, 1);
+    ASSERT_EQ(nullptr, rVal);
 }
 
-TEST_F(LinkedListTest, RemoveHead_VerifyItemFound_ByNodeCount) {
+TEST_F(LinkedListTest, RemoveFirst_Verify_NodeCount) {
     // arrange
-    string data1 = "Lucky";
-    string data2 = "Chance";
-    auto pLinkedList = make_unique<LinkedList>();
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
     // act
-    pLinkedList->add(data1);
-    pLinkedList->add(data2);
-    pLinkedList->remove(data1);
-    int count = pLinkedList->getNodeCount();
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    removeListNode(pll, data1);
+    int count = getNodeCount(pll);
     // assert
-    ASSERT_EQ(count, 1);
+    ASSERT_EQ(count, 2);
 }
-*/
+
+TEST_F(LinkedListTest, RemoveLast_Verify_NodeCount) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    // act
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    removeListNode(pll, data3);
+    int count = getNodeCount(pll);
+    // assert
+    ASSERT_EQ(count, 2);
+}
+
+TEST_F(LinkedListTest, RemoveMiddle_Verify_NodeCount) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    // act
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    removeListNode(pll, data2);
+    int count = getNodeCount(pll);
+    // assert
+    ASSERT_EQ(count, 2);
+}
+
+TEST_F(LinkedListTest, RemoveFirst_Verify_DataValue) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    // act
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    const char* rVal = removeListNode(pll, data1);
+    // assert
+    ASSERT_STREQ(rVal, data1);
+}
+
+TEST_F(LinkedListTest, RemoveLast_Verify_DataValue) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    // act
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    const char* rVal = removeListNode(pll, data3);
+    // assert
+    ASSERT_STREQ(rVal, data3);
+}
+
+TEST_F(LinkedListTest, RemoveMiddle_Verify_DataValue) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    // act
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    const char* rVal = removeListNode(pll, data2);
+    // assert
+    ASSERT_STREQ(rVal, data2);
+}
 
