@@ -20,13 +20,12 @@ void addListNode(pLinkedList pll, const char *data) {
     addToNodeCount(pll);
 }
 
-const char *removeListNode(pLinkedList pll, const char *data) {
-    const char *rVal = NULL;
+bool removeListNode(pLinkedList pll, const char *data) {
+    bool rVal = false;
     pListNode curr = pll->m_head;
     pListNode prev = NULL;
     while (curr != NULL) {
         if ((strcmp(data, getNodeData(curr))) == 0) {
-            rVal = getNodeData(curr);
             if (prev != NULL) {
                 setNext(prev, getNext(curr));
             } else {
@@ -38,6 +37,8 @@ const char *removeListNode(pLinkedList pll, const char *data) {
                 }
             }
             subtractFromNodeCount(pll);
+            clearListNode(curr);
+            rVal = true;
             break;
         } else {
             prev = curr;

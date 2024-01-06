@@ -133,7 +133,7 @@ TEST_F(LinkedListTest, RemoveMiddle_Verify_NodeCount) {
     ASSERT_EQ(count, 2);
 }
 
-TEST_F(LinkedListTest, RemoveFirst_Verify_DataValue) {
+TEST_F(LinkedListTest, RemoveFirst_Verify_Return_And_NodeCount) {
     // arrange
     const char data1[] = {"Lucky"};
     const char data2[] = {"Chance"};
@@ -143,12 +143,14 @@ TEST_F(LinkedListTest, RemoveFirst_Verify_DataValue) {
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
-    const char* rVal = removeListNode(pll, data1);
+    bool rVal = removeListNode(pll, data1);
+    int count = getNodeCount(pll);
     // assert
-    ASSERT_STREQ(rVal, data1);
+    EXPECT_TRUE(rVal);
+    ASSERT_EQ(count, 2);
 }
 
-TEST_F(LinkedListTest, RemoveLast_Verify_DataValue) {
+TEST_F(LinkedListTest, RemoveLast_Verify_Return_And_NodeCount) {
     // arrange
     const char data1[] = {"Lucky"};
     const char data2[] = {"Chance"};
@@ -158,12 +160,14 @@ TEST_F(LinkedListTest, RemoveLast_Verify_DataValue) {
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
-    const char* rVal = removeListNode(pll, data3);
+    bool rVal = removeListNode(pll, data1);
+    int count = getNodeCount(pll);
     // assert
-    ASSERT_STREQ(rVal, data3);
+    EXPECT_TRUE(rVal);
+    ASSERT_EQ(count, 2);
 }
 
-TEST_F(LinkedListTest, RemoveMiddle_Verify_DataValue) {
+TEST_F(LinkedListTest, RemoveMiddle_Verify_Return_And_NodeCount) {
     // arrange
     const char data1[] = {"Lucky"};
     const char data2[] = {"Chance"};
@@ -173,8 +177,10 @@ TEST_F(LinkedListTest, RemoveMiddle_Verify_DataValue) {
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
-    const char* rVal = removeListNode(pll, data2);
+    bool rVal = removeListNode(pll, data1);
+    int count = getNodeCount(pll);
     // assert
-    ASSERT_STREQ(rVal, data2);
+    EXPECT_TRUE(rVal);
+    ASSERT_EQ(count, 2);
 }
 

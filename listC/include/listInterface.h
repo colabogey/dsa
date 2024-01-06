@@ -4,9 +4,11 @@
 extern "C" {
 #endif
 
+#include <stdbool.h>
+
 void addListNode(pLinkedList, const char *);
-const char *removeListNode(pLinkedList, const char *);
-const char *getListNodeData(pLinkedList, const char *);
+bool removeListNode(pLinkedList, const char *);
+const char* getListNodeData(pLinkedList, const char *);
 void addToNodeCount(pLinkedList pll);
 void subtractFromNodeCount(pLinkedList pll);
 int getNodeCount(pLinkedList pll);
