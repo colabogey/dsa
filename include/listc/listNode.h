@@ -1,0 +1,14 @@
+#pragma once
+
+#include <string.h>
+#include <stdlib.h>
+
+#define NODE_DATA_SIZE 256
+
+typedef struct ListNode
+{
+    char* m_data;
+    struct ListNode* m_next;
+
+} ListNode, *pListNode;
+

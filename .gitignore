@@ -47,6 +47,7 @@
 
 #coverage
 **/coverage_out
+coverage.info
 
 #gtest/gmock
 **/gtest
