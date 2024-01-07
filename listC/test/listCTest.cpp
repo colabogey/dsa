@@ -184,3 +184,19 @@ TEST_F(LinkedListTest, RemoveMiddle_Verify_Return_And_NodeCount) {
     ASSERT_EQ(count, 2);
 }
 
+TEST_F(LinkedListTest, ClearLinkedList_Verify_By_NodeCount) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    // act
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    clearLinkedList(pll);
+    int count = getNodeCount(pll);
+    // assert
+    ASSERT_EQ(count, 0);
+}
+

@@ -8,7 +8,7 @@ extern "C" {
 
 void addListNode(pLinkedList, const char *);
 bool removeListNode(pLinkedList, const char *);
-const char* getListNodeData(pLinkedList, const char *);
+const char *getListNodeData(pLinkedList, const char *);
 void addToNodeCount(pLinkedList pll);
 void subtractFromNodeCount(pLinkedList pll);
 int getNodeCount(pLinkedList pll);
@@ -16,7 +16,9 @@ int getNodeCount(pLinkedList pll);
 const char *getNodeData(pListNode pln);
 void setNodeData(pListNode pln, const char *data);
 pListNode getNext(pListNode pln);
-void setNext(pListNode pln, pListNode next);
+void setNext(pListNode pln, pListNode prev);
+pListNode getPrev(pListNode pln);
+void setPrev(pListNode pln, pListNode prev);
 
 pLinkedList createLinkedList();
 void clearLinkedList(pLinkedList pll);

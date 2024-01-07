@@ -4,6 +4,6 @@
 
 typedef struct ListNode {
     char *m_data;
+    struct ListNode *m_prev;
     struct ListNode *m_next;
-
 } ListNode, *pListNode;
