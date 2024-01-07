@@ -62,15 +62,59 @@ TEST_F(LinkedListTest, InsertNode_Verify_NodeCount) {
     ASSERT_EQ(count, 1);
 }
 
-TEST_F(LinkedListTest, InsertNode_GetValidItem_Verify_DataValueIsValid) {
+TEST_F(LinkedListTest, InsertNode_GetValidFirstItem_Verify_DataValue) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    // act
+    const char* rVal = getListNodeData(pll, data1);
+    // assert
+    ASSERT_STREQ(data1, rVal);
+}
+
+TEST_F(LinkedListTest, InsertNode_GetValidSecondItem_Verify_DataValue) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    // act
+    const char* rVal = getListNodeData(pll, data2);
+    // assert
+    ASSERT_STREQ(data2, rVal);
+}
+
+TEST_F(LinkedListTest, InsertNode_GetValidLastItem_Verify_DataValue) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    // act
+    const char* rVal = getListNodeData(pll, data3);
+    // assert
+    ASSERT_STREQ(data3, rVal);
+}
+
+TEST_F(LinkedListTest, InsertNothing_GetItem_Verify_DataValueIsNull) {
     // arrange
     const char data[] = {"Lucky"};
     auto pll = createLinkedList();
     // act
-    addListNode(pll, data);
     const char* rVal = getListNodeData(pll, data);
     // assert
-    ASSERT_STREQ(data, rVal);
+    ASSERT_EQ(nullptr, rVal);
 }
 
 TEST_F(LinkedListTest, InsertNode_GetInValidItem_Verify_DataValueIsNull) {
@@ -78,8 +122,8 @@ TEST_F(LinkedListTest, InsertNode_GetInValidItem_Verify_DataValueIsNull) {
     const char data[] = {"Lucky"};
     const char invalid[] = {"xyx"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data);
+    // act
     const char* rVal = getListNodeData(pll, invalid);
     // assert
     ASSERT_EQ(nullptr, rVal);
@@ -91,10 +135,10 @@ TEST_F(LinkedListTest, RemoveFirst_Verify_NodeCount) {
     const char data2[] = {"Chance"};
     const char data3[] = {"Bogey"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
+    // act
     removeListNode(pll, data1);
     int count = getNodeCount(pll);
     // assert
@@ -107,10 +151,10 @@ TEST_F(LinkedListTest, RemoveLast_Verify_NodeCount) {
     const char data2[] = {"Chance"};
     const char data3[] = {"Bogey"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
+    // act
     removeListNode(pll, data3);
     int count = getNodeCount(pll);
     // assert
@@ -123,10 +167,10 @@ TEST_F(LinkedListTest, RemoveMiddle_Verify_NodeCount) {
     const char data2[] = {"Chance"};
     const char data3[] = {"Bogey"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
+    // act
     removeListNode(pll, data2);
     int count = getNodeCount(pll);
     // assert
@@ -139,10 +183,10 @@ TEST_F(LinkedListTest, RemoveFirst_Verify_Return_And_NodeCount) {
     const char data2[] = {"Chance"};
     const char data3[] = {"Bogey"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
+    // act
     bool rVal = removeListNode(pll, data1);
     int count = getNodeCount(pll);
     // assert
@@ -156,10 +200,10 @@ TEST_F(LinkedListTest, RemoveLast_Verify_Return_And_NodeCount) {
     const char data2[] = {"Chance"};
     const char data3[] = {"Bogey"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
+    // act
     bool rVal = removeListNode(pll, data1);
     int count = getNodeCount(pll);
     // assert
@@ -173,10 +217,10 @@ TEST_F(LinkedListTest, RemoveMiddle_Verify_Return_And_NodeCount) {
     const char data2[] = {"Chance"};
     const char data3[] = {"Bogey"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
+    // act
     bool rVal = removeListNode(pll, data1);
     int count = getNodeCount(pll);
     // assert
@@ -190,10 +234,10 @@ TEST_F(LinkedListTest, ClearLinkedList_Verify_By_NodeCount) {
     const char data2[] = {"Chance"};
     const char data3[] = {"Bogey"};
     auto pll = createLinkedList();
-    // act
     addListNode(pll, data1);
     addListNode(pll, data2);
     addListNode(pll, data3);
+    // act
     clearLinkedList(pll);
     int count = getNodeCount(pll);
     // assert

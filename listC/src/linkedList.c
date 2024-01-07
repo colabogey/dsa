@@ -21,13 +21,13 @@ void addListNode(pLinkedList pll, const char *data) {
 }
 
 void _addListNode(pLinkedList pll, pListNode curr, pListNode newItem) {
-    if(curr->m_next == NULL) {
-        curr->m_next = newItem;
-        newItem->m_prev = curr;
+    if((getNext(curr)) == NULL) {
+        setNext(curr, newItem);
+        setPrev(newItem, curr);
         addToNodeCount(pll);
         return;
     }
-    _addListNode(pll, curr->m_next, newItem);
+    _addListNode(pll, getNext(curr), newItem);
 }
 
 bool removeListNode(pLinkedList pll, const char *data) {
@@ -54,19 +54,23 @@ bool removeListNode(pLinkedList pll, const char *data) {
 }
 
 const char* getListNodeData(pLinkedList pll, const char* data) {
+    if(pll->m_head == NULL) {
+        return(NULL);
+    }
     return(pll->m_head == NULL ? NULL : _getListNodeData(pll->m_head, data));
 }
 
 const char* _getListNodeData(pListNode pln, const char* data) {
-    const char* rVal = NULL;
     if ((strcmp(data, getNodeData(pln))) == 0) {
-        return(getNodeData(pln));
-    }
+        const char* rVal = getNodeData(pln);
+        return(rVal);
+    } 
 
-    if(pln->m_next != NULL) {
-        _getListNodeData(pln->m_next, data);   
+    if((getNext(pln)) != NULL) {
+        return _getListNodeData(getNext(pln), data);   
+    } else {
+        return(NULL);
     }
-    return(rVal);
 }
 
 
@@ -106,13 +110,13 @@ pListNode createListNode() {
     nodeData[0] = '\0';
     pListNode pln = (pListNode)malloc(sizeof(ListNode));
     pln->m_data = nodeData;
-    pln->m_prev = NULL;
-    pln->m_next = NULL;
+    setNext(pln, NULL);
+    setPrev(pln, NULL);
     return (pln);
 }
 
 void clearListNode(pListNode pln) {
-    if (pln->m_data != NULL) {
+    if ((getNodeData(pln)) != NULL) {
         free(pln->m_data);
         pln->m_data = NULL;
     }
