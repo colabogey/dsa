@@ -7,6 +7,7 @@
 
 static void _clearLinkedList(pLinkedList pll, pListNode pln);
 static void _addListNode(pLinkedList pll, pListNode curr, pListNode newItem);
+static const char* _getListNodeData(pListNode pln, const char* data);
 
 void addListNode(pLinkedList pll, const char *data) {
     pListNode newItem = createListNode();
@@ -52,19 +53,22 @@ bool removeListNode(pLinkedList pll, const char *data) {
     return (rVal);
 }
 
-const char *getListNodeData(pLinkedList pll, const char *data) {
-    const char *rVal = NULL;
-    pListNode tmp = pll->m_head;
-    while (tmp != NULL) {
-        if ((strcmp(data, getNodeData(tmp))) == 0) {
-            rVal = getNodeData(tmp);
-            break;
-        }
-        pListNode next = getNext(tmp);
-        tmp = next;
-    }
-    return (rVal);
+const char* getListNodeData(pLinkedList pll, const char* data) {
+    return(pll->m_head == NULL ? NULL : _getListNodeData(pll->m_head, data));
 }
+
+const char* _getListNodeData(pListNode pln, const char* data) {
+    const char* rVal = NULL;
+    if ((strcmp(data, getNodeData(pln))) == 0) {
+        return(getNodeData(pln));
+    }
+
+    if(pln->m_next != NULL) {
+        _getListNodeData(pln->m_next, data);   
+    }
+    return(rVal);
+}
+
 
 pLinkedList createLinkedList() {
     pLinkedList pll = (pLinkedList)malloc(sizeof(LinkedList));
@@ -74,16 +78,8 @@ pLinkedList createLinkedList() {
 }
 
 void clearLinkedList(pLinkedList pll) {
-    pListNode curr = pll->m_head;
-    pListNode last = NULL;
-    while(true) {
-        if(curr->m_next == NULL) {
-            last = curr;
-            break;
-        }
-        curr = curr->m_next;
-    }
-    _clearLinkedList(pll, last);
+    _clearLinkedList(pll, pll->m_head);
+    pll->m_head = NULL;
 }
 
 void _clearLinkedList(pLinkedList pll, pListNode pln) {
@@ -91,10 +87,10 @@ void _clearLinkedList(pLinkedList pll, pListNode pln) {
         return;
     }
 
-    pListNode prev = getPrev(pln);
+    pListNode next = pln->m_next;
     clearListNode(pln);
     subtractFromNodeCount(pll);
-    _clearLinkedList(pll, prev);
+    _clearLinkedList(pll, next);
 }
 
 void addToNodeCount(pLinkedList pll) { pll->m_nodeCount++; }
