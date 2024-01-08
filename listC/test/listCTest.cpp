@@ -204,7 +204,7 @@ TEST_F(LinkedListTest, RemoveLast_Verify_Return_And_NodeCount) {
     addListNode(pll, data2);
     addListNode(pll, data3);
     // act
-    bool rVal = removeListNode(pll, data1);
+    bool rVal = removeListNode(pll, data3);
     int count = getNodeCount(pll);
     // assert
     EXPECT_TRUE(rVal);
@@ -221,11 +221,25 @@ TEST_F(LinkedListTest, RemoveMiddle_Verify_Return_And_NodeCount) {
     addListNode(pll, data2);
     addListNode(pll, data3);
     // act
-    bool rVal = removeListNode(pll, data1);
+    bool rVal = removeListNode(pll, data2);
     int count = getNodeCount(pll);
     // assert
     EXPECT_TRUE(rVal);
     ASSERT_EQ(count, 2);
+}
+
+TEST_F(LinkedListTest, RemoveFromEmptyList_Verify_Return_And_NodeCount) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    // act
+    bool rVal = removeListNode(pll, data2);
+    int count = getNodeCount(pll);
+    // assert
+    EXPECT_FALSE(rVal);
+    ASSERT_EQ(count, 0);
 }
 
 TEST_F(LinkedListTest, ClearLinkedList_Verify_By_NodeCount) {

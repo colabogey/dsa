@@ -5,9 +5,10 @@
 #include <stdio.h>
 #include <string.h>
 
-static void _clearLinkedList(pLinkedList pll, pListNode pln);
-static void _addListNode(pLinkedList pll, pListNode curr, pListNode newItem);
-static const char* _getListNodeData(pListNode pln, const char* data);
+static void _clearLinkedList(pLinkedList, pListNode);
+static void _addListNode(pLinkedList, pListNode, pListNode);
+static const char* _getListNodeData(pListNode, const char*);
+static bool _removeListNode(pListNode, pListNode, pListNode, const char*);
 
 void addListNode(pLinkedList pll, const char *data) {
     pListNode newItem = createListNode();
@@ -31,26 +32,28 @@ void _addListNode(pLinkedList pll, pListNode curr, pListNode newItem) {
 }
 
 bool removeListNode(pLinkedList pll, const char *data) {
-    bool rVal = false;
-    pListNode curr = pll->m_head;
-    pListNode prev = NULL;
-    pListNode next = NULL;
-    while (curr != NULL) {
-        if ((strcmp(data, getNodeData(curr))) == 0) {
-            setNext(prev, getNext(curr));
-            setPrev(next, getPrev(curr));
-
-            subtractFromNodeCount(pll);
-            clearListNode(curr);
-            rVal = true;
-            break;
-        } else {
-            prev = curr;
-            next = getNext(curr);
-            curr = next;
-        }
+    bool ret = _removeListNode(pll->m_head, NULL, NULL, data);
+    if(ret) {
+        subtractFromNodeCount(pll);
     }
-    return (rVal);
+    return(ret);
+}
+
+bool _removeListNode(pListNode curr, pListNode next, pListNode prev, const char* data) {
+    if(curr == NULL) {
+        return(false);
+    }
+
+    if ((strcmp(data, getNodeData(curr))) == 0) {
+        setNext(prev, getNext(curr));
+        setPrev(next, getPrev(curr));
+        clearListNode(curr);
+        return(true);
+    }
+    prev = curr;
+    next = getNext(curr);
+    curr = next;
+    return  _removeListNode(curr, next, prev,  data);
 }
 
 const char* getListNodeData(pLinkedList pll, const char* data) {
