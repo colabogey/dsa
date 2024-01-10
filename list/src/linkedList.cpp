@@ -58,7 +58,6 @@ std::string LinkedList::_remove(pListNode curr) {
         curr->getPrev()->setNext(curr->getNext());
     } else {
         m_head = curr->getNext();
-        curr->getNext()->setPrev(nullptr);
     }
 
     if(curr->getNext() != nullptr) {

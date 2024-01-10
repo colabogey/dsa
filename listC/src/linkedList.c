@@ -8,7 +8,9 @@
 static void _clearLinkedList(pLinkedList, pListNode);
 static void _addListNode(pLinkedList, pListNode, pListNode);
 static const char* _getListNodeData(pListNode, const char*);
-static bool _removeListNode(pListNode, pListNode, pListNode, const char*);
+static void _removeListNode(pLinkedList, pListNode);
+static pListNode _findListNode(pListNode, const char*);
+static void _displayList(pListNode);
 
 void addListNode(pLinkedList pll, const char *data) {
     pListNode newItem = createListNode();
@@ -32,28 +34,49 @@ void _addListNode(pLinkedList pll, pListNode curr, pListNode newItem) {
 }
 
 bool removeListNode(pLinkedList pll, const char *data) {
-    bool ret = _removeListNode(pll->m_head, NULL, NULL, data);
-    if(ret) {
-        subtractFromNodeCount(pll);
-    }
-    return(ret);
-}
-
-bool _removeListNode(pListNode curr, pListNode next, pListNode prev, const char* data) {
+    pListNode curr = _findListNode(pll->m_head, data);
     if(curr == NULL) {
         return(false);
     }
+    _removeListNode(pll, curr);
+    clearListNode(curr);
+    subtractFromNodeCount(pll);
+    return(true);
+}
+
+pListNode _findListNode(pListNode curr, const char* data) {
+    if(curr == NULL) {
+        return(NULL);
+    }
 
     if ((strcmp(data, getNodeData(curr))) == 0) {
-        setNext(prev, getNext(curr));
-        setPrev(next, getPrev(curr));
-        clearListNode(curr);
-        return(true);
+        return(curr);
     }
-    prev = curr;
-    next = getNext(curr);
-    curr = next;
-    return  _removeListNode(curr, next, prev,  data);
+
+    return(_findListNode(getNext(curr), data));
+}
+
+void _removeListNode(pLinkedList pll, pListNode curr) {
+
+    if(getNext(curr) == NULL && getPrev(curr) == NULL) {
+        pll->m_head = NULL;
+        return;
+    }
+
+    pListNode next = getNext(curr) == NULL ? NULL : getNext(curr);
+    pListNode prev = getPrev(curr) == NULL ? NULL : getPrev(curr);
+
+    if(prev != NULL) {
+        prev->m_next = curr->m_next;
+    } else {
+        pll->m_head = curr->m_next;
+    }
+
+    if(next != NULL) {
+        next->m_prev = curr->m_prev;
+    }
+
+    return;
 }
 
 const char* getListNodeData(pLinkedList pll, const char* data) {
@@ -152,3 +175,22 @@ void setPrev(pListNode pln, pListNode prev) {
         pln->m_prev = prev;
     }
 }
+
+void displayList(pLinkedList pll) {
+    if (pll->m_head == NULL) {
+        printf("\tlist is empty (%d)\n", pll->m_nodeCount);
+    } else {
+        printf("\tlist items (%d): ", pll->m_nodeCount);
+        _displayList(pll->m_head);
+        printf("\n");
+    }
+}
+
+void _displayList(pListNode curr) {
+    if(curr == NULL) {
+        return;
+    }
+    printf("\t(%s)  ", curr->m_data);
+    _displayList(curr->m_next);
+}
+

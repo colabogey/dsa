@@ -40,6 +40,12 @@ class LinkedListTest : public ::testing::Test {
         // Code here will be called immediately after the constructor (right
         // before each test).
         //
+        // TODO:
+        // get the number of items
+        // allocate stuff on the fly
+        m_item1[0] = '\0';
+        m_item2[0] = '\0';
+        m_item3[0] = '\0';
     }
 
     virtual void TearDown() {
@@ -47,8 +53,16 @@ class LinkedListTest : public ::testing::Test {
         // before the destructor).
     }
 
+    virtual void ShowListContents(pLinkedList pll) {
+               
+    }
+
     // Objects declared here can be used by all tests.
     //
+    char m_item1[NODE_DATA_SIZE];
+    char m_item2[NODE_DATA_SIZE];
+    char m_item3[NODE_DATA_SIZE];
+    char* m_listContents[3] = {m_item1, m_item2, m_item3};
 };
 
 TEST_F(LinkedListTest, InsertNode_Verify_NodeCount) {
@@ -226,6 +240,72 @@ TEST_F(LinkedListTest, RemoveMiddle_Verify_Return_And_NodeCount) {
     // assert
     EXPECT_TRUE(rVal);
     ASSERT_EQ(count, 2);
+}
+
+TEST_F(LinkedListTest, RemoveAllMiddleFirst_Verify_NodeCount) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    // act
+    displayList(pll);
+    bool rVal = removeListNode(pll, data2);
+    displayList(pll);
+    rVal = removeListNode(pll, data1);
+    displayList(pll);
+    rVal = removeListNode(pll, data3);
+    displayList(pll);
+    int count = getNodeCount(pll);
+    // assert
+    ASSERT_EQ(count, 0);
+}
+
+TEST_F(LinkedListTest, RemoveAllFirstLast_Verify_NodeCount) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    // act
+    displayList(pll);
+    bool rVal = removeListNode(pll, data1);
+    displayList(pll);
+    rVal = removeListNode(pll, data2);
+    displayList(pll);
+    rVal = removeListNode(pll, data3);
+    displayList(pll);
+    int count = getNodeCount(pll);
+    // assert
+    ASSERT_EQ(count, 0);
+}
+
+TEST_F(LinkedListTest, RemoveAllLastFirst_Verify_NodeCount) {
+    // arrange
+    const char data1[] = {"Lucky"};
+    const char data2[] = {"Chance"};
+    const char data3[] = {"Bogey"};
+    auto pll = createLinkedList();
+    addListNode(pll, data1);
+    addListNode(pll, data2);
+    addListNode(pll, data3);
+    // act
+    displayList(pll);
+    bool rVal = removeListNode(pll, data3);
+    displayList(pll);
+    rVal = removeListNode(pll, data2);
+    displayList(pll);
+    rVal = removeListNode(pll, data1);
+    displayList(pll);
+    int count = getNodeCount(pll);
+    // assert
+    ASSERT_EQ(count, 0);
 }
 
 TEST_F(LinkedListTest, RemoveFromEmptyList_Verify_Return_And_NodeCount) {

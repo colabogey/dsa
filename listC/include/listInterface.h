@@ -9,21 +9,23 @@ extern "C" {
 void addListNode(pLinkedList, const char *);
 bool removeListNode(pLinkedList, const char *);
 const char *getListNodeData(pLinkedList, const char *);
-void addToNodeCount(pLinkedList pll);
-void subtractFromNodeCount(pLinkedList pll);
-int getNodeCount(pLinkedList pll);
+void addToNodeCount(pLinkedList);
+void subtractFromNodeCount(pLinkedList);
+int getNodeCount(pLinkedList);
 
-const char *getNodeData(pListNode pln);
-void setNodeData(pListNode pln, const char *data);
-pListNode getNext(pListNode pln);
-void setNext(pListNode pln, pListNode prev);
-pListNode getPrev(pListNode pln);
-void setPrev(pListNode pln, pListNode prev);
+const char *getNodeData(pListNode);
+void setNodeData(pListNode, const char*);
+pListNode getNext(pListNode);
+void setNext(pListNode, pListNode);
+pListNode getPrev(pListNode);
+void setPrev(pListNode, pListNode);
 
 pLinkedList createLinkedList();
-void clearLinkedList(pLinkedList pll);
+void clearLinkedList(pLinkedList);
 pListNode createListNode();
-void clearListNode(pListNode pln);
+void clearListNode(pListNode);
+
+void displayList(pLinkedList);
 
 #ifdef __cplusplus
 }
