@@ -20,6 +20,10 @@ public:
     int getNodeCount() { return m_nodeCount ;} ;
 
 private:
+    void _add(pListNode, pListNode);
+    pListNode _find(std::string, pListNode);
+    std::string _remove(pListNode);
+
     pListNode m_head {nullptr};
     int m_nodeCount {0};
 };

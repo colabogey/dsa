@@ -10,52 +10,62 @@ void LinkedList::add(std::string data)
     if(m_head == nullptr) {
         m_head = newItem;
     } else {
-        pListNode curr = m_head;
-        while(curr->getNext() != nullptr)
-        {
-            curr = curr->getNext();
-        }
-        curr->setNext(newItem);
+        _add(m_head, newItem);
     }
     addToNodeCount();
 }
 
+void LinkedList::_add(pListNode curr, pListNode newItem) {
+    if(curr->getNext() == nullptr) {
+        curr->setNext(newItem);
+        newItem->setPrev(curr);
+        return;
+    }
+    return(_add(curr->getNext(), newItem));
+}
+
 std::string LinkedList::remove(std::string data)
 {
-    std::string rVal = "";
-    pListNode curr = m_head;
-    pListNode prev = nullptr;
-    while(curr != nullptr)
-    {
-        if(data == curr->getData())
-        {
-            rVal = curr->getData();
-            if(prev != nullptr)
-            {
-                prev->setNext(curr->getNext());
-            }
-            else
-            {
-                // its the head we are removing
-                if(curr->getNext() != nullptr)
-                {
-                    m_head->setNext(curr->getNext());
-                }
-                else
-                {
-                    m_head = nullptr;
-                }
-            }
-            subtractFromNodeCount();
-            break;
-        }
-        else
-        {
-            prev = curr;
-            curr = curr->getNext();
-        }
-   }
-   return(rVal);
+    pListNode curr = nullptr;
+    if((curr = _find(data, m_head)) != nullptr) {
+        _remove(curr);
+        curr->setNext(nullptr);
+        curr->setPrev(nullptr);
+        subtractFromNodeCount();
+        return(curr->getData());
+    }
+    return("");
+}
+
+pListNode LinkedList::_find(std::string data, pListNode curr) {
+    if(curr == nullptr) {
+        return(nullptr);
+    } else if(data == curr->getData()) {
+        return(curr);
+    } else {
+        return(_find(data, curr->getNext()));
+    };
+}
+
+std::string LinkedList::_remove(pListNode curr) {
+    if(curr->getPrev() == nullptr && curr->getNext() == nullptr) {
+        // its the only node
+        m_head = nullptr;
+        return(curr->getData());
+    }
+
+    if(curr->getPrev() != nullptr) {
+        curr->getPrev()->setNext(curr->getNext());
+    } else {
+        m_head = curr->getNext();
+        curr->getNext()->setPrev(nullptr);
+    }
+
+    if(curr->getNext() != nullptr) {
+        curr->getNext()->setPrev(curr->getPrev());
+    }
+
+    return(curr->getData());
 }
 
 std::string LinkedList::get(std::string data)
