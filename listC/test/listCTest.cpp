@@ -22,6 +22,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 
 using namespace std;
 
+#define MAX_LISTCONTENT_ENTRIES 64
+
 // The fixture for testing
 class LinkedListTest : public ::testing::Test {
 
@@ -40,29 +42,41 @@ class LinkedListTest : public ::testing::Test {
         // Code here will be called immediately after the constructor (right
         // before each test).
         //
-        // TODO:
-        // get the number of items
-        // allocate stuff on the fly
-        m_item1[0] = '\0';
-        m_item2[0] = '\0';
-        m_item3[0] = '\0';
+        m_content = nullptr;
     }
 
     virtual void TearDown() {
         // Code here will be called immediately after each test (right
         // before the destructor).
+        if(m_content != nullptr) {
+            free(m_content);
+        }
+    }
+
+    virtual void InitListContents(int count) {
+        m_content = (char*) malloc((count + 1) * NODE_DATA_SIZE);
+        m_content[0] = '\0';
     }
 
     virtual void ShowListContents(pLinkedList pll) {
-               
+        int count = getNodeCount(pll);
+        if(pll->m_head == NULL) {
+            printf("\tlist is empty (%d)\n", count);
+        } else {
+            InitListContents(count);
+            displayList(pll, m_content);
+            printf("\tlist items (%d): ", pll->m_nodeCount);
+            _showListContents(m_content);
+        }
+    }
+
+    virtual void _showListContents(char* content) {
+        printf("%s", content);
     }
 
     // Objects declared here can be used by all tests.
     //
-    char m_item1[NODE_DATA_SIZE];
-    char m_item2[NODE_DATA_SIZE];
-    char m_item3[NODE_DATA_SIZE];
-    char* m_listContents[3] = {m_item1, m_item2, m_item3};
+    char* m_content;
 };
 
 TEST_F(LinkedListTest, InsertNode_Verify_NodeCount) {
@@ -252,13 +266,13 @@ TEST_F(LinkedListTest, RemoveAllMiddleFirst_Verify_NodeCount) {
     addListNode(pll, data2);
     addListNode(pll, data3);
     // act
-    displayList(pll);
+    ShowListContents(pll);
     bool rVal = removeListNode(pll, data2);
-    displayList(pll);
+    ShowListContents(pll);
     rVal = removeListNode(pll, data1);
-    displayList(pll);
+    ShowListContents(pll);
     rVal = removeListNode(pll, data3);
-    displayList(pll);
+    ShowListContents(pll);
     int count = getNodeCount(pll);
     // assert
     ASSERT_EQ(count, 0);
@@ -274,13 +288,13 @@ TEST_F(LinkedListTest, RemoveAllFirstLast_Verify_NodeCount) {
     addListNode(pll, data2);
     addListNode(pll, data3);
     // act
-    displayList(pll);
+    ShowListContents(pll);
     bool rVal = removeListNode(pll, data1);
-    displayList(pll);
+    ShowListContents(pll);
     rVal = removeListNode(pll, data2);
-    displayList(pll);
+    ShowListContents(pll);
     rVal = removeListNode(pll, data3);
-    displayList(pll);
+    ShowListContents(pll);
     int count = getNodeCount(pll);
     // assert
     ASSERT_EQ(count, 0);
@@ -296,13 +310,13 @@ TEST_F(LinkedListTest, RemoveAllLastFirst_Verify_NodeCount) {
     addListNode(pll, data2);
     addListNode(pll, data3);
     // act
-    displayList(pll);
+    ShowListContents(pll);
     bool rVal = removeListNode(pll, data3);
-    displayList(pll);
+    ShowListContents(pll);
     rVal = removeListNode(pll, data2);
-    displayList(pll);
+    ShowListContents(pll);
     rVal = removeListNode(pll, data1);
-    displayList(pll);
+    ShowListContents(pll);
     int count = getNodeCount(pll);
     // assert
     ASSERT_EQ(count, 0);

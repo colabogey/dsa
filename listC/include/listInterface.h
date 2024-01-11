@@ -25,7 +25,7 @@ void clearLinkedList(pLinkedList);
 pListNode createListNode();
 void clearListNode(pListNode);
 
-void displayList(pLinkedList);
+void displayList(pLinkedList, char*);
 
 #ifdef __cplusplus
 }

@@ -10,7 +10,7 @@ static void _addListNode(pLinkedList, pListNode, pListNode);
 static const char* _getListNodeData(pListNode, const char*);
 static void _removeListNode(pLinkedList, pListNode);
 static pListNode _findListNode(pListNode, const char*);
-static void _displayList(pListNode);
+static void _displayList(pListNode, char*);
 
 void addListNode(pLinkedList pll, const char *data) {
     pListNode newItem = createListNode();
@@ -176,21 +176,20 @@ void setPrev(pListNode pln, pListNode prev) {
     }
 }
 
-void displayList(pLinkedList pll) {
-    if (pll->m_head == NULL) {
-        printf("\tlist is empty (%d)\n", pll->m_nodeCount);
-    } else {
-        printf("\tlist items (%d): ", pll->m_nodeCount);
-        _displayList(pll->m_head);
-        printf("\n");
+void displayList(pLinkedList pll, char* content) {
+    if (pll->m_head != NULL) {
+        _displayList(pll->m_head, content);
+        int len = strlen(content);
+        sprintf(&content[len], "\n");
     }
 }
 
-void _displayList(pListNode curr) {
+void _displayList(pListNode curr, char* content) {
     if(curr == NULL) {
         return;
     }
-    printf("\t(%s)  ", curr->m_data);
-    _displayList(curr->m_next);
+    int len = strlen(content);
+    sprintf(&content[len], "\t(%s)  ", curr->m_data);
+    _displayList(curr->m_next, content);
 }
 
