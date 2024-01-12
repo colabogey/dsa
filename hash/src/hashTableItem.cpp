@@ -6,14 +6,10 @@ HashTableItem::~HashTableItem()
     m_list.clear();
 }
 
-bool HashTableItem::isDuplicate(pHashTableItem item) {
-    if(item->getKey() == m_key) {
+bool HashTableItem::isDuplicate(pHashTableItem existingItem, pHashTableItem newItem) {
+    if(existingItem->getKey() == newItem->getKey() &&
+       existingItem->getValue() == newItem->getValue()) {
         return true;
-    }
-    for(pHashTableItem listItem : m_list) {
-        if(listItem->getKey() == item->getKey()) {
-            return true;
-        }
     }
     return false;
 }
@@ -56,4 +52,16 @@ void HashTableItem::clear() {
     m_key = "";
     m_value = "";
     m_list.clear();
+}
+
+void HashTableItem::dump(pHashTableItem item, int idx) {
+    printf("\t(%d): (%s)\t(%s)\n", idx, item->m_key.c_str(), item->m_value.c_str());
+    printf("\t\tlist: ");
+    if(item->m_list.size() == 0) {
+        printf("empty\n");
+    } else {
+        for(pHashTableItem listItem : item->m_list) {
+            printf("(%s)\t(%s)\n", listItem->m_key.c_str(), listItem->m_value.c_str());
+        }
+    }
 }

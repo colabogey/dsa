@@ -16,7 +16,7 @@ void HashMap::insert(std::string key, std::string value)
 {
     pHashTableItem pI = std::make_shared<HashTableItem>(key, value);
     int idx = m_pHashFunction->hash(key);
-    m_pHashTable->insert(idx, std::move(pI));
+    m_pHashTable->insert(idx, pI);
 }
 
 void HashMap::remove(std::string key)
@@ -35,3 +35,6 @@ std::string HashMap::find(std::string key)
     return rVal;
 }
 
+void HashMap::dump() {
+    m_pHashTable->dump();
+}

@@ -17,12 +17,14 @@ public:
     std::string getKey() { return m_key; };
     std::string getValue() { return m_value; };
     //size_t getListSize() { return m_list.size(); };
-    bool isDuplicate(std::shared_ptr<HashTableItem> item);
-    void handleInsertCollision(std::shared_ptr<HashTableItem>);
+    bool isDuplicate(std::shared_ptr<HashTableItem>, 
+                     std::shared_ptr<HashTableItem>);
+    void handleInsertCollision(std::shared_ptr<HashTableItem>); 
     void removeListItem(std::string);
     void promoteListItem();
     std::shared_ptr<HashTableItem> findListItem(std::string);
     void clear();
+    void dump(std::shared_ptr<HashTableItem>, int);
 
 private:
     std::string m_key;

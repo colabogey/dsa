@@ -18,6 +18,7 @@ public:
     void remove(std::string key);
     std::string find(std::string key);
     pHashTableItem create(std::string key, std::string value);
+    void dump();
 
 private:
     std::shared_ptr<HashTable> m_pHashTable;

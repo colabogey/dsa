@@ -15,6 +15,8 @@ public:
     void insert(int idx, pHashTableItem);
     void remove(std::string, int idx);
     pHashTableItem find(std::string, int idx);
+    void find();
+    void dump();
 
 private:
     pHashTableItem m_hashTable[BUCKETS];

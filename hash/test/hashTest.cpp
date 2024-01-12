@@ -113,7 +113,7 @@ TEST_F(HashMapTest, InsertThenRemove_VerifyReturnItemValueMatchesInsert) {
     ASSERT_STREQ("abc", "abc");
 }
 
-TEST_F(HashMapTest, Insert_Collision) {
+TEST_F(HashMapTest, Insert_Collision_VerifyOriginalKeyAvailable) {
     // arrange
     string key1 = "ab";
     string value1 = "one";
@@ -126,5 +126,35 @@ TEST_F(HashMapTest, Insert_Collision) {
     string returnValue = pHashMap->find(key1);
     // assert
     ASSERT_STREQ(value1.c_str(), returnValue.c_str());
+}
+
+TEST_F(HashMapTest, Insert_Collision_VerifySecondKeyAvailable) {
+    // arrange
+    string key1 = "ab";
+    string value1 = "one";
+    string key2 = "ba";
+    string value2 = "two";
+    auto pHashMap = make_unique<HashMap>();
+    // act
+    pHashMap->insert(key1, value1);
+    pHashMap->insert(key2, value2);
+    string returnValue = pHashMap->find(key2);
+    // assert
+    ASSERT_STREQ(value2.c_str(), returnValue.c_str());
+}
+
+TEST_F(HashMapTest, Insert_Collision_DumpMap) {
+    // arrange
+    string key1 = "ab";
+    string value1 = "one";
+    string key2 = "ba";
+    string value2 = "two";
+    auto pHashMap = make_unique<HashMap>();
+    // act
+    pHashMap->insert(key1, value1);
+    pHashMap->insert(key2, value2);
+    pHashMap->dump();
+    // assert
+    ASSERT_STREQ("", "");
 }
 

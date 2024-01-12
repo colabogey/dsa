@@ -2,12 +2,12 @@
 BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x02\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x0c\x00o\x00r\x00a\x00c\x00l\x00e\x00\x00\x00\x0b\x00\x00\x00\x00\x04\x00\x00\x00\x0c\x00o\x00r\x00a\x00c\x00l\x00e\x00\x00\x00\x08\x00t\x00r\x00e\x00e\x00\x00\x00\x06\x00s\x00r\x00c\x00\x00\x00\n\x00b\x00u\x00i\x00l\x00d)
 
 [Launch]
-Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2
+Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2,Launch Configuration 3
 
 [Launch][Launch Configuration 0]
 Configured Launch Modes=execute
 Configured Launchers=nativeAppLauncher
-Name=listC Launcher
+Name=listC
 Type=Native Application
 
 [Launch][Launch Configuration 0][Data]
@@ -45,7 +45,7 @@ isExecutable=true
 [Launch][Launch Configuration 2]
 Configured Launch Modes=execute
 Configured Launchers=nativeAppLauncher
-Name=tree launcher
+Name=tree
 Type=Native Application
 
 [Launch][Launch Configuration 2][Data]
@@ -54,6 +54,25 @@ Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Nothing
 EnvironmentGroup=
 Executable=file:///home/yackey/projects/oracle/tree/test/bin/treeTest
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Kill Before Executing Again=4194304
+Project Target=
+Use External Terminal=false
+Working Directory=
+isExecutable=true
+
+[Launch][Launch Configuration 3]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=hash
+Type=Native Application
+
+[Launch][Launch Configuration 3][Data]
+Arguments=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+EnvironmentGroup=
+Executable=file:///home/yackey/projects/oracle/hash/test/bin/hashMapTest
 External Terminal=konsole --noclose --workdir %workdir -e %exe
 Kill Before Executing Again=4194304
 Project Target=

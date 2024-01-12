@@ -12,15 +12,15 @@ HashTable::HashTable()
     }
 }
 
-void HashTable::insert(int idx, pHashTableItem item)
-{
+void HashTable::insert(int idx, pHashTableItem item) {
     if(m_hashTable[idx] != nullptr) {
-        if(item->isDuplicate(item)) {
+        if(item->isDuplicate(m_hashTable[idx], item)) {
             return; //TODO: should this return a value
         }
-        item->handleInsertCollision(item);
+        m_hashTable[idx]->handleInsertCollision(item);
+    } else {
+        m_hashTable[idx] = item;
     }
-    m_hashTable[idx] = item;
 }
 
 void HashTable::remove(std::string key, int idx)
@@ -53,3 +53,11 @@ pHashTableItem HashTable::find(std::string key, int idx) {
     return(tableEntry->findListItem(key));
 }
 
+void HashTable::dump() {
+    for(int i = 0; i < BUCKETS; i++) {
+        if(m_hashTable[i] != nullptr) {
+            pHashTableItem item = m_hashTable[i];
+            item->dump(item, i);    
+        }
+    }
+}
