@@ -14,7 +14,7 @@ HashTable::HashTable()
 
 void HashTable::insert(int idx, pHashTableItem item) {
     if(m_hashTable[idx] != nullptr) {
-        if(item->isDuplicate(m_hashTable[idx], item)) {
+        if(m_hashTable[idx]->isDuplicate(item)) {
             return; //TODO: should this return a value
         }
         m_hashTable[idx]->handleInsertCollision(item);

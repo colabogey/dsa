@@ -6,10 +6,17 @@ HashTableItem::~HashTableItem()
     m_list.clear();
 }
 
-bool HashTableItem::isDuplicate(pHashTableItem existingItem, pHashTableItem newItem) {
-    if(existingItem->getKey() == newItem->getKey() &&
-       existingItem->getValue() == newItem->getValue()) {
+bool HashTableItem::isDuplicate(pHashTableItem newItem) {
+    if(getKey() == newItem->getKey() && getValue() == newItem->getValue()) {
         return true;
+    }
+
+    for (auto it = m_list.begin(); it != m_list.end(); it++) {
+        pHashTableItem tableItem = *it;
+        if(newItem->getKey() == tableItem->getKey() && 
+           newItem-> getValue() == tableItem->getValue()) {
+            return true;
+        }
     }
     return false;
 }

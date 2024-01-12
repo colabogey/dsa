@@ -143,6 +143,37 @@ TEST_F(HashMapTest, Insert_Collision_VerifySecondKeyAvailable) {
     ASSERT_STREQ(value2.c_str(), returnValue.c_str());
 }
 
+TEST_F(HashMapTest, Insert_DuplicateMainValue_DumpMap) {
+    // arrange
+    string key1 = "ab";
+    string value1 = "one";
+    auto pHashMap = make_unique<HashMap>();
+    // act
+    pHashMap->insert(key1, value1);
+    pHashMap->insert(key1, value1);
+    pHashMap->dump();
+    // assert
+    ASSERT_STREQ("", "");
+}
+
+TEST_F(HashMapTest, Insert_DuplicateListValue_DumpMap) {
+    // arrange
+    string key1 = "ab";
+    string value1 = "one";
+    string key2 = "ba";
+    string value2 = "two";
+    string key3 = "ba";
+    string value3 = "two";
+    auto pHashMap = make_unique<HashMap>();
+    // act
+    pHashMap->insert(key1, value1);
+    pHashMap->insert(key2, value2);
+    pHashMap->insert(key3, value3);
+    pHashMap->dump();
+    // assert
+    ASSERT_STREQ("", "");
+}
+
 TEST_F(HashMapTest, Insert_Collision_DumpMap) {
     // arrange
     string key1 = "ab";
