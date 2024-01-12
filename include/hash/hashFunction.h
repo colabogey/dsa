@@ -1,8 +1,9 @@
 #pragma once
 
+#include "IHashFunction.h"
 #include <string>
 
-class HashFunction
+class HashFunction: public IHashFunction
 {
 public:
     HashFunction();
@@ -10,7 +11,7 @@ public:
     HashFunction& operator=(HashFunction& other) {return *this;};
     HashFunction(HashFunction& other) {};
 
-    int hash(const std::string&);
+    virtual int hash(const std::string&) override;
 
 private:
 

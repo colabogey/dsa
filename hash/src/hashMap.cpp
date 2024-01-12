@@ -7,30 +7,30 @@
 
 HashMap::HashMap()
 {
-    std::unique_ptr<HashFunctionFactory> hff = std::make_unique<HashFunctionFactory>();
+    std::shared_ptr<HashFunctionFactory> hff = std::make_shared<HashFunctionFactory>();
     m_pHashFunction = hff->create();
-    m_pHashTable = std::make_unique<HashTable>();
+    m_pHashTable = std::make_shared<HashTable>();
 }
 
 void HashMap::insert(std::string key, std::string value)
 {
-    pHashTableItem pI = std::make_unique<HashTableItem>(key, value);
+    pHashTableItem pI = std::make_shared<HashTableItem>(key, value);
     int idx = m_pHashFunction->hash(key);
     m_pHashTable->insert(idx, std::move(pI));
 }
 
-pHashTableItem HashMap::remove(std::string key)
+void HashMap::remove(std::string key)
 {
     int idx = m_pHashFunction->hash(key);
-    pHashTableItem item = m_pHashTable->remove(idx);
-    return item;
+    m_pHashTable->remove(key, idx);
+    return;
 }
 
 std::string HashMap::find(std::string key)
 {
     std::string rVal = "";
     int idx = m_pHashFunction->hash(key);
-    pHashTableItem item = m_pHashTable->find(idx);
+    pHashTableItem item = m_pHashTable->find(key, idx);
     item != nullptr ? rVal = item->getValue() : rVal = "";
     return rVal;
 }

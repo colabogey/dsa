@@ -13,8 +13,8 @@ public:
     HashTable& operator=(HashTable& other) {return *this;};
     HashTable(HashTable& other) {};
     void insert(int idx, pHashTableItem);
-    pHashTableItem remove(int idx);
-    pHashTableItem find(int idx);
+    void remove(std::string, int idx);
+    pHashTableItem find(std::string, int idx);
 
 private:
     pHashTableItem m_hashTable[BUCKETS];
