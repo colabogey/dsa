@@ -21,7 +21,7 @@ LIBFLAGS = -lgtest -lgmock -L$(PROJECT_BIN_DIR) -L/usr/local/lib -L/usr/local/li
 SRC_DIR     = ./
 BUILD_DIR   = ./build
 BIN_DIR     = ./bin
-GRAPHD_LIB     = ../src/bin/libgraph.a
+GRAPH_LIB     = ../src/bin/libgraph.a
 MYTESTAPP = graphTest
 
 $(shell mkdir -p $(PROJECT_BIN_DIR))
@@ -39,7 +39,7 @@ $(BUILD_DIR)/%.o: $(SRC_DIR)/%.cpp
 .PHONY: all
 all:    $(BIN_DIR)/$(MYTESTAPP)
 
-$(LINKEDLIST_LIB):
+$(GRAPH_LIB):
 	touch $(SRCS)
 
 $(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(GRAPH_LIB)

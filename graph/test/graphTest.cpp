@@ -50,17 +50,66 @@ class GraphTest : public ::testing::Test {
     //
 };
 
-TEST_F(GraphTest, InsertNode_VerifyItemFound_ByNodeCount) {
+TEST_F(GraphTest, AddEdges) {
     // arrange
-    auto pGraph = make_shared<Graph>();
+    auto pGraph = make_shared<Graph>(6);
     // act
-    pGraph->addEdge(0, 1, 3);
-    pGraph->addEdge(0, 2, 5);
-    pGraph->addEdge(1, 2, 7);
-    pGraph->addEdge(2, 0, 9);
-    pGraph->addEdge(2, 3, 2);
-    pGraph->addEdge(3, 3, 4);
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(1, 3, 3);
+    pGraph->addEdge(3, 5, 5);
+    pGraph->addEdge(0, 2, 2);
+    pGraph->addEdge(2, 4, 4);
+    pGraph->addEdge(4, 5, 6);
     int count = 1;
+    // assert
+    ASSERT_EQ(count, 1);
+}
+
+TEST_F(GraphTest, AddEdges_OneTooMany) {
+    // arrange
+    auto pGraph = make_shared<Graph>(6);
+    // act
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(1, 3, 3);
+    pGraph->addEdge(3, 5, 5);
+    pGraph->addEdge(0, 2, 2);
+    pGraph->addEdge(2, 4, 4);
+    pGraph->addEdge(4, 5, 6);
+
+    pGraph->addEdge(5, 3, 4);
+    int count = 1;
+    // assert
+    ASSERT_EQ(count, 1);
+}
+
+TEST_F(GraphTest, BFS_StartAt_Zero) {
+    // arrange
+    auto pGraph = make_shared<Graph>(6);
+    // act
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(1, 3, 3);
+    pGraph->addEdge(3, 5, 5);
+    pGraph->addEdge(0, 2, 2);
+    pGraph->addEdge(2, 4, 4);
+    pGraph->addEdge(4, 5, 6);
+    int count = 1;
+    pGraph->BFS(0);
+    // assert
+    ASSERT_EQ(count, 1);
+}
+
+TEST_F(GraphTest, BFS_StartAt_Three) {
+    // arrange
+    auto pGraph = make_shared<Graph>(6);
+    // act
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(1, 3, 3);
+    pGraph->addEdge(3, 5, 5);
+    pGraph->addEdge(0, 2, 2);
+    pGraph->addEdge(2, 4, 4);
+    pGraph->addEdge(4, 5, 6);
+    int count = 1;
+    pGraph->BFS(3);
     // assert
     ASSERT_EQ(count, 1);
 }
