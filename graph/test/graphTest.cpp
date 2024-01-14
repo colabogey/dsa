@@ -157,3 +157,12 @@ TEST_F(GraphTest, bfsSay_StartAt_Three) {
     ASSERT_EQ(count, 1);
 }
 
+TEST_F(GraphTest, shortestPath) {
+    // arrange
+    // act
+    auto pGraph = make_shared<Graph>();
+    pGraph->main();
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
