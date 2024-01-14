@@ -1,6 +1,5 @@
 
 #include "graph.h"
-#include "graph.h"
 
 Graph::Graph(int vtx) {
     m_adjLists.resize(vtx);

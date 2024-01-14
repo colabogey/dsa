@@ -46,6 +46,13 @@ class GraphTest : public ::testing::Test {
         // before the destructor).
     }
 
+    virtual void DumpBfsList(std::list<int>& results) {
+        for(int i : results) {
+            printf("(%d) ", i);
+        }
+        printf("\n");
+    }
+
     // Objects declared here can be used by all tests.
     //
 };
@@ -110,6 +117,42 @@ TEST_F(GraphTest, BFS_StartAt_Three) {
     pGraph->addEdge(4, 5, 6);
     int count = 1;
     pGraph->BFS(3);
+    // assert
+    ASSERT_EQ(count, 1);
+}
+
+TEST_F(GraphTest, bfsSay_StartAt_Zero) {
+    // arrange
+    auto pGraph = make_shared<Graph>(6);
+    std::list<int> results;
+    // act
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(1, 3, 3);
+    pGraph->addEdge(3, 5, 5);
+    pGraph->addEdge(0, 2, 2);
+    pGraph->addEdge(2, 4, 4);
+    pGraph->addEdge(4, 5, 6);
+    int count = 1;
+    pGraph->bfsSay(0, results);
+    DumpBfsList(results);
+    // assert
+    ASSERT_EQ(count, 1);
+}
+
+TEST_F(GraphTest, bfsSay_StartAt_Three) {
+    // arrange
+    auto pGraph = make_shared<Graph>(6);
+    std::list<int> results;
+    // act
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(1, 3, 3);
+    pGraph->addEdge(3, 5, 5);
+    pGraph->addEdge(0, 2, 2);
+    pGraph->addEdge(2, 4, 4);
+    pGraph->addEdge(4, 5, 6);
+    int count = 1;
+    pGraph->bfsSay(3, results);
+    DumpBfsList(results);
     // assert
     ASSERT_EQ(count, 1);
 }

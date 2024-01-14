@@ -16,6 +16,7 @@ public:
 
     void addEdge(int, int, int);
     void BFS(int);
+    void bfsSay(int, std::list<int>&);
 
 private:
     std::vector<std::list<GraphVertex>> m_adjLists;
