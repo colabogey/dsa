@@ -4,7 +4,7 @@
 Graph::Graph(int vtx) { m_adjLists.resize(vtx); }
 
 void Graph::addEdge(int source, int dest, int weight) {
-    if (source >= m_adjLists.capacity() || dest >= m_adjLists.capacity()) {
+    if (source >= m_adjLists.size() || dest >= m_adjLists.size()) {
         // TODO: indicate some error or just resize ?
         return;
     }
@@ -19,7 +19,7 @@ void Graph::addEdge(int source, int dest, int weight) {
 void Graph::BFS(int vtx) {
     // Mark all the vertices as not visited
     std::vector<bool> visited;
-    visited.resize(m_adjLists.capacity(), false);
+    visited.resize(m_adjLists.size(), false);
 
     // Create a queue for BFS
     std::list<int> queue;

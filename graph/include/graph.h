@@ -3,6 +3,7 @@
 #include "graphVertex.h"
 #include <list>
 #include <string>
+#include <deque>
 #include <vector>
 
 class Graph {
@@ -22,6 +23,9 @@ class Graph {
     bool shortestPath(std::vector<int>[], int, int, int, int[], int[]);
     void add_edge(std::vector<int>[], int, int);
 
+    void spUnweighted(int, int);
+
   private:
-    std::vector<std::list<GraphVertex>> m_adjLists;
+    void _showSp(int, int, std::deque<int>, std::deque<int>);
+    std::deque<std::list<GraphVertex>> m_adjLists;
 };

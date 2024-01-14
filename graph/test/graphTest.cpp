@@ -166,3 +166,25 @@ TEST_F(GraphTest, shortestPath) {
     ASSERT_EQ(1, 1);
 }
 
+TEST_F(GraphTest, spUnweighted) {
+    // arrange
+    auto pGraph = make_shared<Graph>(8);
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(0, 3, 1);
+    pGraph->addEdge(1, 2, 1);
+    pGraph->addEdge(3, 4, 1);
+    pGraph->addEdge(3, 7, 1);
+    pGraph->addEdge(4, 5, 1);
+    pGraph->addEdge(4, 6, 1);
+    pGraph->addEdge(4, 7, 1);
+    pGraph->addEdge(5, 6, 1);
+    pGraph->addEdge(6, 7, 1);
+    // act
+    int source = 0, dest = 7;
+    pGraph->spUnweighted(source, dest);
+    source = 2, dest = 6;
+    pGraph->spUnweighted(source, dest);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
