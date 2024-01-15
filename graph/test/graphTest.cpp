@@ -157,7 +157,7 @@ TEST_F(GraphTest, bfsSay_StartAt_Three) {
     ASSERT_EQ(count, 1);
 }
 
-TEST_F(GraphTest, shortestPath) {
+TEST_F(GraphTest, shortestPath_GforG_Version) {
     // arrange
     // act
     auto pGraph = make_shared<Graph>();
@@ -166,7 +166,7 @@ TEST_F(GraphTest, shortestPath) {
     ASSERT_EQ(1, 1);
 }
 
-TEST_F(GraphTest, spUnweighted) {
+TEST_F(GraphTest, shortestPathUnweighted_Path_Found) {
     // arrange
     auto pGraph = make_shared<Graph>(8);
     pGraph->addEdge(0, 1, 1);
@@ -181,9 +181,32 @@ TEST_F(GraphTest, spUnweighted) {
     pGraph->addEdge(6, 7, 1);
     // act
     int source = 0, dest = 7;
-    pGraph->spUnweighted(source, dest);
+    pGraph->shortestPathUnweighted(source, dest);
     source = 2, dest = 6;
-    pGraph->spUnweighted(source, dest);
+    pGraph->shortestPathUnweighted(source, dest);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+TEST_F(GraphTest, shortestPathUnweighted_NoPath) {
+    // arrange
+    auto pGraph = make_shared<Graph>(10);
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(0, 3, 1);
+    pGraph->addEdge(1, 2, 1);
+    pGraph->addEdge(3, 4, 1);
+    pGraph->addEdge(3, 7, 1);
+    pGraph->addEdge(4, 5, 1);
+    pGraph->addEdge(4, 6, 1);
+    pGraph->addEdge(4, 7, 1);
+    pGraph->addEdge(5, 6, 1);
+    pGraph->addEdge(6, 7, 1);
+    pGraph->addEdge(8, 9, 1);
+    // act
+    int source = 0, dest = 8;
+    pGraph->shortestPathUnweighted(source, dest);
+    source = 2, dest = 9;
+    pGraph->shortestPathUnweighted(source, dest);
     // assert
     ASSERT_EQ(1, 1);
 }

@@ -1,7 +1,7 @@
 
 #include "graph.h"
 
-void Graph::spUnweighted(int vtxSrc, int vtxDest) {
+void Graph::shortestPathUnweighted(int vtxSrc, int vtxDest) {
     // Mark all the vertices as not visited
     std::deque<bool> visited(m_adjLists.size(), false);
 
@@ -11,6 +11,7 @@ void Graph::spUnweighted(int vtxSrc, int vtxDest) {
     std::deque<int> costList(m_adjLists.size(), 0);
 
     // Mark the current node as visited and enqueue it
+    m_foundPath = false;
     int vtx = vtxSrc;
     visited[vtx] = true;
     costList[vtx] = 0;
@@ -25,6 +26,7 @@ void Graph::spUnweighted(int vtxSrc, int vtxDest) {
                 costList[adjacent.getVtx()] = costList[vtx] + 1;
                 queue.push_back(adjacent.getVtx());
                 if(adjacent.getVtx() == vtxDest) {
+                    m_foundPath = true;
                     break;
                 }
             }
@@ -35,6 +37,10 @@ void Graph::spUnweighted(int vtxSrc, int vtxDest) {
 
 void Graph::_showSp(int vtxSrc, int vtxDest, 
                     std::deque<int> predList, std::deque<int> costList) {
+    if(m_foundPath == false) {
+        printf("Np path found (%d)-->(%d)\n", vtxSrc, vtxDest);
+        return;
+    }
     // find dest 
     std::list<int> path;
     int currVtx = vtxDest;

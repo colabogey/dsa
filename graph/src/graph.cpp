@@ -4,8 +4,11 @@
 Graph::Graph(int vtx) { m_adjLists.resize(vtx); }
 
 void Graph::addEdge(int source, int dest, int weight) {
+    //int sz = m_adjLists.size();
+    //m_adjLists.resize(sz + 1);
     if (source >= m_adjLists.size() || dest >= m_adjLists.size()) {
         // TODO: indicate some error or just resize ?
+        printf(" **************** TOO BIG **************** \n");
         return;
     }
 
