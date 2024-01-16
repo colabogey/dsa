@@ -23,7 +23,8 @@ void Graph::shortestPathUnweighted(int vtxSrc, int vtxDest) {
             if (!visited[adjacent.getVtx()]) {
                 visited[adjacent.getVtx()] = true;
                 predList[adjacent.getVtx()] = vtx;
-                costList[adjacent.getVtx()] = costList[vtx] + 1;
+                costList[adjacent.getVtx()] = 
+                    costList[vtx] + adjacent.getWeight();
                 queue.push_back(adjacent.getVtx());
                 if(adjacent.getVtx() == vtxDest) {
                     m_pathFound = true;

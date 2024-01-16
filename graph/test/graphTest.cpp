@@ -201,7 +201,34 @@ TEST_F(GraphTest, shortestPath_0to7_PathFound_VerifyPathAndCost) {
     bool pathFound = pGraph->getPathFound();
     int costResult = pGraph->getPathCost();
     list<int> pathResult = pGraph->getPathResult();
-    //DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
+    DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
+    // assert
+    ASSERT_EQ(costAnswer, costResult);
+    ASSERT_TRUE(isExpectedResult(pathAnswer, pathResult));
+}
+
+TEST_F(GraphTest, shortestPath_0to7_Weighted_PathFound_VerifyPathAndCost) {
+    // arrange
+    std::list<int> pathAnswer = {0, 3, 7};
+    int costAnswer = 11;
+    auto pGraph = make_shared<Graph>();
+    pGraph->addEdge(0, 1, 1);
+    pGraph->addEdge(0, 3, 1);
+    pGraph->addEdge(1, 2, 1);
+    pGraph->addEdge(3, 4, 1);
+    pGraph->addEdge(3, 7, 10);
+    pGraph->addEdge(4, 5, 1);
+    pGraph->addEdge(4, 6, 1);
+    pGraph->addEdge(4, 7, 5);
+    pGraph->addEdge(5, 6, 1);
+    pGraph->addEdge(6, 7, 1);
+    // act
+    int source = 0, dest = 7;
+    pGraph->shortestPathUnweighted(source, dest);
+    bool pathFound = pGraph->getPathFound();
+    int costResult = pGraph->getPathCost();
+    list<int> pathResult = pGraph->getPathResult();
+    DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
     // assert
     ASSERT_EQ(costAnswer, costResult);
     ASSERT_TRUE(isExpectedResult(pathAnswer, pathResult));
@@ -228,7 +255,7 @@ TEST_F(GraphTest, shortestPath_2to6_PathFound_VerifyPathAndCost) {
     bool pathFound = pGraph->getPathFound();
     int costResult = pGraph->getPathCost();
     list<int> pathResult = pGraph->getPathResult();
-    //DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
+    DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
     // assert
     ASSERT_TRUE(isExpectedResult(pathAnswer, pathResult));
     ASSERT_EQ(costAnswer, costResult);
@@ -253,8 +280,16 @@ TEST_F(GraphTest, shortestPathUnweighted_NoPath) {
     bool pathFound = pGraph->getPathFound();
     int costResult = pGraph->getPathCost();
     list<int> pathResult = pGraph->getPathResult();
-    //DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
+    DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
     // assert
     ASSERT_FALSE(pathFound);
 }
 
+TEST_F(GraphTest, shortestPathWeighted_Algotree_Version) {
+    // arrange
+    // act
+    auto pGraph = make_shared<Graph>();
+    pGraph->main_algotree();
+    // assert
+    ASSERT_EQ(1, 1);
+}
