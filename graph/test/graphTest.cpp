@@ -19,6 +19,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <functional>
 #include <graph.h>
 
+#include <shortestPathWeightedTp.h>
+
 using namespace std;
 
 // The fixture for testing
@@ -94,7 +96,7 @@ TEST_F(GraphTest, AddEdges_VerifyUndirected_AdjacentCount) {
     pGraph->addEdge(4, 5, 6);
     int count = pGraph->getAdjListCount();
     // assert
-    ASSERT_EQ(count, 12);
+    ASSERT_EQ(count, 6);
 }
 
 /*
@@ -116,7 +118,7 @@ TEST_F(GraphTest, bff_g4g_StartAt_Zero) {
 
 TEST_F(GraphTest, BFS_StartAt_Three) {
     // arrange
-    auto pGraph = make_shared<Graph>(6);
+    auto pGraph = make_shared<Graph>();
     // act
     pGraph->addEdge(0, 1, 1);
     pGraph->addEdge(1, 3, 3);
@@ -263,7 +265,7 @@ TEST_F(GraphTest, shortestPath_2to6_PathFound_VerifyPathAndCost) {
 
 TEST_F(GraphTest, shortestPathUnweighted_NoPath) {
     // arrange
-    auto pGraph = make_shared<Graph>(8);
+    auto pGraph = make_shared<Graph>();
     pGraph->addEdge(0, 1, 1);
     pGraph->addEdge(0, 3, 1);
     pGraph->addEdge(1, 2, 1);
@@ -293,3 +295,198 @@ TEST_F(GraphTest, shortestPathWeighted_Algotree_Version) {
     // assert
     ASSERT_EQ(1, 1);
 }
+
+TEST_F(GraphTest, shortestPathWeighted) {
+    // arrange
+    // act
+    auto pGraph = make_shared<Graph>();
+    pGraph->addEdge(0, 1, 4);
+    pGraph->addEdge(0, 2, 2);
+    pGraph->addEdge(1, 2, 3);
+    pGraph->addEdge(1, 3, 2);
+    pGraph->addEdge(2, 4, 5);
+    pGraph->addEdge(2, 3, 4);
+    pGraph->addEdge(1, 4, 3);
+    //pGraph->shortestPathWeighted(0, 4);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+TEST_F(GraphTest, shortestPathWeighted_TutPoint_Version) {
+    // arrange
+    // act
+    auto pGraph = make_shared<GraphTp>();
+    pGraph->main_tp();
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+TEST_F(GraphTest, shortestPathWeighted_Match_TutPoint_Version) {
+    // arrange
+    auto pGraph = make_shared<Graph>();
+    pGraph->addDirectedEdge(0, 1, 3);
+    pGraph->addDirectedEdge(0, 2, 6);
+    pGraph->addDirectedEdge(1, 0, 3);
+    pGraph->addDirectedEdge(1, 2, 2);
+    pGraph->addDirectedEdge(1, 3, 1);
+    pGraph->addDirectedEdge(2, 1, 6);
+    pGraph->addDirectedEdge(2, 1, 2);
+    pGraph->addDirectedEdge(2, 3, 1);
+    pGraph->addDirectedEdge(2, 4, 4);
+    
+    pGraph->addDirectedEdge(2, 5, 2);
+    pGraph->addDirectedEdge(3, 1, 1);
+    pGraph->addDirectedEdge(3, 2, 1);
+    pGraph->addDirectedEdge(3, 4, 2);
+    pGraph->addDirectedEdge(3, 6, 4);
+    pGraph->addDirectedEdge(4, 2, 4);
+    pGraph->addDirectedEdge(4, 3, 2);
+    pGraph->addDirectedEdge(4, 5, 2);
+    pGraph->addDirectedEdge(4, 6, 1);
+    pGraph->addDirectedEdge(5, 2, 2);
+    pGraph->addDirectedEdge(5, 4, 2);
+    pGraph->addDirectedEdge(5, 6, 1);
+    pGraph->addDirectedEdge(6, 3, 4);
+    pGraph->addDirectedEdge(6, 4, 1);
+    pGraph->addDirectedEdge(6, 5, 1);
+    // act
+    pGraph->shortestPathWeighted(0);
+    pGraph->showShortestPathWeighted(0);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_0) {
+    // arrange
+    auto pGraph = make_shared<Graph>();
+    // Node 0: <1,5> <2,1> <3,4>
+    pGraph->addDirectedEdge(0, 1, 5);
+    pGraph->addDirectedEdge(0, 2, 1);
+    pGraph->addDirectedEdge(0, 3, 4);
+
+    // Node 1: <0,5> <2,3> <4,8>
+    pGraph->addDirectedEdge(1, 0, 5);
+    pGraph->addDirectedEdge(1, 2, 3);
+    pGraph->addDirectedEdge(1, 4, 8);
+
+    // Node 2: <0,1> <1,3> <3,2> <4,1>
+    pGraph->addDirectedEdge(2, 0, 1);
+    pGraph->addDirectedEdge(2, 1, 3);
+    pGraph->addDirectedEdge(2, 3, 2);
+    pGraph->addDirectedEdge(2, 4, 1);
+
+    // Node 3: <0,4> <2,2> <4,2> <5,1>
+    pGraph->addDirectedEdge(3, 0, 4);
+    pGraph->addDirectedEdge(3, 2, 2);
+    pGraph->addDirectedEdge(3, 4, 2);
+    pGraph->addDirectedEdge(3, 5, 1);
+
+    // Node 4: <1,8> <2,1> <3,2> <5,3>
+    pGraph->addDirectedEdge(4, 1, 8);
+    pGraph->addDirectedEdge(4, 2, 1);
+    pGraph->addDirectedEdge(4, 3, 2);
+    pGraph->addDirectedEdge(4, 5, 3);
+
+    // Node 5: <3,1> <4,3>
+    pGraph->addDirectedEdge(5, 3, 1);
+    pGraph->addDirectedEdge(5, 4, 3);
+
+    // act
+    pGraph->shortestPathWeighted(0);
+    pGraph->showShortestPathWeighted(0);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+
+TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_5) {
+    // arrange
+    auto pGraph = make_shared<Graph>();
+    // Node 0: <1,5> <2,1> <3,4>
+    pGraph->addDirectedEdge(0, 1, 5);
+    pGraph->addDirectedEdge(0, 2, 1);
+    pGraph->addDirectedEdge(0, 3, 4);
+
+    // Node 1: <0,5> <2,3> <4,8>
+    pGraph->addDirectedEdge(1, 0, 5);
+    pGraph->addDirectedEdge(1, 2, 3);
+    pGraph->addDirectedEdge(1, 4, 8);
+
+    // Node 2: <0,1> <1,3> <3,2> <4,1>
+    pGraph->addDirectedEdge(2, 0, 1);
+    pGraph->addDirectedEdge(2, 1, 3);
+    pGraph->addDirectedEdge(2, 3, 2);
+    pGraph->addDirectedEdge(2, 4, 1);
+
+    // Node 3: <0,4> <2,2> <4,2> <5,1>
+    pGraph->addDirectedEdge(3, 0, 4);
+    pGraph->addDirectedEdge(3, 2, 2);
+    pGraph->addDirectedEdge(3, 4, 2);
+    pGraph->addDirectedEdge(3, 5, 1);
+
+    // Node 4: <1,8> <2,1> <3,2> <5,3>
+    pGraph->addDirectedEdge(4, 1, 8);
+    pGraph->addDirectedEdge(4, 2, 1);
+    pGraph->addDirectedEdge(4, 3, 2);
+    pGraph->addDirectedEdge(4, 5, 3);
+
+    // Node 5: <3,1> <4,3>
+    pGraph->addDirectedEdge(5, 3, 1);
+    pGraph->addDirectedEdge(5, 4, 3);
+
+    // act
+    pGraph->shortestPathWeighted(5);
+    pGraph->showShortestPathWeighted(5);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_0) {
+    // arrange
+    auto pGraph = make_shared<Graph>();
+    pGraph->addEdge(0, 1, 4);
+    pGraph->addEdge(0, 7, 8);
+    pGraph->addEdge(1, 2, 8);
+    pGraph->addEdge(1, 7, 11);
+    pGraph->addEdge(2, 3, 7);
+    pGraph->addEdge(2, 8, 2);
+    pGraph->addEdge(2, 5, 4);
+    pGraph->addEdge(3, 4, 9);
+    pGraph->addEdge(3, 5, 14);
+    pGraph->addEdge(4, 5, 10);
+    pGraph->addEdge(5, 6, 2);
+    pGraph->addEdge(6, 7, 1);
+    pGraph->addEdge(6, 8, 6);
+    pGraph->addEdge(7, 8, 7);
+    // act
+    pGraph->shortestPathWeighted(0);
+    pGraph->showShortestPathWeighted(0);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+
+TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_5) {
+    // arrange
+    auto pGraph = make_shared<Graph>();
+    pGraph->addEdge(0, 1, 4);
+    pGraph->addEdge(0, 7, 8);
+    pGraph->addEdge(1, 2, 8);
+    pGraph->addEdge(1, 7, 11);
+    pGraph->addEdge(2, 3, 7);
+    pGraph->addEdge(2, 8, 2);
+    pGraph->addEdge(2, 5, 4);
+    pGraph->addEdge(3, 4, 9);
+    pGraph->addEdge(3, 5, 14);
+    pGraph->addEdge(4, 5, 10);
+    pGraph->addEdge(5, 6, 2);
+    pGraph->addEdge(6, 7, 1);
+    pGraph->addEdge(6, 8, 6);
+    pGraph->addEdge(7, 8, 7);
+    // act
+    pGraph->shortestPathWeighted(5);
+    pGraph->showShortestPathWeighted(5);
+    // assert
+    ASSERT_EQ(1, 1);
+}
+

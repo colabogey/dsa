@@ -12,6 +12,7 @@ void Graph::bfsSay(int vtx, std::list<int> &result) {
         vtx = queue.front();
         queue.pop_front();
         result.push_back(vtx);
+
         for (auto adjacent : m_adjLists[vtx]) {
             if (!visited[adjacent.getVtx()]) {
                 queue.push_back(adjacent.getVtx());

@@ -5,8 +5,8 @@
 #include <string>
 #include <deque>
 #include <vector>
+#include <memory>
 
-#define ADJ_LIST_SIZE_INCREMENT 16
 typedef std::pair<int,unsigned long long> PII;
 typedef std::vector<PII> VPII;
 typedef std::vector<VPII> VVPII;
@@ -14,14 +14,20 @@ typedef std::vector<VPII> VVPII;
 class Graph {
   public:
     Graph();
-    Graph(int vtx);
+    //Graph(int vtx);
     ~Graph();
     Graph &operator=(Graph &other) { return *this; };
     Graph(Graph &other){};
 
     void addEdge(int, int, int);
+    void addDirectedEdge(int, int, int);
     void BFS(int);
     void bfsSay(int, std::list<int> &);
+
+    void shortestPathUnweighted(int, int);
+    void shortestPathWeighted(int);
+
+    void showShortestPathWeighted(int);
 
     // g4g
     int main();
@@ -32,19 +38,25 @@ class Graph {
     void DijkstrasShortestPath (int source_node, int node_count, VVPII& graph);
     int main_algotree();
     //
-
-    void shortestPathUnweighted(int, int);
     
-    int getAdjListCount();
+    int getAdjListCount() { return m_adjLists.size(); } ;
     bool getPathFound() { return m_pathFound; };
     int getPathCost(GraphVertex v) { return v.getWeight(); };
     int getPathCost() { return m_pathCost; };
     std::list<int> getPathResult() { return m_pathResult; };
 
   private:
+    void _addEdge(int, int, int);
+    void _initUnvisited(std::list<int>&);
+    int _findMinUnvisited(std::deque<int>& ul, std::deque<int>&  cl);
     void _showSp(int, int, std::deque<int>, std::deque<int>);
     bool m_pathFound{false};
     int m_pathCost{0};
+    int _minDistance(std::deque<int>&, std::deque<bool>&);
     std::list<int> m_pathResult;
-    std::deque<std::list<GraphVertex>> m_adjLists;
+    std::vector<std::list<GraphVertex>> m_adjLists;
+    std::deque<int> m_dist;
+    std::deque<int> m_prevList;
 };
+
+

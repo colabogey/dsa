@@ -1,8 +1,9 @@
 
 #include "graph.h"
 
-Graph::Graph() { m_adjLists.resize(ADJ_LIST_SIZE_INCREMENT); }
-Graph::Graph(int vtx) { m_adjLists.resize(vtx); }
+Graph::Graph() { 
+}
+//Graph::Graph(int vtx) { m_pAdjLists.resize(vtx); }
 Graph::~Graph() { 
     for(auto l : m_adjLists) {
         l.clear();
@@ -10,7 +11,12 @@ Graph::~Graph() {
     m_adjLists.clear();
 }
 
-void Graph::addEdge(int source, int dest, int weight) {
+void Graph::addDirectedEdge(int src, int dst, int weight) {
+    _addEdge(src, dst, weight);
+}
+
+/*
+void Graph::addUndirectedEdge(int source, int dest, int weight) {
     GraphVertex v(dest, weight);
     if(m_adjLists.size() < (source + 1)) {
         m_adjLists.resize(m_adjLists.size() + ADJ_LIST_SIZE_INCREMENT);
@@ -23,12 +29,18 @@ void Graph::addEdge(int source, int dest, int weight) {
     }
     m_adjLists[dest].push_back(v2);
 }
+*/
 
-int Graph::getAdjListCount() {
-    int count = 0;
-    for(auto l : m_adjLists) {
-        count += l.size();
+void Graph::addEdge(int src, int dst, int weight) {
+    _addEdge(src, dst, weight);
+    _addEdge(dst, src, weight);
+}
+
+void Graph::_addEdge(int src, int dst, int weight) {
+    GraphVertex v(dst, weight);
+    if(m_adjLists.size() < (src + 1)) {
+        m_adjLists.resize(src + 1);
     }
-    return(count);
+    m_adjLists[src].push_back(v);
 }
 

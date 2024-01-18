@@ -87,7 +87,7 @@ Name=graph
 Type=Native Application
 
 [Launch][Launch Configuration 4][Data]
-Arguments=--gtest_filter=GraphTest.shortestPathUnweighted_Path_Found
+Arguments=--gtest_filter=GraphTest.shortestPathWeighted_Match_G4G_Version_0
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Nothing
 EnvironmentGroup=
