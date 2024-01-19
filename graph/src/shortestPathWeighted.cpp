@@ -22,6 +22,8 @@ void Graph::shortestPathWeighted(int vtxSrc) {
     std::deque<int> dist(items, INT_MAX);
     dist[vtxSrc] = 0;
 
+    std::vector<int> parents(items, -1);
+
     for(int i = 0; i < (items - 1); i++) {
         int u = _minDistance(dist, sptSet);
         sptSet[u] = true;
@@ -36,6 +38,7 @@ void Graph::shortestPathWeighted(int vtxSrc) {
             if (!inSptSet && dist[u] != INT_MAX && 
                 dist[u] + guv < dv) {
                 dist[it->getVtx()] = du + guv;
+                parents[it->getVtx()] = u;
             }
 
             //if (!sptSet[v] && graph[u][v]
@@ -43,7 +46,39 @@ void Graph::shortestPathWeighted(int vtxSrc) {
                 //&& dist[u] + graph[u][v] < dist[v])
         }
     }
+    _printSolution(vtxSrc, dist, parents);
     m_dist = dist;
+}
+
+void Graph::_printPath(int currentVertex, std::vector<int> parents)
+{
+
+    // Base case : Source node has
+    // been processed
+    if (currentVertex == -1) {
+        return;
+    }
+    _printPath(parents[currentVertex], parents);
+    std::cout << currentVertex << " ";
+}
+
+void Graph::_printSolution(int startVertex, std::deque<int> distances, std::vector<int> parents)
+{
+    int nVertices = distances.size();
+    std::cout << "Vertex\t Distance\tPath";
+
+    for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
+        if (vertexIndex != startVertex) {
+            if(distances[vertexIndex] == INT_MAX) {
+                continue;
+            }
+            std::cout << "\n" << startVertex << " -> ";
+            std::cout << vertexIndex << " \t\t ";
+            std::cout << distances[vertexIndex] << "\t";
+            _printPath(vertexIndex, parents);
+        }
+    }
+    std::cout << "\n";
 }
         
 void Graph::_initUnvisited(std::list<int>& unv) {

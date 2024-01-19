@@ -53,6 +53,10 @@ class Graph {
     bool m_pathFound{false};
     int m_pathCost{0};
     int _minDistance(std::deque<int>&, std::deque<bool>&);
+
+    void _printPath(int, std::vector<int>);
+    void _printSolution(int, std::deque<int>, std::vector<int>);
+
     std::list<int> m_pathResult;
     std::vector<std::list<GraphVertex>> m_adjLists;
     std::deque<int> m_dist;
