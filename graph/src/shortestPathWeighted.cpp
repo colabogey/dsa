@@ -25,19 +25,27 @@ void Graph::shortestPathWeighted(int vtxSrc) {
     std::deque<int> parents(items, -1);
 
     for(int i = 0; i < (items - 1); i++) {
+        // u is the vertex that
+        // is not in the spt set and
+        //``has the minimum dist value
         int u = _minDistance(dist, sptSet);
         sptSet[u] = true;
         
+        // look through vtx adjacent to u
         std::list<GraphVertex>::iterator it;
         for(it = m_adjLists[u].begin(); it != m_adjLists[u].end(); it++) {
+            // For every adjacent vertex v, 
+            // if the sum of the distance value of u (from source) 
+            // and weight of edge u-v, 
+            // is less than the distance value of v, 
+            // then update the distance value of v.
             bool inSptSet = sptSet[it->getVtx()];
-            int du = dist[u];
-            int guv = it->getWeight();
-            int dv = dist[it->getVtx()];
-
+            int du = dist[u];               // distance value of u from the source
+            int itw = it->getWeight();      // weight of the edge
+            int ditv = dist[it->getVtx()];  // distsnce value of v
             if (!inSptSet && dist[u] != INT_MAX && 
-                dist[u] + guv < dv) {
-                dist[it->getVtx()] = du + guv;
+                dist[u] + itw < ditv) {
+                dist[it->getVtx()] = du + itw;
                 parents[it->getVtx()] = u;
             }
         }
@@ -60,7 +68,7 @@ void Graph::_printPath(int currentVertex, std::deque<int> parents)
 void Graph::_printSolution(int startVertex, std::deque<int> distances, std::deque<int> parents)
 {
     int nVertices = distances.size();
-    std::cout << "Vertex\t Distance\tPath";
+    std::cout << "Vertex\t    Distance\tPath";
 
     for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
         if (vertexIndex != startVertex) {
@@ -68,7 +76,7 @@ void Graph::_printSolution(int startVertex, std::deque<int> distances, std::dequ
                 continue;
             }
             std::cout << "\n" << startVertex << " -> ";
-            std::cout << vertexIndex << " \t\t ";
+            std::cout << vertexIndex << "\t\t";
             std::cout << distances[vertexIndex] << "\t";
             _printPath(vertexIndex, parents);
         }
