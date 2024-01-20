@@ -99,40 +99,6 @@ TEST_F(GraphTest, AddEdges_VerifyUndirected_AdjacentCount) {
     ASSERT_EQ(count, 6);
 }
 
-/*
-TEST_F(GraphTest, bff_g4g_StartAt_Zero) {
-    // arrange
-    auto pGraph = make_shared<Graph>();
-    // act
-    pGraph->addEdge(0, 1, 1);
-    pGraph->addEdge(1, 3, 3);
-    pGraph->addEdge(3, 5, 5);
-    pGraph->addEdge(0, 2, 2);
-    pGraph->addEdge(2, 4, 4);
-    pGraph->addEdge(4, 5, 6);
-    int count = 1;
-    pGraph->BFS(0);
-    // assert
-    ASSERT_EQ(count, 1);
-}
-
-TEST_F(GraphTest, BFS_StartAt_Three) {
-    // arrange
-    auto pGraph = make_shared<Graph>();
-    // act
-    pGraph->addEdge(0, 1, 1);
-    pGraph->addEdge(1, 3, 3);
-    pGraph->addEdge(3, 5, 5);
-    pGraph->addEdge(0, 2, 2);
-    pGraph->addEdge(2, 4, 4);
-    pGraph->addEdge(4, 5, 6);
-    int count = 1;
-    pGraph->BFS(3);
-    // assert
-    ASSERT_EQ(count, 1);
-}
-*/
-
 TEST_F(GraphTest, bfs_StartAtZero_VerifyResults) {
     // arrange
     auto pGraph = make_shared<Graph>();
@@ -146,7 +112,7 @@ TEST_F(GraphTest, bfs_StartAtZero_VerifyResults) {
     pGraph->addEdge(2, 4, 4);
     pGraph->addEdge(4, 5, 6);
     int count = 1;
-    pGraph->bfsSay(0, results);
+    pGraph->bfs(0, results);
     //DumpBfsList(results);
     // assert
     ASSERT_TRUE(isExpectedResult(answer, results));
@@ -165,7 +131,7 @@ TEST_F(GraphTest, bfs_StartAtThree_VerifyResult) {
     pGraph->addEdge(2, 4, 4);
     pGraph->addEdge(4, 5, 6);
     int count = 1;
-    pGraph->bfsSay(3, results);
+    pGraph->bfs(3, results);
     //DumpBfsList(results);
     // assert
     ASSERT_TRUE(isExpectedResult(answer, results));
@@ -351,7 +317,6 @@ TEST_F(GraphTest, shortestPathWeighted_Match_TutPoint_Version) {
     pGraph->addDirectedEdge(6, 5, 1);
     // act
     pGraph->shortestPathWeighted(0);
-    pGraph->showShortestPathWeighted(0);
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -393,7 +358,6 @@ TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_0) {
 
     // act
     pGraph->shortestPathWeighted(0);
-    pGraph->showShortestPathWeighted(0);
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -436,7 +400,6 @@ TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_5) {
 
     // act
     pGraph->shortestPathWeighted(5);
-    pGraph->showShortestPathWeighted(5);
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -460,7 +423,6 @@ TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_0) {
     pGraph->addEdge(7, 8, 7);
     // act
     pGraph->shortestPathWeighted(0);
-    pGraph->showShortestPathWeighted(0);
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -485,7 +447,6 @@ TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_5) {
     pGraph->addEdge(7, 8, 7);
     // act
     pGraph->shortestPathWeighted(5);
-    pGraph->showShortestPathWeighted(5);
     // assert
     ASSERT_EQ(1, 1);
 }

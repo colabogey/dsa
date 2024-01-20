@@ -21,14 +21,12 @@ class Graph {
 
     void addEdge(int, int, int);
     void addDirectedEdge(int, int, int);
-    void BFS(int);
-    void bfsSay(int, std::list<int> &);
-
+    void bfs(int, std::list<int> &);
     void shortestPathUnweighted(int, int);
     void shortestPathWeighted(int);
-
-    void showShortestPathWeighted(int);
-
+    // things to learn from
+    // g4g
+    void bfs_g4g(int);
     // g4g
     int main();
     void printShortestDistance(std::vector<int>[], int, int, int);
@@ -37,7 +35,7 @@ class Graph {
     // algotree
     void DijkstrasShortestPath (int source_node, int node_count, VVPII& graph);
     int main_algotree();
-    //
+    ///////////////
     
     int getAdjListCount() { return m_adjLists.size(); } ;
     bool getPathFound() { return m_pathFound; };
@@ -54,8 +52,8 @@ class Graph {
     int m_pathCost{0};
     int _minDistance(std::deque<int>&, std::deque<bool>&);
 
-    void _printPath(int, std::vector<int>);
-    void _printSolution(int, std::deque<int>, std::vector<int>);
+    void _printPath(int, std::deque<int>);
+    void _printSolution(int, std::deque<int>, std::deque<int>);
 
     std::list<int> m_pathResult;
     std::vector<std::list<GraphVertex>> m_adjLists;

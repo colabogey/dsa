@@ -1,4 +1,5 @@
 
+#include <limits>
 #include "graph.h"
 
 void Graph::shortestPathUnweighted(int vtxSrc, int vtxDest) {
@@ -7,7 +8,7 @@ void Graph::shortestPathUnweighted(int vtxSrc, int vtxDest) {
 
     // Create a queue for BFS
     std::list<int> queue;
-    std::deque<int> predList(m_adjLists.size(), -1);
+    std::deque<int> predList(m_adjLists.size(), INT_MAX);
     std::deque<int> costList(m_adjLists.size(), 0);
 
     // Mark the current node as visited and enqueue it
@@ -23,8 +24,7 @@ void Graph::shortestPathUnweighted(int vtxSrc, int vtxDest) {
             if (!visited[adjacent.getVtx()]) {
                 visited[adjacent.getVtx()] = true;
                 predList[adjacent.getVtx()] = vtx;
-                costList[adjacent.getVtx()] = 
-                    costList[vtx] + adjacent.getWeight();
+                costList[adjacent.getVtx()] = costList[vtx] + adjacent.getWeight();
                 queue.push_back(adjacent.getVtx());
                 if(adjacent.getVtx() == vtxDest) {
                     m_pathFound = true;

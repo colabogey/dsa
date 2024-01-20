@@ -22,7 +22,7 @@ void Graph::shortestPathWeighted(int vtxSrc) {
     std::deque<int> dist(items, INT_MAX);
     dist[vtxSrc] = 0;
 
-    std::vector<int> parents(items, -1);
+    std::deque<int> parents(items, -1);
 
     for(int i = 0; i < (items - 1); i++) {
         int u = _minDistance(dist, sptSet);
@@ -40,19 +40,14 @@ void Graph::shortestPathWeighted(int vtxSrc) {
                 dist[it->getVtx()] = du + guv;
                 parents[it->getVtx()] = u;
             }
-
-            //if (!sptSet[v] && graph[u][v]
-                //&& dist[u] != INT_MAX
-                //&& dist[u] + graph[u][v] < dist[v])
         }
     }
     _printSolution(vtxSrc, dist, parents);
     m_dist = dist;
 }
 
-void Graph::_printPath(int currentVertex, std::vector<int> parents)
+void Graph::_printPath(int currentVertex, std::deque<int> parents)
 {
-
     // Base case : Source node has
     // been processed
     if (currentVertex == -1) {
@@ -62,7 +57,7 @@ void Graph::_printPath(int currentVertex, std::vector<int> parents)
     std::cout << currentVertex << " ";
 }
 
-void Graph::_printSolution(int startVertex, std::deque<int> distances, std::vector<int> parents)
+void Graph::_printSolution(int startVertex, std::deque<int> distances, std::deque<int> parents)
 {
     int nVertices = distances.size();
     std::cout << "Vertex\t Distance\tPath";
@@ -80,22 +75,4 @@ void Graph::_printSolution(int startVertex, std::deque<int> distances, std::vect
     }
     std::cout << "\n";
 }
-        
-void Graph::_initUnvisited(std::list<int>& unv) {
-    for (int i = 0; i < m_adjLists.size(); i++) {
-        unv.push_back(i);
-    }
-}
-
-void Graph::showShortestPathWeighted(int vtx) {
-    for(int i = 0; i < m_adjLists.size(); i++) {
-        printf("%d to %d, Cost: %d\n", vtx, i, m_dist[i]);
-    }
-
-    //std::cout << "Vertex \t Distance from Source" << std::endl;
-    //for (int i = 0; i < m_adjLists.size(); i++)
-        //std::cout << i << " \t\t" << m_dist[i] << std::endl;
-}
-
-
 

@@ -1,6 +1,6 @@
 #include "graph.h"
 
-void Graph::bfsSay(int vtx, std::list<int> &result) {
+void Graph::bfs(int vtx, std::list<int> &result) {
     std::list<int> queue;
     std::vector<bool> visited;
     visited.resize(m_adjLists.size(), false);

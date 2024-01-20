@@ -1,7 +1,7 @@
 
 #include "graph.h"
 
-void Graph::BFS(int vtx) {
+void Graph::bfs_g4g(int vtx) {
     // Mark all the vertices as not visited
     std::vector<bool> visited;
     visited.resize(m_adjLists.size(), false);
