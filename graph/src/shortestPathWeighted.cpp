@@ -2,7 +2,7 @@
 #include "graph.h"
 #include <algorithm>
 #include <limits>
-#include <iostream>
+#include <format>
 
 int Graph::_minDistance(std::deque<int>& dist, std::deque<bool>& sptSet)
 {

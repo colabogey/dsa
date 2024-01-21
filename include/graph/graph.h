@@ -61,7 +61,6 @@ class Graph {
 
     std::list<int> m_pathResult;
     std::vector<std::list<GraphVertex>> m_adjLists;
-    //std::deque<int> m_dist;
     std::deque<int> m_prevList;
     std::shared_ptr<SptData> m_pSptData{nullptr};
 };
