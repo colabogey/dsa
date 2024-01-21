@@ -1,15 +1,18 @@
 #pragma once
 
-#include "graphVertex.h"
 #include <list>
 #include <string>
 #include <deque>
 #include <vector>
 #include <memory>
+#include "graphVertex.h"
+#include "sptData.h"
 
+// for the algotree example
 typedef std::pair<int,unsigned long long> PII;
 typedef std::vector<PII> VPII;
 typedef std::vector<VPII> VVPII;
+/////////////////////////////
 
 class Graph {
   public:
@@ -42,6 +45,7 @@ class Graph {
     int getPathCost(GraphVertex v) { return v.getWeight(); };
     int getPathCost() { return m_pathCost; };
     std::list<int> getPathResult() { return m_pathResult; };
+    std::shared_ptr<SptData> getSptData() { return m_pSptData; };
 
   private:
     void _addEdge(int, int, int);
@@ -52,13 +56,13 @@ class Graph {
     int m_pathCost{0};
     int _minDistance(std::deque<int>&, std::deque<bool>&);
 
-    void _printPath(int, std::deque<int>);
+    void _printPath(int, std::deque<int>, std::deque<int>&);
     void _printSolution(int, std::deque<int>, std::deque<int>);
 
     std::list<int> m_pathResult;
     std::vector<std::list<GraphVertex>> m_adjLists;
-    std::deque<int> m_dist;
+    //std::deque<int> m_dist;
     std::deque<int> m_prevList;
+    std::shared_ptr<SptData> m_pSptData{nullptr};
 };
-
 

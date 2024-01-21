@@ -16,8 +16,10 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <gmock/gmock.h>
 #include <gtest/gtest.h>
 #include <string>
+#include <memory>
 #include <functional>
 #include <graph.h>
+#include <sptData.h>
 
 #include <shortestPathWeightedTp.h>
 
@@ -317,6 +319,8 @@ TEST_F(GraphTest, shortestPathWeighted_Match_TutPoint_Version) {
     pGraph->addDirectedEdge(6, 5, 1);
     // act
     pGraph->shortestPathWeighted(0);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -358,6 +362,8 @@ TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_0) {
 
     // act
     pGraph->shortestPathWeighted(0);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -400,6 +406,8 @@ TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_5) {
 
     // act
     pGraph->shortestPathWeighted(5);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -423,6 +431,8 @@ TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_0) {
     pGraph->addEdge(7, 8, 7);
     // act
     pGraph->shortestPathWeighted(0);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
     // assert
     ASSERT_EQ(1, 1);
 }
@@ -447,6 +457,8 @@ TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_5) {
     pGraph->addEdge(7, 8, 7);
     // act
     pGraph->shortestPathWeighted(5);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
     // assert
     ASSERT_EQ(1, 1);
 }

@@ -1,9 +1,10 @@
 
 #include "graph.h"
+#include "sptData.h"
 
 Graph::Graph() { 
+    m_pSptData = std::make_shared<SptData>();
 }
-//Graph::Graph(int vtx) { m_pAdjLists.resize(vtx); }
 Graph::~Graph() { 
     for(auto l : m_adjLists) {
         l.clear();

@@ -51,36 +51,42 @@ void Graph::shortestPathWeighted(int vtxSrc) {
         }
     }
     _printSolution(vtxSrc, dist, parents);
-    m_dist = dist;
+    //m_dist = dist;
 }
 
-void Graph::_printPath(int currentVertex, std::deque<int> parents)
+void Graph::_printPath(int currentVertex, std::deque<int> parents, std::deque<int>& paths)
 {
     // Base case : Source node has
     // been processed
     if (currentVertex == -1) {
         return;
     }
-    _printPath(parents[currentVertex], parents);
-    std::cout << currentVertex << " ";
+    paths.push_front(currentVertex);
+    _printPath(parents[currentVertex], parents, paths);
+    //std::cout << currentVertex << " ";
 }
 
-void Graph::_printSolution(int startVertex, std::deque<int> distances, std::deque<int> parents)
+void Graph::_printSolution(int startVtx, std::deque<int> distances, std::deque<int> parents)
 {
+    m_pSptData->setSrc(startVtx);
     int nVertices = distances.size();
-    std::cout << "Vertex\t    Distance\tPath";
+    //std::cout << "Vertex\t    Distance\tPath";
 
     for (int vertexIndex = 0; vertexIndex < nVertices; vertexIndex++) {
-        if (vertexIndex != startVertex) {
+        if (vertexIndex != startVtx) {
             if(distances[vertexIndex] == INT_MAX) {
                 continue;
             }
-            std::cout << "\n" << startVertex << " -> ";
-            std::cout << vertexIndex << "\t\t";
-            std::cout << distances[vertexIndex] << "\t";
-            _printPath(vertexIndex, parents);
+            //std::cout << "\n" << startVtx << " -> ";
+            //std::cout << vertexIndex << "\t\t";
+            //std::cout << distances[vertexIndex] << "\t";
+            std::deque<int> path;
+            _printPath(vertexIndex, parents, path);
+            SPT_PATH_ITEM pi = 
+                 std::make_tuple(vertexIndex, distances[vertexIndex], path);
+            m_pSptData->addSptItem(pi);
         }
     }
-    std::cout << "\n";
+    //std::cout << "\n";
 }
 
