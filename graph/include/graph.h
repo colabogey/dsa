@@ -8,11 +8,13 @@
 #include "graphVertex.h"
 #include "sptData.h"
 
-// for the algotree example
+////// for the algotree example
 typedef std::pair<int,unsigned long long> PII;
 typedef std::vector<PII> VPII;
 typedef std::vector<VPII> VVPII;
 /////////////////////////////
+
+typedef std::pair<int, int> iPair;  // for priority_queue
 
 class Graph {
   public:
@@ -27,10 +29,10 @@ class Graph {
     void bfs(int, std::list<int> &);
     void shortestPathUnweighted(int, int);
     void shortestPathWeighted(int);
+    void shortestPathWeightedPq(int);
     // things to learn from
     // g4g
     void bfs_g4g(int);
-    // g4g
     int main();
     void printShortestDistance(std::vector<int>[], int, int, int);
     bool shortestPath(std::vector<int>[], int, int, int, int[], int[]);

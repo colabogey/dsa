@@ -199,6 +199,11 @@ TEST_F(GraphTest, shortestPath_0to7_Weighted_PathFound_VerifyPathAndCost) {
     int costResult = pGraph->getPathCost();
     list<int> pathResult = pGraph->getPathResult();
     DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
+    ////////////////////
+    pGraph->shortestPathWeighted(0);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
+    ///////////////////
     // assert
     ASSERT_EQ(costAnswer, costResult);
     ASSERT_TRUE(isExpectedResult(pathAnswer, pathResult));
@@ -368,7 +373,6 @@ TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_0) {
     ASSERT_EQ(1, 1);
 }
 
-
 TEST_F(GraphTest, shortestPathWeighted_Match_AlgoTree_Version_5) {
     // arrange
     auto pGraph = make_shared<Graph>();
@@ -437,6 +441,30 @@ TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_0) {
     ASSERT_EQ(1, 1);
 }
 
+TEST_F(GraphTest, shortestPathWeighted_PQ_Version_0) {
+    // arrange
+    auto pGraph = make_shared<Graph>();
+    pGraph->addEdge(0, 1, 4);
+    pGraph->addEdge(0, 7, 8);
+    pGraph->addEdge(1, 2, 8);
+    pGraph->addEdge(1, 7, 11);
+    pGraph->addEdge(2, 3, 7);
+    pGraph->addEdge(2, 8, 2);
+    pGraph->addEdge(2, 5, 4);
+    pGraph->addEdge(3, 4, 9);
+    pGraph->addEdge(3, 5, 14);
+    pGraph->addEdge(4, 5, 10);
+    pGraph->addEdge(5, 6, 2);
+    pGraph->addEdge(6, 7, 1);
+    pGraph->addEdge(6, 8, 6);
+    pGraph->addEdge(7, 8, 7);
+    // act
+    pGraph->shortestPathWeightedPq(0);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
+    // assert
+    ASSERT_EQ(1, 1);
+}
 
 TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_5) {
     // arrange
@@ -457,6 +485,31 @@ TEST_F(GraphTest, shortestPathWeighted_Match_G4G_Version_5) {
     pGraph->addEdge(7, 8, 7);
     // act
     pGraph->shortestPathWeighted(5);
+    std::shared_ptr<SptData> pData = pGraph->getSptData();
+    pData->show();
+    // assert
+    ASSERT_EQ(1, 1);
+}
+
+TEST_F(GraphTest, shortestPathWeighted_PQ_Version_5) {
+    // arrange
+    auto pGraph = make_shared<Graph>();
+    pGraph->addEdge(0, 1, 4);
+    pGraph->addEdge(0, 7, 8);
+    pGraph->addEdge(1, 2, 8);
+    pGraph->addEdge(1, 7, 11);
+    pGraph->addEdge(2, 3, 7);
+    pGraph->addEdge(2, 8, 2);
+    pGraph->addEdge(2, 5, 4);
+    pGraph->addEdge(3, 4, 9);
+    pGraph->addEdge(3, 5, 14);
+    pGraph->addEdge(4, 5, 10);
+    pGraph->addEdge(5, 6, 2);
+    pGraph->addEdge(6, 7, 1);
+    pGraph->addEdge(6, 8, 6);
+    pGraph->addEdge(7, 8, 7);
+    // act
+    pGraph->shortestPathWeightedPq(5);
     std::shared_ptr<SptData> pData = pGraph->getSptData();
     pData->show();
     // assert
