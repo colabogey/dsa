@@ -115,7 +115,7 @@ TEST_F(GraphTest, bfs_StartAtZero_VerifyResults) {
     pGraph->addEdge(4, 5, 6);
     int count = 1;
     pGraph->bfs(0, results);
-    //DumpBfsList(results);
+    DumpBfsList(results);
     // assert
     ASSERT_TRUE(isExpectedResult(answer, results));
 }
@@ -171,7 +171,7 @@ TEST_F(GraphTest, shortestPath_0to7_PathFound_VerifyPathAndCost) {
     bool pathFound = pGraph->getPathFound();
     int costResult = pGraph->getPathCost();
     list<int> pathResult = pGraph->getPathResult();
-    DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
+    //DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
     // assert
     ASSERT_EQ(costAnswer, costResult);
     ASSERT_TRUE(isExpectedResult(pathAnswer, pathResult));
@@ -198,12 +198,7 @@ TEST_F(GraphTest, shortestPath_0to7_Weighted_PathFound_VerifyPathAndCost) {
     bool pathFound = pGraph->getPathFound();
     int costResult = pGraph->getPathCost();
     list<int> pathResult = pGraph->getPathResult();
-    DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
-    ////////////////////
-    pGraph->shortestPathWeighted(0);
-    std::shared_ptr<SptData> pData = pGraph->getSptData();
-    pData->show();
-    ///////////////////
+    //DisplayPathInfo(source, dest, pathFound, costResult, pathResult);
     // assert
     ASSERT_EQ(costAnswer, costResult);
     ASSERT_TRUE(isExpectedResult(pathAnswer, pathResult));
