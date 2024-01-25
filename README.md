@@ -1,4 +1,5 @@
 # Various structures and algorithms of interest
+Each
 - shifting/rotating array values
 - linked list
 - hash table
