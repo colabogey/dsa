@@ -1,11 +1,27 @@
 # Various structures and algorithms of interest
-Each
-- shifting/rotating array values
-- linked list
-- hash table
-- binary search tree
-- mergesort
-  - just beginning here. It works (I copied it), but I don't know exactly how yet
+## Structured such that each directory is for a particular data structure and various associated algorithms
+## Each item of interest has a test directory and this is the mechanism to exercise the code
+## There is a KDevelop project to use for debugging
+- array_shift
+  - shifting/rotating array values by various means
+- list
+  - linked list
+  - listC
+    - linked list in C. Just wanted to make sure I could use gtest for unit testing C code. 
+- hash
+  - hash table
+- tree
+  - binary search tree
+    - inorder/preorder/postorder
+    - level order
+    - rebalance
+    - depth
+    - add, remove, delete tree 
+- graph
+  - all tests address shortest path
+    - Dijkstra
+    - priority queue
+    - bfs for unweighted
 
 # Download, Build, Run
 ## Download
@@ -31,3 +47,9 @@ endif
 - cd to the test directory, e.g., cd tree/test
 - make
 - run the test executable in the bin directory to utilize the library items
+## Code Coverage
+- make clean;make debug from src
+- make clean;make debug from test
+- make tests
+- make coverage
+- coverage info lives at test/coverage_out/index.html
