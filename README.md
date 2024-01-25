@@ -1,7 +1,8 @@
 # Various structures and algorithms of interest
-## Structured such that each directory is for a particular data structure and various associated algorithms
-## Each item of interest has a test directory and this is the mechanism to exercise the code
-## There is a KDevelop project to use for debugging
+  - Structured such that each directory is for a particular data structure and various associated algorithms
+  - Each item of interest has a test directory and this is the mechanism to exercise the code
+  - There is a KDevelop project to use for debugging
+*********
 - array_shift
   - shifting/rotating array values by various means
 - list
