@@ -18,7 +18,8 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <string>
 #include <deque>
 #include <functional>
-#include "avlTree.h" // to make the IDE happy (sad)
+#include "eAvlTree.h" // to make the IDE happy (sad)
+#include "gAvlTree.h" // to make the IDE happy (sad)
 
 using namespace std;
 
@@ -40,6 +41,7 @@ class AvlTreeTest : public ::testing::Test {
         // Code here will be called immediately after the constructor (right
         // before each test).
         //
+        m_gtree = new gAVLtree();
     }
 
     virtual void TearDown() {
@@ -68,12 +70,20 @@ class AvlTreeTest : public ::testing::Test {
         }
     }
 
+    void gAddAll() {
+        for(int i = 0; i < m_size; i++) {
+            gNode* n = new gNode(m_vals[i]);
+            m_gtree->root = m_gtree->insertNode(m_gtree->root, m_vals[i]);
+        }
+    }
+
     std::deque<int> m_nodeData;
     int m_size{23};
     int m_vals[23] = 
         { 55, 40, 35, 27, 60, 42, 16, 3, 90, 58, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 41};
     treeLevels  m_levels;
     AVLtree m_tree;
+    gAVLtree* m_gtree;
 };
 
 TEST_F(AvlTreeTest, Educative_As_Is) {
@@ -141,3 +151,33 @@ TEST_F(AvlTreeTest, AddAll_VerifyBalance) {
     ShowLevels();
     ASSERT_EQ(1, 1);
 }
+
+TEST_F(AvlTreeTest, G4G) {
+  gAVLtree obj;
+
+  /* Constructing tree given in
+  the above figure */
+  obj.root = obj.insertNode(obj.root, 10);
+  obj.root = obj.insertNode(obj.root, 20);
+  obj.root = obj.insertNode(obj.root, 30);
+  obj.root = obj.insertNode(obj.root, 40);
+  obj.root = obj.insertNode(obj.root, 50);
+  obj.root = obj.insertNode(obj.root, 25);
+  obj.preOrder(obj.root);
+  printf("\n");
+  obj.levelOrder(obj.root, m_levels);
+  ShowLevels();
+  ASSERT_EQ(1, 1);
+}
+
+TEST_F(AvlTreeTest, gAddAll_VerifyBalance) {
+    // Arrange
+    // Act
+    gAddAll();
+    m_gtree->preOrder(m_gtree->root);
+    printf("\n");
+    m_gtree->levelOrder(m_gtree->root, m_levels);
+    ShowLevels();
+    ASSERT_EQ(1, 1);
+}
+
