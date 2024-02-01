@@ -77,6 +77,14 @@ class AvlTreeTest : public ::testing::Test {
         }
     }
 
+    void ClearLevels() {
+        for(std::list<int> l : m_levels) {
+            l.clear();
+        }
+        m_levels.clear();
+    }
+
+
     void AddAll() {
         for(int i = 0; i < m_size; i++) {
             Node* n = new Node(m_vals[i]);
@@ -283,3 +291,28 @@ TEST_F(AvlTreeTest, tAddAll_VerifyBalance) {
     // Assert
     ASSERT_EQ(1, 1);
 }
+
+TEST_F(AvlTreeTest, tAddAll_Remove45) {
+    // Arrange
+    // Act
+    tAddAll();
+    m_tree.collectNodeDataPreOrder(m_tree.m_root, m_nodeData);
+    ShowNodeData("PreOrder");
+    ClearNodeData();
+    //
+    m_tree.levelOrder(m_tree.m_root, m_levels);
+    ShowLevels();
+    ClearLevels();
+    m_tree.remove(45);
+    //
+    printf("\n");
+    m_tree.collectNodeDataPreOrder(m_tree.m_root, m_nodeData);
+    ShowNodeData("PreOrder");
+    ClearNodeData();
+    //
+    m_tree.levelOrder(m_tree.m_root, m_levels);
+    ShowLevels();
+    // Assert
+    ASSERT_EQ(1, 1);
+}
+

@@ -124,13 +124,18 @@ pTreeNode Tree::remove(int key) {
     pTreeNode node = _get(m_root, key);
     if (node != nullptr) {
         ret = _remove(node);
+        int balance = _getBalanceFactor(ret);
+        if(balance != 1 && balance != 0 && balance != -1) {
+            //root = _balanceTree(ret, balance);
+            _balanceTree(ret, balance);
+        }
     }
     return (ret);
 }
 
 pTreeNode Tree::_remove(pTreeNode curr) {
     if(_isNodeCleared(curr)) {
-        return(curr);
+        return(nullptr);
     }
 
     pTreeNode prev = curr->getParent();
@@ -143,7 +148,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
             prev->setRight(nullptr);
         }
         _clearNode(curr);
-        return (curr);
+        return (prev);
     } else if (curr->getLeft() == nullptr) {
         // internal node with just one 'side'
         // Right side  only
@@ -154,7 +159,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
             prev->setRight(curr->getRight());
         }
         _clearNode(curr);
-        return(curr);
+        return(prev);
     } else if (curr->getRight() == nullptr) {
         // internal node with just one 'side'
         // left side only
@@ -165,14 +170,14 @@ pTreeNode Tree::_remove(pTreeNode curr) {
             prev->setRight(curr->getLeft());
         }
         _clearNode(curr);
-        return(curr);
+        return(prev);
     } else {
         /*
         Node to be deleted is an internal node with two children.
         Copy the contents of the inorder successor of the node to be
             deleted and delete the inorder successor.
-        The onOrderSuccessor icall works because there is a right tree, so it will find the minimum
-            value in the right tree.
+        The inOrderSuccessor icall works because there is a right tree, 
+            so it will find the minimum value in the right tree.
         */
         int currData = curr->getData();
         pTreeNode successor = inOrderSuccessor(curr);
@@ -186,7 +191,7 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         _clearNode(successor);
         // we are done with successor
         // TODO: is this leaking successor
-        return (successor);
+        return (prev);
     }
 }
 
