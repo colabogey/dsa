@@ -42,7 +42,7 @@ all:    $(BIN_DIR)/$(MYTESTAPP)
 $(TREE_LIB):
 	touch $(SRCS)
 
-$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(TREE_LIB)
+$(BIN_DIR)/$(MYTESTAPP):	$(OBJS) $(AVLTREE_LIB)
 	$(CC) $(LDFLAGS) -o $(BIN_DIR)/$(MYTESTAPP) $(OBJS) $(LIBFLAGS) -lpthread -lc -lgcov
 
 .PHONY: coverage

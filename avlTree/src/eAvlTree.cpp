@@ -24,18 +24,18 @@ int AVLtree::getBalanceFactor(Node *n) {
     return height(n->left_child) - height(n->right_child);
 }
 
-Node* AVLtree::rightRotate(Node *x) {
-    Node *y = x->left_child;
+Node *AVLtree::rightRotate(Node *root) {
+    Node *y = root->left_child;
     Node *T2 = y->right_child;
 
     // Perform rotation
-    y->right_child = x;
-    x->left_child = T2;
+    y->right_child = root;
+    root->left_child = T2;
 
     return y;
 }
 
-Node* AVLtree::leftRotate(Node *x) {
+Node *AVLtree::leftRotate(Node *x) {
     Node *y = x->right_child;
     Node *T2 = y->left_child;
 
@@ -46,7 +46,7 @@ Node* AVLtree::leftRotate(Node *x) {
     return y;
 }
 
-Node* AVLtree::balanceTree(int balance_factor, Node *unbalanced_node) {
+Node *AVLtree::balanceTree(int balance_factor, Node *unbalanced_node) {
     if (balance_factor > 1) {
         // left-left imbalance
         if (getBalanceFactor(unbalanced_node->left_child) >= 0) {
@@ -80,7 +80,7 @@ Node* AVLtree::balanceTree(int balance_factor, Node *unbalanced_node) {
     }
 }
 
-Node* AVLtree::insertNode(Node *root, Node *new_node) {
+Node *AVLtree::insertNode(Node *root, Node *new_node) {
     // inserting the node
     if (root == NULL) {
         root = new_node;
@@ -106,7 +106,7 @@ Node* AVLtree::insertNode(Node *root, Node *new_node) {
     return root; // backtrack
 }
 
-Node* AVLtree::deleteNode(Node *root, int val_to_delete) {
+Node *AVLtree::deleteNode(Node *root, int val_to_delete) {
     if (root == NULL) {
         return NULL;
     }

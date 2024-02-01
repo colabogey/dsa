@@ -18,8 +18,9 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <string>
 #include <deque>
 #include <functional>
-#include "eAvlTree.h" // to make the IDE happy (sad)
-#include "gAvlTree.h" // to make the IDE happy (sad)
+#include "eAvlTree.h"
+#include "gAvlTree.h"
+#include "tree.h"
 
 using namespace std;
 
@@ -51,6 +52,19 @@ class AvlTreeTest : public ::testing::Test {
 
     // Objects declared here can be used by all tests.
     //
+
+    void ShowNodeData(std::string s) {
+        printf("\t%10s: ", s.c_str());
+        for(int i : m_nodeData) {
+            printf("%2d ", i);
+        }
+        printf("\n");
+    }
+
+    void ClearNodeData() {
+        m_nodeData.clear();
+    }
+
     void ShowLevels() {
         int level = 1;
         for(std::list<int> l : m_levels) {
@@ -66,7 +80,14 @@ class AvlTreeTest : public ::testing::Test {
     void AddAll() {
         for(int i = 0; i < m_size; i++) {
             Node* n = new Node(m_vals[i]);
-            m_tree.root = m_tree.insertNode(m_tree.root, n);
+            m_avltree.root = m_avltree.insertNode(m_avltree.root, n);
+        }
+    }
+
+    void tAddAll() {
+        for(int i = 0; i < m_size; i++) {
+            //Node* n = new Node(m_vals[i]);
+            m_tree.m_root = m_tree.add(m_tree.m_root, nullptr, m_vals[i]);
         }
     }
 
@@ -77,12 +98,13 @@ class AvlTreeTest : public ::testing::Test {
         }
     }
 
-    std::deque<int> m_nodeData;
     int m_size{23};
     int m_vals[23] = 
         { 55, 40, 35, 27, 60, 42, 16, 3, 90, 58, 54, 53, 52, 51, 50, 49, 48, 47, 46, 45, 44, 43, 41};
     treeLevels  m_levels;
-    AVLtree m_tree;
+    std::deque<int> m_nodeData;
+    Tree m_tree;
+    AVLtree m_avltree;
     gAVLtree* m_gtree;
 };
 
@@ -145,9 +167,9 @@ TEST_F(AvlTreeTest, AddAll_VerifyBalance) {
     // Arrange
     // Act
     AddAll();
-    m_tree._preOrder(m_tree.root);
+    m_avltree._preOrder(m_avltree.root);
     printf("\n");
-    m_tree.levelOrder(m_tree.root, m_levels);
+    m_avltree.levelOrder(m_avltree.root, m_levels);
     ShowLevels();
     ASSERT_EQ(1, 1);
 }
@@ -181,3 +203,83 @@ TEST_F(AvlTreeTest, gAddAll_VerifyBalance) {
     ASSERT_EQ(1, 1);
 }
 
+TEST_F(AvlTreeTest, Add_RotateRight) {
+  //arrange
+  Tree obj;
+  //act
+  obj.m_root = obj.add(obj.m_root, nullptr, 30);
+  obj.m_root = obj.add(obj.m_root, nullptr, 20);
+  obj.m_root = obj.add(obj.m_root, nullptr, 10);
+  //
+  obj.collectNodeDataPreOrder(obj.m_root, m_nodeData);
+  ShowNodeData("PreOrder");
+  //
+  obj.levelOrder(obj.m_root, m_levels);
+  ShowLevels();
+  //Assert
+  ASSERT_EQ(1, 1);
+}
+
+TEST_F(AvlTreeTest, Add_RotateLeft) {
+  //arrange
+  Tree obj;
+  //act
+  obj.m_root = obj.add(obj.m_root, nullptr, 10);
+  obj.m_root = obj.add(obj.m_root, nullptr, 20);
+  obj.m_root = obj.add(obj.m_root, nullptr, 30);
+  //
+  obj.collectNodeDataPreOrder(obj.m_root, m_nodeData);
+  ShowNodeData("PreOrder");
+  //
+  obj.levelOrder(obj.m_root, m_levels);
+  ShowLevels();
+  //Assert
+  ASSERT_EQ(1, 1);
+}
+
+TEST_F(AvlTreeTest, Add_RotateLeftRight) {
+  //arrange
+  Tree obj;
+  //act
+  obj.m_root = obj.add(obj.m_root, nullptr, 30);
+  obj.m_root = obj.add(obj.m_root, nullptr, 10);
+  obj.m_root = obj.add(obj.m_root, nullptr, 20);
+  //
+  obj.collectNodeDataPreOrder(obj.m_root, m_nodeData);
+  ShowNodeData("PreOrder");
+  //
+  obj.levelOrder(obj.m_root, m_levels);
+  ShowLevels();
+  //Assert
+  ASSERT_EQ(1, 1);
+}
+
+TEST_F(AvlTreeTest, Add_RotateRightLeft) {
+  //arrange
+  Tree obj;
+  //act
+  obj.m_root = obj.add(obj.m_root, nullptr, 10);
+  obj.m_root = obj.add(obj.m_root, nullptr, 30);
+  obj.m_root = obj.add(obj.m_root, nullptr, 20);
+  //
+  obj.collectNodeDataPreOrder(obj.m_root, m_nodeData);
+  ShowNodeData("PreOrder");
+  //
+  obj.levelOrder(obj.m_root, m_levels);
+  ShowLevels();
+  //Assert
+  ASSERT_EQ(1, 1);
+}
+
+TEST_F(AvlTreeTest, tAddAll_VerifyBalance) {
+    // Arrange
+    // Act
+    tAddAll();
+    m_tree.collectNodeDataPreOrder(m_tree.m_root, m_nodeData);
+    ShowNodeData("PreOrder");
+    //
+    m_tree.levelOrder(m_tree.m_root, m_levels);
+    ShowLevels();
+    // Assert
+    ASSERT_EQ(1, 1);
+}
