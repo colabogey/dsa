@@ -16,6 +16,7 @@ class Tree {
     Tree(Tree &other){};
 
     pTreeNode add(pTreeNode, pTreeNode, int);
+    bool isBalanced(pTreeNode);
     pTreeNode get(int);
     pTreeNode remove(int);
     int getDepth();

@@ -288,8 +288,9 @@ TEST_F(AvlTreeTest, tAddAll_VerifyBalance) {
     //
     m_tree.levelOrder(m_tree.m_root, m_levels);
     ShowLevels();
+    bool isBalanced = m_tree.isBalanced(m_tree.m_root);
     // Assert
-    ASSERT_EQ(1, 1);
+    ASSERT_TRUE(isBalanced);
 }
 
 TEST_F(AvlTreeTest, tAddAll_Remove45) {
@@ -312,7 +313,33 @@ TEST_F(AvlTreeTest, tAddAll_Remove45) {
     //
     m_tree.levelOrder(m_tree.m_root, m_levels);
     ShowLevels();
+    bool isBalanced = m_tree.isBalanced(m_tree.m_root);
     // Assert
-    ASSERT_EQ(1, 1);
+    ASSERT_TRUE(isBalanced);
+}
+
+TEST_F(AvlTreeTest, tAddAll_Remove55) {
+    // Arrange
+    // Act
+    tAddAll();
+    m_tree.collectNodeDataPreOrder(m_tree.m_root, m_nodeData);
+    ShowNodeData("PreOrder");
+    ClearNodeData();
+    //
+    m_tree.levelOrder(m_tree.m_root, m_levels);
+    ShowLevels();
+    ClearLevels();
+    m_tree.remove(55);
+    //
+    printf("\n");
+    m_tree.collectNodeDataPreOrder(m_tree.m_root, m_nodeData);
+    ShowNodeData("PreOrder");
+    ClearNodeData();
+    //
+    m_tree.levelOrder(m_tree.m_root, m_levels);
+    ShowLevels();
+    bool isBalanced = m_tree.isBalanced(m_tree.m_root);
+    // Assert
+    ASSERT_TRUE(isBalanced);
 }
 

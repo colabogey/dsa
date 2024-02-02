@@ -1,6 +1,15 @@
 
 #include "../include/tree.h"
 
+bool Tree::isBalanced(pTreeNode root) {
+    bool ret = true;
+    int balance = _getBalanceFactor(root);
+    if(balance != 1 && balance != 0 && balance != -1) {
+        ret = false;
+    }
+    return ret;
+}
+
 pTreeNode Tree::add(pTreeNode root, pTreeNode parent, int data) {
     pTreeNode added = _add(root, parent, data);
     return(added);
