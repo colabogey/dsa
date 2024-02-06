@@ -16,6 +16,7 @@ public:
     int get(const int idx);
     void sort();
     double getMedianValue();
+    int count() { return m_count; };
 
 private:
     void _resize(const int idx);

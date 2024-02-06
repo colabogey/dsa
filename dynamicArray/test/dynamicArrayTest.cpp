@@ -128,3 +128,35 @@ TEST_F(DynamicArrayTest, medianValue_Odd) {
     ASSERT_EQ(m, 7);
 }
 
+TEST_F(DynamicArrayTest, medianValue_Even_Decimal) {
+    // arrange
+    double ans = 5.5;
+    DynamicArray da;
+    // act
+    da.set(0,3);
+    da.set(1,12);
+    da.set(2,5);
+    da.set(3,6);
+    da.set(4,8);
+    da.set(5,1);
+    double m = da.getMedianValue();
+    // assert
+    ASSERT_EQ(m, ans);
+}
+
+TEST_F(DynamicArrayTest, count) {
+    // arrange
+    double ans = 6;
+    DynamicArray da;
+    // act
+    da.set(0,3);
+    da.set(1,12);
+    da.set(2,5);
+    da.set(3,6);
+    da.set(4,8);
+    da.set(5,1);
+    int c = da.count();
+    // assert
+    ASSERT_EQ(c, ans);
+}
+
