@@ -160,3 +160,21 @@ TEST_F(DynamicArrayTest, count) {
     ASSERT_EQ(c, ans);
 }
 
+TEST_F(DynamicArrayTest, meanValue) {
+    // arrange
+    double sum = 35;
+    double num = 6;
+    double ans = (sum/num);
+    DynamicArray da;
+    // act
+    da.set(0,3);
+    da.set(1,12);
+    da.set(2,5);
+    da.set(3,6);
+    da.set(4,8);
+    da.set(5,1);
+    double c = da.getMeanValue();
+    // assert
+    ASSERT_EQ(c, ans);
+}
+

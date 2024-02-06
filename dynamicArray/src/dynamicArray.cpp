@@ -1,6 +1,7 @@
 
 #include <algorithm>
 #include <stdio.h>
+#include <numeric>
 #include <limits.h>
 #include "dynamicArray.h"
 
@@ -36,6 +37,15 @@ void DynamicArray::_resize(const int idx) {
 
 void DynamicArray::sort() {
     std::sort(m_ary.begin(), m_ary.begin() + m_count);
+}
+
+double DynamicArray::getMeanValue() {
+    double mean = 0;
+    if(m_count !=0) {
+        double sum = std::reduce(m_ary.begin(), m_ary.begin() + m_count, 0);
+        mean = sum/m_count;
+    }
+    return mean;
 }
 
 double DynamicArray::getMedianValue() {

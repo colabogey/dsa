@@ -15,6 +15,7 @@ public:
     void set(const int, const int idx);
     int get(const int idx);
     void sort();
+    double getMeanValue();
     double getMedianValue();
     int count() { return m_count; };
 
