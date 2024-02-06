@@ -2,7 +2,7 @@
 BuildItems=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x02\x00\x00\x00\x0b\x00\x00\x00\x00\x01\x00\x00\x00\x0c\x00o\x00r\x00a\x00c\x00l\x00e\x00\x00\x00\x0b\x00\x00\x00\x00\x04\x00\x00\x00\x0c\x00o\x00r\x00a\x00c\x00l\x00e\x00\x00\x00\x08\x00t\x00r\x00e\x00e\x00\x00\x00\x06\x00s\x00r\x00c\x00\x00\x00\n\x00b\x00u\x00i\x00l\x00d)
 
 [Launch]
-Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2,Launch Configuration 3,Launch Configuration 4,Launch Configuration 5
+Launch Configurations=Launch Configuration 0,Launch Configuration 1,Launch Configuration 2,Launch Configuration 3,Launch Configuration 4,Launch Configuration 5,Launch Configuration 6
 
 [Launch][Launch Configuration 0]
 Configured Launch Modes=execute
@@ -111,6 +111,25 @@ Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Nothing
 EnvironmentGroup=
 Executable=file:///home/yackey/projects/oracle/avlTree/test/bin/avlTreeTest
+External Terminal=konsole --noclose --workdir %workdir -e %exe
+Kill Before Executing Again=4194304
+Project Target=
+Use External Terminal=false
+Working Directory=
+isExecutable=true
+
+[Launch][Launch Configuration 6]
+Configured Launch Modes=execute
+Configured Launchers=nativeAppLauncher
+Name=dynamicArray
+Type=Native Application
+
+[Launch][Launch Configuration 6][Data]
+Arguments=
+Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
+Dependency Action=Nothing
+EnvironmentGroup=
+Executable=file:///home/yackey/projects/oracle/dynamicArray/test/bin/dynamicArrayTest
 External Terminal=konsole --noclose --workdir %workdir -e %exe
 Kill Before Executing Again=4194304
 Project Target=

@@ -194,7 +194,8 @@ pTreeNode Tree::_remove(pTreeNode curr) {
         // successor is a minimum
         // so it does not have a left tree
         // so it is an internal node with just one side
-        // we already know how to do that so the recursive call is the most straightforward approach.
+        // we already know how to do that so the recursive call is the 
+        // most straightforward approach.
         successor->setData(currData);    // simply swapped nodes
         _remove(successor);
         _clearNode(successor);
