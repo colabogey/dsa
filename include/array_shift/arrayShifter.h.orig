@@ -1,5 +1,7 @@
 #pragma once
 
+#include <deque>
+
 class ArrayShifter {
   public:
     ArrayShifter() = default;

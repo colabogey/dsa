@@ -1,12 +1,12 @@
 #pragma once
 
-class ArrayShifter {
+class ShifterWithIndex {
   public:
-    ArrayShifter() = default;
-    ArrayShifter(int ary[], int sz, int shift);
-    ~ArrayShifter() = default;
-    ArrayShifter &operator=(ArrayShifter &other) { return *this; };
-    ArrayShifter(ArrayShifter &other){};
+    ShifterWithIndex() = default;
+    ShifterWithIndex(int ary[], int sz, int shift);
+    ~ShifterWithIndex() = default;
+    ShifterWithIndex &operator=(ShifterWithIndex &other) { return *this; };
+    ShifterWithIndex(ShifterWithIndex &other){};
 
     void ShiftRight();
     void ShiftRightOs(int[], int);

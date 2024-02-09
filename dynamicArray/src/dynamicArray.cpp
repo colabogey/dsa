@@ -2,6 +2,7 @@
 #include <algorithm>
 #include <stdio.h>
 #include <numeric>
+#include <string>
 #include <limits.h>
 #include "dynamicArray.h"
 

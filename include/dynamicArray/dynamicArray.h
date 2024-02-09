@@ -12,7 +12,7 @@ public:
     ~DynamicArray() = default;
     DynamicArray& operator=(DynamicArray& other) {return *this;};
     DynamicArray(DynamicArray& other) {};
-    void set(const int, const int idx);
+    void set(const int, const int);
     int get(const int idx);
     void sort();
     double getMeanValue();

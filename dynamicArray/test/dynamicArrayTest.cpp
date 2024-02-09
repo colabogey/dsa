@@ -50,7 +50,7 @@ class DynamicArrayTest : public ::testing::Test {
     //
 };
 
-TEST_F(DynamicArrayTest, say) {
+TEST_F(DynamicArrayTest, ArrayOfInt_Set_Get) {
     // arrange
     DynamicArray da;
     // act
@@ -146,7 +146,7 @@ TEST_F(DynamicArrayTest, medianValue_Even_Decimal) {
 
 TEST_F(DynamicArrayTest, count) {
     // arrange
-    double ans = 6;
+    int ans = 6;
     DynamicArray da;
     // act
     da.set(0,3);
@@ -162,9 +162,7 @@ TEST_F(DynamicArrayTest, count) {
 
 TEST_F(DynamicArrayTest, meanValue) {
     // arrange
-    double sum = 35;
-    double num = 6;
-    double ans = (sum/num);
+    double ans = 35.0/6.0;
     DynamicArray da;
     // act
     da.set(0,3);

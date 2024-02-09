@@ -21,7 +21,7 @@ LIBFLAGS = -lgtest -lgmock -L$(PROJECT_BIN_DIR) -L/usr/local/lib -L/usr/local/li
 SRC_DIR     = ./
 BUILD_DIR   = ./build
 BIN_DIR     = ./bin
-SHIFTER_LIB     = ../src/bin/lbarray_shift.a
+SHIFTER_LIB     = ../src/bin/libarray_shift.a
 MYTESTAPP = aShiftertest
 
 $(shell mkdir -p $(PROJECT_BIN_DIR))
