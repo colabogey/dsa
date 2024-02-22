@@ -16,6 +16,7 @@ Spiral::Spiral(int rows, int cols) {
     m_ary = new int*[m_rows * m_cols];
     for(int i = 0; i < m_rows; i++) {
         m_ary[i] = new int[m_cols];
+        _initRow(i);
     }
 }
 
@@ -39,7 +40,7 @@ void Spiral::fill() {
             {m_rows - 1},
             {m_rows - 1, m_cols - 1}};
 
-    while(true) {
+    while(rcc.tr[rccCol] >= 0) {
         fillRowRight(rcc.tl[rccRow], rcc);
 
         // col, row top, row bot
@@ -50,7 +51,15 @@ void Spiral::fill() {
 
         // col, row top, row bot
         fillColUp(rcc.bl[rccCol], rcc);
-        break;
+
+        rcc.tl[rccRow] = rcc.tl[rccRow] + 1;
+        rcc.tl[rccCol] = rcc.tl[rccCol] + 1;
+        rcc.tr[rccRow] = rcc.tr[rccRow] + 1;
+        rcc.tr[rccCol] = rcc.tr[rccCol] - 1;
+        rcc.bl[rccRow] = rcc.bl[rccRow] - 1;
+        rcc.bl[rccCol] = rcc.bl[rccCol] + 1;
+        rcc.br[rccRow] = rcc.br[rccRow] - 1;
+        rcc.br[rccCol] = rcc.br[rccCol] - 1;
     }
 }
 
@@ -62,7 +71,7 @@ void Spiral::fillRowRight(int row, rc_corners rcc) {
 }
 
 void Spiral::fillRowLeft(int row, rc_corners rcc) {
-    for(int i = (rcc.br[rccCol]  = 1); i >= rcc.bl[rccCol]; i--) {
+    for(int i = (rcc.br[rccCol] - 1); i >= rcc.bl[rccCol]; i--) {
         m_ary[row][i] = m_val;
         m_val++;
     }
