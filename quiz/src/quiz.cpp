@@ -11,24 +11,25 @@ Quiz::Quiz(std::string sAry[], int size) {
     }
 }
 
-bool Quiz::findItem(std::string s) { 
-    _findItem(s, 0, s.length() - 1); 
-    if(m_items.size() == m_found.size()) {
+bool Quiz::findItem(std::string s) {
+    _findItem(s, 0, s.length() - 1);
+    if (m_items.size() == m_found.size()) {
         return true;
     } else {
         return false;
     }
 }
 
-bool Quiz::findAllItems(std::string s) { 
+bool Quiz::findAllItems(std::string s) {
     bool bRet = true;
-    for(std::string strList : m_allStrings) {
+    for (std::string strList : m_allStrings) {
         std::size_t found = s.find(strList);
         if (found == std::string::npos) {
             bRet = false;
         }
     }
-    return bRet;;
+    return bRet;
+    ;
 }
 
 void Quiz::_findItem(std::string s, int begin, int end) {
@@ -46,4 +47,3 @@ void Quiz::_findItem(std::string s, int begin, int end) {
         _findItem(s, begin + 1, end);
     }
 }
-

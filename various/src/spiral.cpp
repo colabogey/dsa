@@ -1,0 +1,96 @@
+
+#include <cstdio>
+#include "spiral.h"
+
+/*
+
+    1 2 3
+    8 9 4
+    7 6 5
+
+*/
+
+Spiral::Spiral(int rows, int cols) {
+    m_rows = rows;
+    m_cols = cols;
+    m_ary = new int*[m_rows * m_cols];
+    for(int i = 0; i < m_rows; i++) {
+        m_ary[i] = new int[m_cols];
+    }
+}
+
+void Spiral::_initRow(int r) {
+    for(int i = 0; i < m_cols; i++) {
+        m_ary[r][i] = 0;
+    }
+}
+
+void Spiral::fill() {
+    // go right
+    // go down
+    // go left
+    // go up
+
+    // recalculate rectangle
+
+    rc_corners rcc = 
+            {{0, 0}, 
+            {0, m_cols - 1}, 
+            {m_rows - 1},
+            {m_rows - 1, m_cols - 1}};
+
+    while(true) {
+        fillRowRight(rcc.tl[rccRow], rcc);
+
+        // col, row top, row bot
+        fillColDown(rcc.tr[rccCol], rcc);
+
+        // row, col begin, col end
+        fillRowLeft(rcc.br[rccRow], rcc);
+
+        // col, row top, row bot
+        fillColUp(rcc.bl[rccCol], rcc);
+        break;
+    }
+}
+
+void Spiral::fillRowRight(int row, rc_corners rcc) {
+    for(int i = rcc.tl[rccCol]; i <= rcc.tr[rccCol]; i++) {
+        m_ary[row][i] = m_val;
+        m_val++;
+    }
+}
+
+void Spiral::fillRowLeft(int row, rc_corners rcc) {
+    for(int i = (rcc.br[rccCol]  = 1); i >= rcc.bl[rccCol]; i--) {
+        m_ary[row][i] = m_val;
+        m_val++;
+    }
+}
+
+void Spiral::fillColDown(int col, rc_corners rcc) {
+    for(int i = (rcc.tr[rccRow] + 1); i <= rcc.br[rccRow]; i++) {
+        m_ary[i][col] = m_val;
+        m_val++;
+    }
+}
+
+void Spiral::fillColUp(int col, rc_corners rcc) {
+    for(int i = (rcc.bl[rccRow] - 1); i >= (rcc.tl[rccRow] + 1); i--) {
+        m_ary[i][col] = m_val;
+        m_val++;
+    }
+}
+
+void Spiral::print() {
+    for(int i = 0; i < m_rows; i ++) {
+        _printRow(i);
+    }
+}
+
+void Spiral::_printRow(int r) {
+    for(int i = 0; i < m_cols; i++) {
+        printf("(%.2d) ", m_ary[r][i]);
+    }
+    printf("\n");
+}
