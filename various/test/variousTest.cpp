@@ -97,3 +97,43 @@ TEST_F(VariousTest, spiral_10_by_6) {
     ASSERT_EQ(55, 55);
 }
 
+TEST_F(VariousTest, spiral_6_by_10) {
+    // arrange
+    Spiral s(6, 10);
+    // act
+    s.fill();
+    s.print();
+    // assert
+    ASSERT_EQ(55, 55);
+}
+
+TEST_F(VariousTest, spiral_5_by_3) {
+    // arrange
+    Spiral s(5, 3);
+    // act
+    s.fill();
+    s.print();
+    // assert
+    ASSERT_EQ(55, 55);
+}
+
+TEST_F(VariousTest, spiral_3_by_1) {
+    // arrange
+    Spiral s(3, 1);
+    // act
+    s.fill();
+    s.print();
+    // assert
+    ASSERT_EQ(55, 55);
+}
+
+TEST_F(VariousTest, spiral_1_by_3) {
+    // arrange
+    Spiral s(1, 3);
+    // act
+    s.fill();
+    s.print();
+    // assert
+    ASSERT_EQ(55, 55);
+}
+

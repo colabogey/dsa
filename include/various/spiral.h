@@ -22,6 +22,7 @@ public:
     void fillRowLeft(int, rc_corners);
     void fillColUp(int, rc_corners);
     void fillColDown(int, rc_corners);
+    bool validCorners(rc_corners);
 private: 
     void _initRow(int);
     void _printRow(int);
