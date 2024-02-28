@@ -13,11 +13,17 @@
 Spiral::Spiral(int rows, int cols) {
     m_rows = rows;
     m_cols = cols;
+    for(int i = 0; i < m_rows; i++) {
+        std::vector<int> v(m_cols, 0);
+        m_ary.push_back(v);
+    }
+    /*
     m_ary = new int *[m_rows * m_cols];
     for (int i = 0; i < m_rows; i++) {
         m_ary[i] = new int[m_cols];
         _initRow(i);
     }
+    */
 }
 
 void Spiral::_initRow(int r) {

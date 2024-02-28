@@ -17,6 +17,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include <gtest/gtest.h>
 #include "various.h"
 #include "spiral.h"
+#include "anagram.h"
 
 using namespace std;
 
@@ -135,5 +136,71 @@ TEST_F(VariousTest, spiral_1_by_3) {
     s.print();
     // assert
     ASSERT_EQ(55, 55);
+}
+
+TEST_F(VariousTest, isAnagramSort_Given_Match) {
+    // arrange
+    std::string a = "team";
+    std::string b = "meat";
+    Anagram ag;
+    // act
+    bool ans = ag.isAnagramSort(a, b);
+    // assert
+    ASSERT_TRUE(ans);
+}
+
+TEST_F(VariousTest, isAnagramSort_Given_No_Match) {
+    // arrange
+    std::string a = "team";
+    std::string b = "zzzz";
+    Anagram ag;
+    // act
+    bool ans = ag.isAnagramSort(a, b);
+    // assert
+    ASSERT_FALSE(ans);
+}
+
+TEST_F(VariousTest, isAnagramUnorderedMap_Given_Match) {
+    // arrange
+    std::string a = "team";
+    std::string b = "meat";
+    Anagram ag;
+    // act
+    bool ans = ag.isAnagramUnorderedMap(a, b);
+    // assert
+    ASSERT_TRUE(ans);
+}
+
+TEST_F(VariousTest, isAnagramUnorderedMap_Given_No_Match) {
+    // arrange
+    std::string a = "team";
+    std::string b = "zzzz";
+    Anagram ag;
+    // act
+    bool ans = ag.isAnagramUnorderedMap(a, b);
+    // assert
+    ASSERT_FALSE(ans);
+}
+
+TEST_F(VariousTest, isAnagramUnorderedMap_Given_Match_With_Repeats) {
+    // arrange
+    std::string a = "ateam";
+    std::string b = "ameat";
+    Anagram ag;
+    // act
+    bool ans = ag.isAnagramUnorderedMap(a, b);
+    // assert
+    ASSERT_TRUE(ans);
+}
+
+TEST_F(VariousTest, isAnagramUnorderedMap_Given_No_Match_With_Repeats) {
+    // arrange
+    std::string a = "ateam";
+    std::string b = "ameaz";
+    Anagram ag;
+    // act
+    bool ans = ag.isAnagramUnorderedMap(a, b);
+    // assert
+    ASSERT_FALSE(ans);
 }
 

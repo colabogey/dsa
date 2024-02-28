@@ -1,4 +1,5 @@
 #pragma once
+#include<vector>
 
 typedef struct _corners {
     int tl[2];
@@ -29,6 +30,7 @@ private:
     int m_rows{0};
     int m_cols{0};
     int m_val{1};
-    int** m_ary;
+    //int** m_ary;
+    std::vector<std::vector<int>> m_ary;
 
 };
