@@ -18,6 +18,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "various.h"
 #include "spiral.h"
 #include "anagram.h"
+#include "sum3.h"
 
 using namespace std;
 
@@ -200,6 +201,36 @@ TEST_F(VariousTest, isAnagramUnorderedMap_Given_No_Match_With_Repeats) {
     Anagram ag;
     // act
     bool ans = ag.isAnagramUnorderedMap(a, b);
+    // assert
+    ASSERT_FALSE(ans);
+}
+
+TEST_F(VariousTest, findThreeThatSumToZero_ValuesExist1) {
+    // arrange
+    std::vector<int> v = {3, 6, 7, 8, -2, -28, 53, -11, 12, 47};
+    Sum3ToZero s3;
+    // act
+    bool ans = s3.canThreeSumToZero(v);
+    // assert
+    ASSERT_TRUE(ans);
+}
+
+TEST_F(VariousTest, findThreeThatSumToZero_ValuesExist2) {
+    // arrange
+    std::vector<int> v = {-28, 6, 7, 8, -2, 3, 53, -11, 12, 47};
+    Sum3ToZero s3;
+    // act
+    bool ans = s3.canThreeSumToZero(v);
+    // assert
+    ASSERT_TRUE(ans);
+}
+
+TEST_F(VariousTest, findThreeThatSumToZero_ValuesDoNotExist) {
+    // arrange
+    std::vector<int> v = {-29, 6, 7, 8, -2, 30, 53, -11, 12, 47};
+    Sum3ToZero s3;
+    // act
+    bool ans = s3.canThreeSumToZero(v);
     // assert
     ASSERT_FALSE(ans);
 }
