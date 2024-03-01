@@ -235,3 +235,13 @@ TEST_F(VariousTest, findThreeThatSumToZero_ValuesDoNotExist) {
     ASSERT_FALSE(ans);
 }
 
+TEST_F(VariousTest, findThreeThatSumToZero_ValuesExist3) {
+    // arrange
+    std::vector<int> v = {3, 6, 7, 8, -2, -28, 53, 47, 12, -11};
+    Sum3ToZero s3;
+    // act
+    bool ans = s3.canThreeSumToZero(v);
+    // assert
+    ASSERT_TRUE(ans);
+}
+
