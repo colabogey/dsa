@@ -49,7 +49,8 @@ int Trie::trie_main() {
     // Input keys (use only 'a' through 'z'
     // and lower case)
     std::string keys[] = {"the", "a",  "there", "answer",
-                          "any", "by", "bye",   "their"};
+                          "any", "by", "bye",   "their",
+                          "aardvaark"};
     int n = sizeof(keys) / sizeof(keys[0]);
 
     TrieNode *root = getNode();
@@ -70,5 +71,7 @@ int Trie::trie_main() {
               << " --- " << output[search(root, "their")] << std::endl;
     std::cout << "thaw"
               << " --- " << output[search(root, "thaw")] << std::endl;
+    std::cout << "aardvaark"
+              << " --- " << output[search(root, "aardvaark")] << std::endl;
     return 0;
 }
