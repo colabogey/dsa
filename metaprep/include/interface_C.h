@@ -4,6 +4,9 @@
 extern "C" {
 #endif
 
+#include"query.h"
+#include <vector>
+
 int main_arr_contig_subarrays();
 int main_arr_passing_yearbooks();
 int main_arr_reverse_to_make_equal();
@@ -27,6 +30,7 @@ int main_str_minimum_lgn_substrings();
 int main_str_rotational_cipher();
 int main_tree_nodes_in_subtree();
 int main_tree_num_visible_nodes();
+std::vector<int> answerQueries(std::vector<bool>&, const std::vector<query>);
 
 #ifdef __cplusplus
 }
