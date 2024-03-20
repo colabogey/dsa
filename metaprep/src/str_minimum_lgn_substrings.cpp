@@ -25,11 +25,24 @@ using namespace std;
 
 // Add any helper functions you may need here
 
+size_t getDistance(string& s, string& t) {
+  size_t mid = t.length() / 2;
+  string sleft = t.substr(0, mid);
+  string sright = t.substr(mid);
+  
+  size_t posleft = s.find(sleft);
+  size_t posright = s.find(sright);
+  
+  if(posright == string::npos || posleft == string::npos) {
+    return -1;
+  }
+  int d = (posright - posleft);
+  return ((abs(d)) + 1);
+}
 
 int minLengthSubstring(string s, string t) {
   // Write your code here
-
-    return 0;
+  return getDistance(s, t);
 }
 
 
