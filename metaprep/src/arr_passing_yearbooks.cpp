@@ -57,13 +57,28 @@ using namespace std;
 
 // Add any helper functions you may need here
 
+int passIt(vector<int>& arr, int start, int me) {
+  int ans = 1;
+  for( ; start < arr.size(); start++) {
+    if(arr[start] == me) {
+      break;
+    } else {
+      ans++;
+    }
+  }
+  return ans;
+}
 
 vector <int> findSignatureCounts(vector <int> arr) {
   // Write your code here
-  /*
-  
-  */
-  return {};
+  vector<int> ans;
+  int me = 1;
+  for(int i = 0; i < arr.size(); i++) {
+    int sigs = passIt(arr, i, me);
+    ans.push_back(sigs);
+    me++;
+  }
+  return ans;
 }
 
 // These are the tests we use to determine if the solution is correct.
