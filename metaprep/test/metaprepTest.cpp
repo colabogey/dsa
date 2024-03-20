@@ -246,4 +246,3 @@ TEST_F(MetaprepTest, answerQueries) {
     ASSERT_EQ(ans[2], -1);
     ASSERT_EQ(ans[3], 2);
 }
-

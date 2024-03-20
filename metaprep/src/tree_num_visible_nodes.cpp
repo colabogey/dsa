@@ -30,16 +30,16 @@ using namespace std;
 // Add any helper functions you may need here
 
 
-struct Node {
+struct Node2 {
   int data;
-  Node* left ;
-  Node* right;
-  Node() {
+  Node2* left ;
+  Node2* right;
+  Node2() {
     data = 0;
     left = NULL;
     right = NULL;
   }
-  Node(int data) {
+  Node2(int data) {
     this->data = data;
     this->left = NULL;
     this->right = NULL;
@@ -48,14 +48,14 @@ struct Node {
 
 // Add any helper functions you may need here
 
-int levelOrder(Node* root) {
-  queue<Node*> nq;
+int levelOrder(Node2* root) {
+  queue<Node2*> nq;
   int levels = 0;
   nq.push(root);
   while(!nq.empty()) {
     int nodeCount = nq.size();
     while(nodeCount > 0) {
-      Node* n = nq.front();
+      Node2* n = nq.front();
       nq.pop();
       nodeCount--;
       if(n->left) {
@@ -70,7 +70,7 @@ int levelOrder(Node* root) {
   return levels;
 }
 
-int getDepth(Node* root) {
+int getDepth(Node2* root) {
   if(root == NULL) {
     return 0;
   }
@@ -83,22 +83,11 @@ int getDepth(Node* root) {
   }
 }
 
-int visibleNodes(Node* root) {
+int visibleNodes(Node2* root) {
   // Write your code here
   //return levelOrder(root);
   return getDepth(root);
 }
-
-
-
-
-
-
-
-
-
-
-
 
 // These are the tests we use to determine if the solution is correct.
 // You can add your own at the bottom.
@@ -127,30 +116,50 @@ static void check(int expected, int output) {
 
 int main_tree_num_visible_nodes() {
 
-  Node* root_1 = new Node(8);
-  root_1->left = new Node(3);
-  root_1->right = new Node(10);
-  root_1->left->left = new Node(1);
-  root_1->left->right = new Node(6);
-  root_1->right->right = new Node(14);
-  root_1->left->right->left = new Node(4);
-  root_1->left->right->right = new Node(7);
-  root_1->right->right->left = new Node(13);
+  Node2* root_1 = new Node2(8);
+  root_1->left = new Node2(3);
+  root_1->right = new Node2(10);
+  root_1->left->left = new Node2(1);
+  root_1->left->right = new Node2(6);
+  root_1->right->right = new Node2(14);
+  root_1->left->right->left = new Node2(4);
+  root_1->left->right->right = new Node2(7);
+  root_1->right->right->left = new Node2(13);
   int expected_1 = 4;
   int output_1 = visibleNodes(root_1);
   check(expected_1, output_1);
 
-  Node* root_2 = new Node(10);
-  root_2->left = new Node(8);
-  root_2->right = new Node(15);
-  root_2->left->left = new Node(4);
-  root_2->left->left->right = new Node(5);
-  root_2->left->left->right->right = new Node(6);
-  root_2->right->left = new Node(14);
-  root_2->right->right = new Node(16);
+  delete root_1->right->right->left;
+  delete root_1->left->right->right;
+  delete root_1->left->right->left;
+  delete root_1->right->right;
+  delete root_1->left->right;
+  delete root_1->left->left;
+  delete root_1->right;
+  delete root_1->left;
+  delete root_1;
+//////////////////////////////////////////////
+
+  Node2* root_2 = new Node2(10);
+  root_2->left = new Node2(8);
+  root_2->right = new Node2(15);
+  root_2->left->left = new Node2(4);
+  root_2->left->left->right = new Node2(5);
+  root_2->left->left->right->right = new Node2(6);
+  root_2->right->left = new Node2(14);
+  root_2->right->right = new Node2(16);
   int expected_2 = 5;
   int output_2 = visibleNodes(root_2);
   check(expected_2, output_2);
+
+  delete root_2->right->right;
+  delete root_2->right->left;
+  delete root_2->left->left->right->right;
+  delete root_2->left->left->right;
+  delete root_2->left->left;
+  delete root_2->right;
+  delete root_2->left;
+  delete root_2;
 
   // Add your own test cases here
 
