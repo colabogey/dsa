@@ -53,17 +53,17 @@ class MetaprepTest : public ::testing::Test {
 TEST_F(MetaprepTest, arr_contig_subarrays) {
     // arrange
     // act
-    main_arr_contig_subarrays();
+    int passed = main_arr_contig_subarrays();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(passed, 2);
 }
 
 TEST_F(MetaprepTest, arr_passing_yearbooks) {
     // arrange
     // act
-    main_arr_passing_yearbooks();
+    int passed = main_arr_passing_yearbooks();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(passed, 2);
 }
 
 TEST_F(MetaprepTest, arr_reverse_to_make_EQual) {
