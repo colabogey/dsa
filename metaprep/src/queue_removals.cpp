@@ -50,10 +50,43 @@ using namespace std;
 
 // Add any helper functions you may need here
 
-vector<int> findPositions(vector<int> arr, int x) {
-    // Write your code here
+vector <int> findPositions(vector <int> arr, int x) {
+  // Write your code here
+  vector<int> ans;
+  queue<pair<int, int>> q;
+  queue<pair<int, int>> qPruned;
+  for(int i = 0; i < arr.size(); i++) {
+    q.push(make_pair(arr[i], (i + 1)));
+  }
 
-    return {};
+  for(int i = 0; i < x; i++) {
+    // pop  x elements - no more than q.size()
+    int popCount = min((int)q.size(), x);
+    pair<int, int> maxEntry{-1, 0};
+    for(int j = 0; j < popCount; j++) {
+        auto p = q.front();
+        if(p.first > maxEntry.first) {
+            maxEntry = p;
+        }
+        qPruned.push(p);
+        q.pop();
+    }
+    // save max index - the answer
+    ans.push_back(maxEntry.second);
+
+    // put everything except maxEntry back
+    while(!qPruned.empty()) {
+        auto item = qPruned.front();
+        qPruned.pop();
+        if(item != maxEntry) {
+            if(item.first > 0) {
+                item.first--;
+            }
+            q.push(item);
+        }
+    }
+  }
+  return ans;
 }
 
 // These are the tests we use to determine if the solution is correct.
