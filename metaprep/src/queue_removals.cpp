@@ -1,4 +1,5 @@
 /*
+
 Queue Removals
 You're given a list of n integers arr, which represent elements in a queue (in
 order from front to back). You're also given an integer x, and must perform x
