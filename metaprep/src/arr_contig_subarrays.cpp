@@ -98,8 +98,9 @@ static void printIntegerVector(vector <int> array) {
 }
 
 static int test_case_number = 1;
+static int failed = 0;
 
-static bool check(vector <int>& expected, vector <int>& output) {
+static void check(vector <int>& expected, vector <int>& output) {
   int expected_size = expected.size();
   int output_size = output.size();
   bool result = true;
@@ -115,6 +116,7 @@ static bool check(vector <int>& expected, vector <int>& output) {
     cout << rightTick << "Test #" << test_case_number << "\n";
   }
   else {
+    failed++;
     cout << wrongTick << "Test #" << test_case_number << ": Expected ";
     printIntegerVector(expected);
     cout << " Your output: ";
@@ -122,29 +124,21 @@ static bool check(vector <int>& expected, vector <int>& output) {
     cout << endl;
   }
   test_case_number++;
-  return result;
 }
 
 int main_arr_contig_subarrays() {
 
-  int passed = 0;
   vector <int> test_1{3, 4, 1, 6, 2};
   vector <int> expected_1{1, 3, 1, 5, 1};
   vector <int> output_1 = CountSubarrays(test_1);
-  bool ans = check(expected_1, output_1);
-  if(ans) {
-    passed++;
-  }
+  check(expected_1, output_1);
 
   vector <int> test_2{2, 4, 7, 1, 5, 3};
   vector <int> expected_2{1, 2, 6, 1, 3, 1};
   vector <int> output_2 = CountSubarrays(test_2);
-  ans = check(expected_2, output_2);
-  if(ans) {
-    passed++;
-  }
+  check(expected_2, output_2);
 
   // Add your own test cases here
 
-  return passed;
+  return failed;
 }

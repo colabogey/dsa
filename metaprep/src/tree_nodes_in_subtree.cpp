@@ -137,6 +137,7 @@ static void printIntegerVector(vector<int> array) {
 }
 
 static int test_case_number = 1;
+static int failed = 0;
 
 static void check(vector<int> &expected, vector<int> &output) {
     int expected_size = expected.size();
@@ -153,6 +154,7 @@ static void check(vector<int> &expected, vector<int> &output) {
     if (result) {
         cout << rightTick << "Test #" << test_case_number << "\n";
     } else {
+        failed++;
         cout << wrongTick << "Test #" << test_case_number << ": Expected ";
         printIntegerVector(expected);
         cout << " Your output: ";
@@ -192,5 +194,5 @@ int main_tree_nodes_in_subtree() {
 
     // Add your own test cases here
 
-    return 0;
+    return failed;
 }

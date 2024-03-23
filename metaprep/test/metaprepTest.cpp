@@ -53,185 +53,185 @@ class MetaprepTest : public ::testing::Test {
 TEST_F(MetaprepTest, arr_contig_subarrays) {
     // arrange
     // act
-    int passed = main_arr_contig_subarrays();
+    int failed = main_arr_contig_subarrays();
     // assert
-    ASSERT_EQ(passed, 2);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, arr_passing_yearbooks) {
     // arrange
     // act
-    int passed = main_arr_passing_yearbooks();
+    int failed = main_arr_passing_yearbooks();
     // assert
-    ASSERT_EQ(passed, 2);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, arr_reverse_to_make_EQual) {
     // arrange
     // act
-    main_arr_reverse_to_make_equal();
+    int failed = main_arr_reverse_to_make_equal();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, greedy_element_swapping) {
     // arrange
     // act
-    main_greedy_element_swapping();
+    int failed = main_greedy_element_swapping();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, greedy_seating_arrangements) {
     // arrange
     // act
-    main_greedy_seating_arrangements();
+    int failed = main_greedy_seating_arrangements();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, greedy_slow_sums) {
     // arrange
     // act
-    main_greedy_slow_sums();
+    int failed = main_greedy_slow_sums();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, hasht_pair_sums) {
     // arrange
     // act
-    main_hasht_pair_sums();
+    int failed = main_hasht_pair_sums();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, heap_largest_triple_product) {
     // arrange
     // act
-    main_heap_largest_triple_product();
+    int failed = main_heap_largest_triple_product();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, heap_magical_bags) {
     // arrange
     // act
-    main_heap_magical_bags();
+    int failed = main_heap_magical_bags();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, heap_median_stream) {
     // arrange
     // act
-    main_heap_median_stream();
+    int failed = main_heap_median_stream();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, queue_removals) {
     // arrange
     // act
-    main_queue_removals();
+    int failed = main_queue_removals();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, recur_change_in_foreign_currency) {
     // arrange
     // act
-    main_recur_change_in_foreign_currency();
+    int failed = main_recur_change_in_foreign_currency();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, recur_encrypted_words) {
     // arrange
     // act
-    main_recur_encrypted_words();
+    int failed = main_recur_encrypted_words();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, search_billion_users) {
     // arrange
     // act
-    main_search_billion_users();
+    int failed = main_search_billion_users();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, search_revenue_milestones) {
     // arrange
     // act
-    main_search_revenue_milestones();
+    int failed = main_search_revenue_milestones();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, sort_balanced_split) {
     // arrange
     // act
-    main_sort_balanced_split();
+    int failed = main_sort_balanced_split();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, sort_count_triangles) {
     // arrange
     // act
-    main_sort_count_triangles();
+    int failed = main_sort_count_triangles();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, stack_balance_braces) {
     // arrange
     // act
-    main_stack_balance_braces();
+    int failed = main_stack_balance_braces();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, str_matching_pairs) {
     // arrange
     // act
-    main_str_matching_pairs();
+    int failed = main_str_matching_pairs();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, str_minimum_lgn_substrings) {
     // arrange
     // act
-    main_str_minimum_lgn_substrings();
+    int failed = main_str_minimum_lgn_substrings();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, str_rotational_cipher) {
     // arrange
     // act
-    main_str_rotational_cipher();
+    int failed = main_str_rotational_cipher();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, tree_nodes_in_subtree) {
     // arrange
     // act
-    main_tree_nodes_in_subtree();
+    int failed = main_tree_nodes_in_subtree();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, tree_num_visible_nodes) {
     // arrange
     // act
-    main_tree_num_visible_nodes();
+    int failed = main_tree_num_visible_nodes();
     // assert
-    ASSERT_EQ(1, 1);
+    ASSERT_EQ(failed, 0);
 }
 
 TEST_F(MetaprepTest, answerQueries) {

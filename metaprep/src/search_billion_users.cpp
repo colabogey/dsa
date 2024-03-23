@@ -55,6 +55,7 @@ int getBillionUsersDay(vector<float> growthRates) {
 static void printInteger(int n) { cout << "[" << n << "]"; }
 
 static int test_case_number = 1;
+static int failed = 0;
 
 static void check(int expected, int output) {
     bool result = (expected == output);
@@ -63,6 +64,7 @@ static void check(int expected, int output) {
     if (result) {
         cout << rightTick << "Test #" << test_case_number << "\n";
     } else {
+        failed++;
         cout << wrongTick << "Test #" << test_case_number << ": Expected ";
         printInteger(expected);
         cout << " Your output: ";
@@ -86,5 +88,5 @@ int main_search_billion_users() {
 
     // Add your own test cases here
 
-    return 0;
+    return failed;
 }

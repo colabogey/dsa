@@ -67,6 +67,7 @@ string rotationalCipher(string input, int rotationFactor) {
 static void printString(string &str) { cout << "[\"" << str << "\"]"; }
 
 static int test_case_number = 1;
+static int failed = 0;
 
 static void check(string &expected, string &output) {
     bool result = (expected == output);
@@ -75,6 +76,7 @@ static void check(string &expected, string &output) {
     if (result) {
         cout << rightTick << "Test #" << test_case_number << "\n";
     } else {
+        failed++;
         cout << wrongTick << "Test #" << test_case_number << ": Expected ";
         printString(expected);
         cout << " Your output: ";
@@ -100,5 +102,5 @@ int main_str_rotational_cipher() {
 
     // Add your own test cases here
 
-    return 0;
+    return failed;
 }

@@ -75,6 +75,7 @@ bool canGetExactChange(int targetMoney, vector<int> &denominations) {
 static void printString(string &str) { cout << "[\"" << str << "\"]"; }
 
 static int test_case_number = 1;
+static int failed = 0;
 
 static void check(bool expected, bool output) {
     bool result = (expected == output);
@@ -83,6 +84,7 @@ static void check(bool expected, bool output) {
     if (result) {
         cout << rightTick << "Test #" << test_case_number << "\n";
     } else {
+        failed++;
         cout << wrongTick << "Test #" << test_case_number << ": Expected ";
         printf("%s", expected ? "true" : "false");
         cout << " Your output: ";
@@ -109,5 +111,5 @@ int main_recur_change_in_foreign_currency() {
 
     // Add your own test cases here
 
-    return 0;
+    return failed;
 }
