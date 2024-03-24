@@ -43,8 +43,8 @@ bool balancedSplitExists(vector<int> &arr) {
     bool ans = false;
     sort(arr.begin(), arr.end());
     int redge = arr.size() - 1;
+    int lsum = reduce(arr, arr.size());
     int rsum = 0;
-    int lsum = 0;
     int maxElem = 0;
     int i = 0;
     while(true) {
@@ -52,12 +52,12 @@ bool balancedSplitExists(vector<int> &arr) {
             if(arr[i] >= maxElem) {
                 maxElem = arr[i];
                 rsum += maxElem;
+                lsum -= maxElem;
             } else {
                 break;
             }
         }
-    
-        lsum = reduce(arr, redge);
+
         if(lsum == rsum) {
             ans = true;
             break;
