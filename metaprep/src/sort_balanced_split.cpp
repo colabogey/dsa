@@ -30,58 +30,43 @@ B.
 using namespace std;
 
 // Add any helper functions you may need here
-int reduce(vector<int> v, int l, int r) {
+int reduce(vector<int> v, int r) {
     int sum = 0;
-    for (int i = l; i <= r; i++) {
+    for (int i = 0; i < r; i++) {
         sum += v[i];
     }
     return sum;
-}
-
-int arePiecesEqual(vector<int> v, int l, int m, int r) {
-    int ans = 0;
-    int sum_l = reduce(v, l, m);
-    int sum_r = reduce(v, m + 1, r);
-    if (sum_l < sum_r) {
-        ans = -1;
-    } else if (sum_r > sum_l) {
-        ans = 1;
-    } else {
-        ans = 0;
-    }
-    return ans;
-}
-
-bool arePiecesUnique(vector<int> &v, int &l, int &m, int &) {
-    bool ans = true;
-    if (m != v.size() - 1) {
-        if (v[m + 1] == v[m]) {
-            return false;
-        }
-    }
-    return ans;
 }
 
 bool balancedSplitExists(vector<int> &arr) {
     // Write your code here
     bool ans = false;
     sort(arr.begin(), arr.end());
-    int l = 0;
-    int r = arr.size() - 1;
-    int mid = (l + r) / 2;
-    while ((l >= 0) && (r <= arr.size() - 1)) {
-        int eq = arePiecesEqual(arr, l, mid, r);
-        if (eq == 0) {
-            ans = arePiecesUnique(arr, l, mid, r);
+    int redge = arr.size() - 1;
+    int rsum = 0;
+    int lsum = 0;
+    int maxElem = 0;
+    int i = 0;
+    while(true) {
+        for(i = redge; i >=0; i--) {
+            if(arr[i] >= maxElem) {
+                maxElem = arr[i];
+                rsum += maxElem;
+            } else {
+                break;
+            }
+        }
+    
+        lsum = reduce(arr, redge);
+        if(lsum == rsum) {
+            ans = true;
             break;
-        } else if (eq == -1) {
-            // move right
-            mid = (mid + r) / 2;
-        } else {
-            // move left
-            mid = (mid + l) / 2;
+        } else if(lsum < rsum) {
+            ans = false;
+            break;
         }
     }
+
     return ans;
 }
 
