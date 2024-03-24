@@ -1,5 +1,5 @@
 #pragma once
-#include<vector>
+#include <vector>
 
 typedef struct _corners {
     int tl[2];
@@ -12,7 +12,7 @@ typedef struct _corners {
 #define rccCol 1
 
 class Spiral {
-public:
+  public:
     Spiral(int rows, int cols);
     Spiral() = default;
     ~Spiral() = default;
@@ -24,13 +24,13 @@ public:
     void fillColUp(int, rc_corners);
     void fillColDown(int, rc_corners);
     bool validCorners(rc_corners);
-private: 
+
+  private:
     void _initRow(int);
     void _printRow(int);
     int m_rows{0};
     int m_cols{0};
     int m_val{1};
-    //int** m_ary;
+    // int** m_ary;
     std::vector<std::vector<int>> m_ary;
-
 };

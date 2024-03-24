@@ -13,7 +13,7 @@
 Spiral::Spiral(int rows, int cols) {
     m_rows = rows;
     m_cols = cols;
-    for(int i = 0; i < m_rows; i++) {
+    for (int i = 0; i < m_rows; i++) {
         std::vector<int> v(m_cols, 0);
         m_ary.push_back(v);
     }
@@ -69,21 +69,17 @@ void Spiral::fill() {
 
 bool Spiral::validCorners(rc_corners rcc) {
     bool ans = true;
-    if((rcc.tl[rccRow] == -1) ||
-        (rcc.tl[rccCol] == -1) ||
-        (rcc.tr[rccRow] == -1) ||
-        (rcc.tr[rccCol] == -1) ||
-        (rcc.bl[rccRow] == -1) ||
-        (rcc.bl[rccCol] == -1) ||
-        (rcc.br[rccRow] == -1) ||
-        (rcc.br[rccCol] == -1)) { 
-            ans = false;
-        }
+    if ((rcc.tl[rccRow] == -1) || (rcc.tl[rccCol] == -1) ||
+        (rcc.tr[rccRow] == -1) || (rcc.tr[rccCol] == -1) ||
+        (rcc.bl[rccRow] == -1) || (rcc.bl[rccCol] == -1) ||
+        (rcc.br[rccRow] == -1) || (rcc.br[rccCol] == -1)) {
+        ans = false;
+    }
     return ans;
 }
 void Spiral::fillRowRight(int row, rc_corners rcc) {
     for (int i = rcc.tl[rccCol]; i <= rcc.tr[rccCol]; i++) {
-        if(m_ary[row][i] == 0) {
+        if (m_ary[row][i] == 0) {
             m_ary[row][i] = m_val;
             m_val++;
         }
@@ -92,7 +88,7 @@ void Spiral::fillRowRight(int row, rc_corners rcc) {
 
 void Spiral::fillRowLeft(int row, rc_corners rcc) {
     for (int i = (rcc.br[rccCol] - 1); i >= rcc.bl[rccCol]; i--) {
-        if(m_ary[row][i] ==0) {
+        if (m_ary[row][i] == 0) {
             m_ary[row][i] = m_val;
             m_val++;
         }

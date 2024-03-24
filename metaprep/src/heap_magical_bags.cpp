@@ -33,8 +33,21 @@ using namespace std;
 
 int maxCandies(vector<int> arr, int k) {
     // Write your code here
+    priority_queue<int> pq;
+    for(int i = 0; i < arr.size(); i++) {
+        pq.push(arr[i]);
+    }
 
-    return 0;
+    int ans = 0;
+    for(int i = 0; i < k; i++) {
+        int maxPieces = pq.top();
+        ans += maxPieces;
+        pq.pop();
+        int newPieces = floor(maxPieces/2);
+        pq.push(newPieces);
+    }
+
+    return ans;
 }
 
 // These are the tests we use to determine if the solution is correct.

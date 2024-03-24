@@ -29,61 +29,31 @@ using namespace std;
 
 // Add any helper functions you may need here
 
-vector<int> findMileStone_orig(vector<int> &c, int m, vector<int> &ans) {
-    for (int i = 0; i < c.size(); i++) {
-        if (c[i] >= m) {
-            ans.push_back(i + 1);
-            break;
-        }
+int findMilestone(vector<int>& cumRev, int milestone) {
+  for(int i = 0; i < cumRev.size(); i++) {
+    if(cumRev[i] >= milestone) {
+      return (i + 1);
     }
-    return ans;
+  }
+  return -1;
 }
 
-vector<int> findMileStone(vector<int> &c, int m, vector<int> &ans) {
-    int l = 0;
-    int r = c.size() - 1;
-    while (r >= l) {
-        int mid = (l + r) / 2;
-        if (c[mid] == m) {
-            // lucky
-            ans.push_back(mid + 1);
-            break;
-        } else if (c[mid] >= m) {
-            // make sure left is smaller - could be two in a row
-            if (mid == 0) {
-                // this is the first one greater
-                ans.push_back(mid + 1);
-                break;
-            } else if (c[mid - 1] >= m) {
-                // answer is on the left side
-                r = (mid - 1);
-                continue;
-            } else {
-                // first one greater
-                ans.push_back(mid + 1);
-                break;
-            }
-        } else {
-            // c[mid] < m, answer lies to the right
-            l = mid + 1;
-            continue;
-        }
+vector <int> getMilestoneDays(vector <int> revenues, vector<int> milestones) {
+  vector<int> cumRev;
+  cumRev.resize(revenues.size());
+  vector<int> ans;
+  for(int i = 0; i < revenues.size(); i++) {
+    if(i == 0) {
+        cumRev[i] = revenues[i];
+    } else {
+        cumRev[i] = cumRev[i - 1] + revenues[i];
     }
-    return ans;
-}
+  }
 
-vector<int> getMilestoneDays(vector<int> revenues, vector<int> milestones) {
-    // Write your code here
-    vector<int> ans;
-    vector<int> cumValues(revenues.size(), 0);
-    cumValues[0] = revenues[0];
-    for (int i = 1; i < cumValues.size(); i++) {
-        cumValues[i] = cumValues[i - 1] + revenues[i];
-    }
-    for (int i : milestones) {
-        findMileStone(cumValues, i, ans);
-    }
-    return ans;
+  for(int i = 0; i < milestones.size(); i++) {
+    ans.push_back(findMilestone(cumRev, milestones[i]));
+  }
+  return ans;
 }
 
 // These are the tests we use to determine if the solution is correct.
