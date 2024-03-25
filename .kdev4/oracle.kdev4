@@ -49,7 +49,7 @@ Name=metaprep
 Type=Native Application
 
 [Launch][Launch Configuration 10][Data]
-Arguments=--gtest_filter="MetaprepTest.sort_balanced_split"
+Arguments=--gtest_filter="MetaprepTest.stack_balance_braces"
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Nothing
 EnvironmentGroup=

@@ -27,92 +27,52 @@ true Example 3 s = {(}) output: false Example 4 s = ) output: false
 using namespace std;
 
 // Add any helper functions you may need here
-#define USE_STACK 1
-#if USE_STACK == 0
-vector<pair<string, string>> oc = {{"(", ")"}, {"[", "]"}, {"{", "]"}};
-
-bool evalBalance(string &s, int l, int r) {
-    // find s[r] in oc
-    // is s[l] == first
-    for (auto ocPair : oc) {
-        string sOp = ocPair.first;
-        string sCl = ocPair.second;
-        if (s[r] == sCl[0] && s[l] == sOp[0]) {
-            return true;
-        }
-    }
-    return false;
-}
-
-bool checkBalance(string &s, int l, int r) {
-    if (l > r) {
-        return false;
-    }
-    if (evalBalance(s, l, r)) {
-        return true;
-    }
-    checkBalance(s, l + 1, r - 1);
-}
-
+map<char, char> oc = {{'(', ')'}, {'[', ']'}, {'{', '}'}};
+// simpler but no stack
+//
 bool isBalanced(string s) {
     // Write your code here
     /* seemingly simpler, but does not use a stack */
-    bool ans = false;
-    ans = checkBalance(s, 0, s.length() - 1);
-    return ans;
-}
-
-#else
-/*  another way using a stack - which may be what is desired by the questiona*/
-
-vector<pair<std::string, std::string>> oc = {
-    {"(", ")"}, {"[", "]"}, {"{", "}"}};
-
-bool isCloseBracket(string &s) {
-    for (auto ocPair : oc) {
-        std::string sOp = ocPair.first;
-        std::string sCl = ocPair.second;
-        if (s == sCl) {
-            return true;
+    int len = s.length();
+    int eo = len % 2;
+    if(eo == 1) {
+        return false;
+    }
+    for(int r = (len -1), l = 0; r > l; l++, r--) {
+        auto found = oc.find(s[l]);
+        if(found == oc.end()) {
+            return false;
+        }
+        if(found->second != s[r]) {
+            return false;
         }
     }
-    return false;
-}
-bool isMatchingBrace(std::string &x, std::string &top) {
-    for (auto ocPair : oc) {
-        std::string sOp = ocPair.first;
-        std::string sCl = ocPair.second;
-        if (x == sCl && top == sOp) {
-            return true;
-        }
-    }
-    return false;
+    return true;
 }
 
-bool isBalanced(string s) {
-    // Write your code here
-    bool ans = true;
-    std::stack<string> brackets;
-    for (int i = 0; i < s.length(); i++) {
-        std::string x = s.substr(i, 1);
-        if (isCloseBracket(x)) {
-            bool m = isMatchingBrace(x, brackets.top());
-            if (m) {
-                brackets.pop();
-            } else {
-                return false;
-            }
-        } else {
-            brackets.push(x);
+// using a stack - which maybe was the objective
+//
+bool isBalancedStack(string s) {
+    stack<char> ob;
+    int i = 0;
+    for( ; i < s.length(); i++) {
+        auto found = oc.find(s[i]);
+        if(found == oc.end()) {
+            break;
         }
-        if (brackets.size() == 0) {
-            return true;
-        }
+        ob.push(s[i]);
     }
-    return ans;
-}
 
-#endif
+    for( ; i < s.length(); i++) {
+        char lastOp = ob.top();
+        auto found = oc.find(lastOp);
+        if(found->second != s[i]) {
+            return false;;
+        }
+        ob.pop();
+    }
+    return true;
+}
 
 // These are the tests we use to determine if the solution is correct.
 // You can add your own at the bottom.
@@ -141,15 +101,35 @@ static void check(bool expected, bool output) {
 
 int main_stack_balance_braces() {
 
+    string s_0 = "{[]}";
+    bool expected_0 = true;
+    bool output_0 = isBalanced(s_0);
+    check(expected_0, output_0);
+
+    string s_0s = "{[]}";
+    bool expected_0s = true;
+    bool output_0s = isBalancedStack(s_0s);
+    check(expected_0s, output_0s);
+
     string s_1 = "{[(])}";
     bool expected_1 = false;
     bool output_1 = isBalanced(s_1);
     check(expected_1, output_1);
 
+    string s_1s = "{[(])}";
+    bool expected_1s = false;
+    bool output_1s = isBalanced(s_1s);
+    check(expected_1s, output_1s);
+
     string s_2 = "{{[[(())]]}}";
     bool expected_2 = true;
     bool output_2 = isBalanced(s_2);
     check(expected_2, output_2);
+
+    string s_2s = "{{[[(())]]}}";
+    bool expected_2s = true;
+    bool output_2s = isBalanced(s_2s);
+    check(expected_2s, output_2s);
 
     // Add your own test cases here
 
