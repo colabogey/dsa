@@ -128,17 +128,6 @@ int main_tree_num_visible_nodes() {
     int output_1 = visibleNodes(root_1);
     check(expected_1, output_1);
 
-    delete root_1->right->right->left;
-    delete root_1->left->right->right;
-    delete root_1->left->right->left;
-    delete root_1->right->right;
-    delete root_1->left->right;
-    delete root_1->left->left;
-    delete root_1->right;
-    delete root_1->left;
-    delete root_1;
-    //////////////////////////////////////////////
-
     Node2 *root_2 = new Node2(10);
     root_2->left = new Node2(8);
     root_2->right = new Node2(15);
@@ -150,15 +139,6 @@ int main_tree_num_visible_nodes() {
     int expected_2 = 5;
     int output_2 = visibleNodes(root_2);
     check(expected_2, output_2);
-
-    delete root_2->right->right;
-    delete root_2->right->left;
-    delete root_2->left->left->right->right;
-    delete root_2->left->left->right;
-    delete root_2->left->left;
-    delete root_2->right;
-    delete root_2->left;
-    delete root_2;
 
     // Add your own test cases here
 

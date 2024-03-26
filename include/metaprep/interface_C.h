@@ -30,6 +30,7 @@ int main_str_minimum_lgn_substrings();
 int main_str_rotational_cipher();
 int main_tree_nodes_in_subtree();
 int main_tree_num_visible_nodes();
+int main_minOperations();
 std::vector<int> answerQueries(std::vector<bool>&, const std::vector<query>);
 
 #ifdef __cplusplus

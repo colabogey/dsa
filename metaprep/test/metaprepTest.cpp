@@ -234,6 +234,14 @@ TEST_F(MetaprepTest, tree_num_visible_nodes) {
     ASSERT_EQ(failed, 0);
 }
 
+TEST_F(MetaprepTest, minOperations) {
+    // arrange
+    // act
+    int failed = main_minOperations();
+    // assert
+    ASSERT_EQ(failed, 0);
+}
+
 TEST_F(MetaprepTest, answerQueries) {
     // arrange
     vector<query> q = {{2, 3}, {1, 2}, {2, 1}, {2, 3}, {2, 2}};
