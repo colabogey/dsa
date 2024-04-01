@@ -182,7 +182,7 @@ Name=various
 Type=Native Application
 
 [Launch][Launch Configuration 8][Data]
-Arguments=--gtest_filter="VariousTest.findThreeThatSumToZero_ValuesDoNotExist"
+Arguments=--gtest_filter="VariousTest.calculateNestedSum_threeLevel"
 Debugger Shell=
 Dependencies=@Variant(\x00\x00\x00\t\x00\x00\x00\x00\x00)
 Dependency Action=Nothing

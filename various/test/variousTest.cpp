@@ -19,6 +19,7 @@ along with this program.  If not, see <http://www.gnu.org/licenses/>.*/
 #include "spiral.h"
 #include "anagram.h"
 #include "sum3.h"
+#include "nestedSum.h"
 
 using namespace std;
 
@@ -243,5 +244,57 @@ TEST_F(VariousTest, findThreeThatSumToZero_ValuesExist3) {
     bool ans = s3.canThreeSumToZero(v);
     // assert
     ASSERT_TRUE(ans);
+}
+
+TEST_F(VariousTest, calculateNestedSum_oneLevel) {
+    // arrange
+    NestedNode nn1(3);
+    std::vector<NestedNode*> v;
+    nn1.addData(v);
+
+    NestedSumer ns;
+    // act
+    int ans = ns.calculateSum(&nn1);
+    // assert
+    ASSERT_EQ(ans, 3);
+}
+
+TEST_F(VariousTest, calculateNestedSum_twoLevel) {
+    // arrange
+    NestedNode nn1(3);
+    NestedNode nn2(7);
+    NestedNode nn3(8);
+    std::vector<NestedNode*> v;
+    v.push_back(&nn2);
+    v.push_back(&nn3);
+    nn1.addData(v);
+
+    NestedSumer ns;
+    // act
+    int ans = ns.calculateSum(&nn1);
+    // assert
+    ASSERT_EQ(ans, 33);
+}
+
+TEST_F(VariousTest, calculateNestedSum_threeLevel) {
+    // arrange
+    NestedNode nn1(3);
+    NestedNode nn2a(7);
+    NestedNode nn2b(8);
+    std::vector<NestedNode*> v1;
+    v1.push_back(&nn2a);
+    v1.push_back(&nn2b);
+    nn1.addData(v1);
+
+    NestedNode nn3a(5);
+    std::vector<NestedNode*> v2;
+    v2.push_back(&nn3a);
+    nn2a.addData(v2);
+
+    NestedSumer ns;
+    // act
+    int ans = ns.calculateSum(&nn1);
+    // assert
+    ASSERT_EQ(ans, 48);
 }
 
